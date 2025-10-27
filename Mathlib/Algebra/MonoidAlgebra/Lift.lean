@@ -113,7 +113,7 @@ lemma mapRangeRingHom_single (f : R →+* S) (a : M) (b : R) :
     mapRangeRingHom M f (single a b) = single a (f b) := by
   classical ext; simp [single_apply, apply_ite f]
 
-@[simp] lemma mapRangeRingHom_id : mapRangeRingHom M (.id R) = .id (R[M]) := by
+@[simp] lemma mapRangeRingHom_id : mapRangeRingHom M (.id R) = .id R[M] := by
   ext <;> simp
 
 @[simp] lemma mapRangeRingHom_comp (f : S →+* T) (g : R →+* S) :
@@ -211,7 +211,7 @@ lemma mapRangeRingHom_single (f : R →+* S) (a : M) (b : R) :
     mapRangeRingHom M f (single a b) = single a (f b) := by
   classical ext; simp [single_apply, apply_ite f]
 
-@[simp] lemma mapRangeRingHom_id : mapRangeRingHom M (.id R) = .id (R[M]) := by
+@[simp] lemma mapRangeRingHom_id : mapRangeRingHom M (.id R) = .id R[M] := by
   ext <;> simp
 
 @[simp] lemma mapRangeRingHom_comp (f : S →+* T) (g : R →+* S) :

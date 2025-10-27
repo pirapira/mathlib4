@@ -70,7 +70,7 @@ attribute [local ext high] ringHom_ext
 
 @[to_additive (dont_translate := R) (attr := simp)]
 lemma mapDomainRingHom_id :
-    mapDomainRingHom R (MonoidHom.id M) = .id (R[M]) := by ext <;> simp
+    mapDomainRingHom R (MonoidHom.id M) = .id R[M] := by ext <;> simp
 
 @[to_additive (dont_translate := R) (attr := simp)]
 lemma mapDomainRingHom_comp (f : N →* O) (g : M →* N) :

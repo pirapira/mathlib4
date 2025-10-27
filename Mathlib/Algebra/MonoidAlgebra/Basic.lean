@@ -98,7 +98,7 @@ section Algebra
 
 /-- The instance `Algebra k (MonoidAlgebra A G)` whenever we have `Algebra k A`.
 
-In particular this provides the instance `Algebra k (k[G])`.
+In particular this provides the instance `Algebra k k[G]`.
 -/
 @[to_additive (dont_translate := k A) /--
 The instance `Algebra R k[G]` whenever we have `Algebra R k`.
@@ -133,7 +133,7 @@ theorem coe_algebraMap {A : Type*} [CommSemiring k] [Semiring A] [Algebra k A] [
   rfl
 
 theorem single_eq_algebraMap_mul_of [CommSemiring k] [Monoid G] (a : G) (b : k) :
-    single a b = algebraMap k (k[G]) b * of k G a := by simp
+    single a b = algebraMap k k[G] b * of k G a := by simp
 
 theorem single_algebraMap_eq_algebraMap_mul_of {A : Type*} [CommSemiring k] [Semiring A]
     [Algebra k A] [Monoid G] (a : G) (b : k) :
@@ -372,14 +372,14 @@ variable (k)
 
 /-- When `V` is a `k[G]`-module, multiplication by a group element `g` is a `k`-linear map. -/
 def GroupSMul.linearMap [Monoid G] [CommSemiring k] (V : Type*) [AddCommMonoid V] [Module k V]
-    [Module (k[G]) V] [IsScalarTower k (k[G]) V] (g : G) : V →ₗ[k] V where
+    [Module k[G] V] [IsScalarTower k k[G] V] (g : G) : V →ₗ[k] V where
   toFun v := single g (1 : k) • v
   map_add' x y := smul_add (single g (1 : k)) x y
   map_smul' _c _x := smul_algebra_smul_comm _ _ _
 
 @[simp]
 theorem GroupSMul.linearMap_apply [Monoid G] [CommSemiring k] (V : Type*) [AddCommMonoid V]
-    [Module k V] [Module (k[G]) V] [IsScalarTower k (k[G]) V] (g : G)
+    [Module k V] [Module k[G] V] [IsScalarTower k k[G] V] (g : G)
     (v : V) : (GroupSMul.linearMap k V g) v = single g (1 : k) • v :=
   rfl
 
@@ -387,8 +387,8 @@ section
 
 variable {k}
 variable [Monoid G] [CommSemiring k] {V W : Type*} [AddCommMonoid V] [Module k V]
-  [Module (k[G]) V] [IsScalarTower k (k[G]) V] [AddCommMonoid W]
-  [Module k W] [Module (k[G]) W] [IsScalarTower k (k[G]) W]
+  [Module k[G] V] [IsScalarTower k k[G] V] [AddCommMonoid W]
+  [Module k W] [Module k[G] W] [IsScalarTower k k[G] W]
   (f : V →ₗ[k] W)
 
 /-- Build a `k[G]`-linear map from a `k`-linear map and evidence that it is `G`-equivariant. -/
@@ -403,7 +403,7 @@ def equivariantOfLinearOfComm
     · intro g r c' _nm _nz w
       dsimp at *
       simp only [add_smul, f.map_add, w, single_eq_algebraMap_mul_of, ← smul_smul]
-      rw [algebraMap_smul (k[G]) r, algebraMap_smul (k[G]) r, f.map_smul,
+      rw [algebraMap_smul k[G] r, algebraMap_smul k[G] r, f.map_smul,
         of_apply, h g v]
 
 variable (h : ∀ (g : G) (v : V), f (single g (1 : k) • v) = single g (1 : k) • f v)
