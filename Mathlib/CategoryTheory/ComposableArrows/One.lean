@@ -27,7 +27,7 @@ which sends `S` to `mk₁ (S.map' i j)` when `i`, `j` and `n`
 are such that `i ≤ j` and `j ≤ n`. -/
 @[simps]
 noncomputable def functorArrows (i j n : ℕ) (hij : i ≤ j := by cutsat)
-      (hj : j ≤ n := by cutsat) :
+    (hj : j ≤ n := by cutsat) :
     ComposableArrows C n ⥤ ComposableArrows C 1 where
   obj S := mk₁ (S.map' i j)
   map {S S'} φ := homMk₁ (φ.app _) (φ.app _) (φ.naturality _)
