@@ -77,7 +77,7 @@ lemma isGaussian_of_isGaussian_map {E : Type*} [TopologicalSpace E] [AddCommMono
     (h : ∀ L : E →L[ℝ] ℝ, IsGaussian (μ.map L)) : IsGaussian μ := by
   refine ⟨fun L ↦ ?_⟩
   rw [(h L).eq_gaussianReal, integral_map, variance_map]
-  · rfl
+  · simp
   all_goals fun_prop
 
 lemma isGaussian_of_map_eq_gaussianReal {E : Type*} [TopologicalSpace E] [AddCommMonoid E]
