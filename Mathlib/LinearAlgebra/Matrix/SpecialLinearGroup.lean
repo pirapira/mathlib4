@@ -284,6 +284,7 @@ def center_equiv_rootsOfUnity' (i : n) :
     rw [← scalar_eq_coe_self_center A i, ← scalar_eq_coe_self_center B i]
     simp
 
+-- TODO rename
 open scoped Classical in
 /-- An equivalence of groups, from the center of the special linear group to the roots of unity.
 
