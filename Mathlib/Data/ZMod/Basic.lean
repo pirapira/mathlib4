@@ -58,32 +58,34 @@ def val : ∀ {n : ℕ}, ZMod n → ℕ
   | 0 => Int.natAbs
   | n + 1 => ((↑) : Fin (n + 1) → ℕ)
 
+@[aesop safe]
 theorem val_lt {n : ℕ} [NeZero n] (a : ZMod n) : a.val < n := by
   cases n
   · cases NeZero.ne 0 rfl
   exact Fin.is_lt a
 
-theorem val_le {n : ℕ} [NeZero n] (a : ZMod n) : a.val ≤ n :=
-  a.val_lt.le
+grind_pattern val_lt => a.val
 
-@[simp]
+theorem val_le {n : ℕ} [NeZero n] (a : ZMod n) : a.val ≤ n := by grind
+
+@[simp, grind =]
 theorem val_zero : ∀ {n}, (0 : ZMod n).val = 0
   | 0 => rfl
   | _ + 1 => rfl
 
-@[simp]
+@[simp, grind =]
 theorem val_one' : (1 : ZMod 0).val = 1 :=
   rfl
 
-@[simp]
+@[simp, grind =]
 theorem val_neg' {n : ZMod 0} : (-n).val = n.val :=
   Int.natAbs_neg n
 
-@[simp]
+@[simp, grind =]
 theorem val_mul' {m n : ZMod 0} : (m * n).val = m.val * n.val :=
   Int.natAbs_mul m n
 
-@[simp]
+@[simp, grind =]
 theorem val_natCast (n a : ℕ) : (a : ZMod n).val = a % n := by
   cases n
   · rw [Nat.mod_zero]
@@ -142,13 +144,14 @@ theorem ringChar_zmod_n (n : ℕ) : ringChar (ZMod n) = n := by
   rw [ringChar.eq_iff]
   exact ZMod.charP n
 
+@[simp, grind =]
 theorem natCast_self (n : ℕ) : (n : ZMod n) = 0 :=
   CharP.cast_eq_zero (ZMod n) n
 
 @[simp]
-theorem natCast_self' (n : ℕ) : (n + 1 : ZMod (n + 1)) = 0 := by
-  rw [← Nat.cast_add_one, natCast_self (n + 1)]
+theorem natCast_self' (n : ℕ) : (n + 1 : ZMod (n + 1)) = 0 := by grind
 
+@[aesop 75%]
 lemma natCast_pow_eq_zero_of_le (p : ℕ) {m n : ℕ} (h : n ≤ m) :
     (p ^ m : ZMod (p ^ n)) = 0 := by
   obtain ⟨q, rfl⟩ := Nat.exists_eq_add_of_le h
@@ -644,11 +647,17 @@ theorem val_add_of_lt {n : ℕ} {a b : ZMod n} (h : a.val + b.val < n) :
   have : NeZero n := by constructor; rintro rfl; simp at h
   rw [ZMod.val_add, Nat.mod_eq_of_lt h]
 
+grind_pattern val_add_of_lt => (a + b).val where
+  guard (a.val + b.val < n)
+
 theorem val_add_val_of_le {n : ℕ} [NeZero n] {a b : ZMod n} (h : n ≤ a.val + b.val) :
     a.val + b.val = (a + b).val + n := by
   rw [val_add, Nat.add_mod_add_of_le_add_mod, Nat.mod_eq_of_lt (val_lt _),
     Nat.mod_eq_of_lt (val_lt _)]
   rwa [Nat.mod_eq_of_lt (val_lt _), Nat.mod_eq_of_lt (val_lt _)]
+
+grind_pattern val_add_val_of_le => a.val + b.val where
+  guard n ≤ a.val + b.val
 
 theorem val_add_of_le {n : ℕ} [NeZero n] {a b : ZMod n} (h : n ≤ a.val + b.val) :
     (a + b).val = a.val + b.val - n := by
@@ -706,7 +715,7 @@ def inv : ∀ n : ℕ, ZMod n → ZMod n
 instance (n : ℕ) : Inv (ZMod n) :=
   ⟨inv n⟩
 
-theorem inv_zero : ∀ n : ℕ, (0 : ZMod n)⁻¹ = 0
+@[simp] theorem inv_zero : ∀ n : ℕ, (0 : ZMod n)⁻¹ = 0
   | 0 => Int.sign_zero
   | n + 1 =>
     show (Nat.gcdA _ (n + 1) : ZMod (n + 1)) = 0 by
@@ -735,7 +744,7 @@ theorem mul_inv_eq_gcd {n : ℕ} (a : ZMod n) : a * a⁻¹ = Nat.gcd a.val n := 
   · exact Subsingleton.elim _ _
   · simpa [ZMod.val_one'' hn] using mul_inv_eq_gcd (1 : ZMod n)
 
-@[simp]
+@[simp, grind =]
 theorem natCast_mod (a : ℕ) (n : ℕ) : ((a % n : ℕ) : ZMod n) = a :=
   (CharP.cast_eq_mod (ZMod n) n a).symm
 
@@ -781,11 +790,14 @@ theorem coe_mul_inv_eq_one {n : ℕ} (x : ℕ) (h : Nat.Coprime x n) :
   rw [Nat.Coprime, Nat.gcd_comm, Nat.gcd_rec] at h
   rw [mul_inv_eq_gcd, val_natCast, h, Nat.cast_one]
 
-lemma mul_val_inv (hmn : m.Coprime n) : (m * (m⁻¹ : ZMod n).val : ZMod n) = 1 := by
+@[simp] lemma mul_val_inv (hmn : m.Coprime n) : (m * (m⁻¹ : ZMod n).val : ZMod n) = 1 := by
   obtain rfl | hn := eq_or_ne n 0
   · simp [m.coprime_zero_right.1 hmn]
   haveI : NeZero n := ⟨hn⟩
   rw [ZMod.natCast_zmod_val, ZMod.coe_mul_inv_eq_one _ hmn]
+
+grind_pattern mul_val_inv => (m * (m⁻¹ : ZMod n).val : ZMod n) where
+  guard m.Coprime n
 
 lemma val_inv_mul (hmn : m.Coprime n) : ((m⁻¹ : ZMod n).val * m : ZMod n) = 1 := by
   rw [mul_comm, mul_val_inv hmn]

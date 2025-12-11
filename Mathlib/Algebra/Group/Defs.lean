@@ -648,7 +648,7 @@ lemma pow_three (a : M) : a ^ 3 = a * (a * a) := by rw [pow_succ', pow_two]
   | 0 => pow_zero _
   | n + 1 => by rw [pow_succ, one_pow, one_mul]
 
-@[to_additive add_nsmul]
+@[to_additive add_nsmul, grind =]
 lemma pow_add (a : M) (m : ℕ) : ∀ n, a ^ (m + n) = a ^ m * a ^ n
   | 0 => by rw [Nat.add_zero, pow_zero, mul_one]
   | n + 1 => by rw [pow_succ, ← mul_assoc, ← pow_add, ← pow_succ, Nat.add_assoc]
@@ -656,14 +656,14 @@ lemma pow_add (a : M) (m : ℕ) : ∀ n, a ^ (m + n) = a ^ m * a ^ n
 @[to_additive] lemma pow_mul_comm (a : M) (m n : ℕ) : a ^ m * a ^ n = a ^ n * a ^ m := by
   rw [← pow_add, ← pow_add, Nat.add_comm]
 
-@[to_additive mul_nsmul] lemma pow_mul (a : M) (m : ℕ) : ∀ n, a ^ (m * n) = (a ^ m) ^ n
+@[to_additive mul_nsmul, grind =_] lemma pow_mul (a : M) (m : ℕ) : ∀ n, a ^ (m * n) = (a ^ m) ^ n
   | 0 => by rw [Nat.mul_zero, pow_zero, pow_zero]
   | n + 1 => by rw [Nat.mul_succ, pow_add, pow_succ, pow_mul]
 
 @[to_additive mul_nsmul']
 lemma pow_mul' (a : M) (m n : ℕ) : a ^ (m * n) = (a ^ n) ^ m := by rw [Nat.mul_comm, pow_mul]
 
-@[to_additive nsmul_left_comm]
+@[to_additive nsmul_left_comm, grind =]
 lemma pow_right_comm (a : M) (m n : ℕ) : (a ^ m) ^ n = (a ^ n) ^ m := by
   rw [← pow_mul, Nat.mul_comm, pow_mul]
 
