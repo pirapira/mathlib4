@@ -232,21 +232,12 @@ set_option pp.explicit true
 
 @[grind =]
 theorem dummy (n : Nat) :   @Eq (ZMod n)
-    (
-      @NatCast.natCast (ZMod n)
-      (@AddMonoidWithOne.toNatCast (ZMod n)
-        (@AddGroupWithOne.toAddMonoidWithOne (ZMod n)
-          (@Ring.toAddGroupWithOne (ZMod n) (@CommRing.toRing (ZMod n) (commRing n)))))
-      n)
+    ((@Semiring.toNatCast (ZMod n) (@Ring.toSemiring (ZMod n)
+      (@CommRing.toRing (ZMod n) (commRing n)))).1 n)
     (match n with
       | Nat.zero => (0 : ℤ)
       | Nat.succ pred => (0 : Fin (pred.succ))
      ) := by
-  unfold AddMonoidWithOne.toNatCast
-  unfold AddGroupWithOne.toAddMonoidWithOne
-  unfold Ring.toAddGroupWithOne
-  unfold NatCast.natCast
-  simp only
   unfold Semiring.toNatCast
   unfold Ring.toSemiring
   unfold CommRing.toRing
