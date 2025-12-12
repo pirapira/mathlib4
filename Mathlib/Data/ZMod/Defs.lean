@@ -142,8 +142,6 @@ instance ZMod.decidableEq : ∀ n : ℕ, DecidableEq (ZMod n)
 
 namespace ZMod
 
-instance instUnique : Unique (ZMod 1) := Fin.instUnique
-
 open Fin.CommRing in
 /- We define each field by cases, to ensure that the eta-expanded `ZMod.commRing` is defeq to the
 original, this helps avoid diamonds with instances coming from classes extending `CommRing` such as
