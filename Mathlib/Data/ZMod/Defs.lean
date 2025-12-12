@@ -150,13 +150,6 @@ namespace ZMod
 
 instance instUnique : Unique (ZMod 1) := Fin.instUnique
 
-instance fintype : ∀ (n : ℕ) [NeZero n], Fintype (ZMod n)
-  | 0, h => (h.ne _ rfl).elim
-  | n + 1, _ => Fin.fintype (n + 1)
-
-instance infinite : Infinite (ZMod 0) :=
-  Int.infinite
-
 open Fin.CommRing in
 /- We define each field by cases, to ensure that the eta-expanded `ZMod.commRing` is defeq to the
 original, this helps avoid diamonds with instances coming from classes extending `CommRing` such as
