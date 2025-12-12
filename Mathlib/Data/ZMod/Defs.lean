@@ -157,12 +157,6 @@ instance fintype : ∀ (n : ℕ) [NeZero n], Fintype (ZMod n)
 instance infinite : Infinite (ZMod 0) :=
   Int.infinite
 
-@[simp]
-theorem card (n : ℕ) [Fintype (ZMod n)] : Fintype.card (ZMod n) = n := by
-  cases n with
-  | zero => exact (not_finite (ZMod 0)).elim
-  | succ n => convert Fintype.card_fin (n + 1) using 2
-
 open Fin.CommRing in
 /- We define each field by cases, to ensure that the eta-expanded `ZMod.commRing` is defeq to the
 original, this helps avoid diamonds with instances coming from classes extending `CommRing` such as
@@ -232,33 +226,11 @@ set_option pp.explicit true
 
 @[grind =]
 theorem dummy (n : Nat) :   @Eq (ZMod n)
-    ((@Semiring.toNatCast (ZMod n) (@Ring.toSemiring (ZMod n)
-      (@CommRing.toRing (ZMod n) (commRing n)))).1 n)
+    (@NatCast.natCast (ZMod n) (commRing n).1.1.5 n)
     (match n with
       | Nat.zero => (0 : ℤ)
       | Nat.succ pred => (0 : Fin (pred.succ))
      ) := by
-  unfold Semiring.toNatCast
-  unfold Ring.toSemiring
-  unfold CommRing.toRing
-  unfold commRing
-  simp only
-  unfold AddMonoidWithOne.toNatCast
-  unfold AddGroupWithOne.toAddMonoidWithOne
-  unfold Ring.toAddGroupWithOne
-  simp only
-  unfold Semiring.toNatCast
-  unfold Ring.toSemiring
-  unfold CommRing.toRing
-  unfold Fin.instCommRing
-  simp only
-  unfold AddMonoidWithOne.toNatCast
-  unfold Fin.instAddMonoidWithOne
-  simp only
-
-
-
-
   sorry
 
 example (k m : ℕ) : (m ^ 2) = m := by grind
