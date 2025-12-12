@@ -138,6 +138,10 @@ instance ZMod.decidableEq : ∀ n : ℕ, DecidableEq (ZMod n)
   | 0 => inferInstanceAs (DecidableEq ℤ)
   | n + 1 => inferInstanceAs (DecidableEq (Fin (n + 1)))
 
+instance ZMod.repr : ∀ n : ℕ, Repr (ZMod n)
+  | 0 => by dsimp [ZMod]; infer_instance
+  | n + 1 => by dsimp [ZMod]; infer_instance
+
 namespace ZMod
 
 open Fin.CommRing in
@@ -179,7 +183,7 @@ instance commRing (n : ℕ) : CommRing (ZMod n) where
   one := Nat.casesOn n (1 : Int) fun n => (1 : Fin n.succ)
   one_mul := Nat.casesOn n (@one_mul Int _) fun n => @one_mul (Fin n.succ) _
   mul_one := Nat.casesOn n (@mul_one Int _) fun n => @mul_one (Fin n.succ) _
-  natCast := Nat.casesOn n ((↑) : ℕ → ℤ) fun n => ((↑) : ℕ → Fin n.succ)
+  natCast := sorry
   natCast_zero := sorry
   natCast_succ := sorry
   intCast := sorry
