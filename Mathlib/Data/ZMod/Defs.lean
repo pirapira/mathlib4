@@ -10,7 +10,6 @@ public import Mathlib.Algebra.NeZero
 public import Mathlib.Algebra.Ring.Int.Defs
 public import Mathlib.Algebra.Ring.GrindInstances
 public import Mathlib.Data.Nat.ModEq
-public import Mathlib.Data.Fintype.EquivFin
 
 
 /-!
