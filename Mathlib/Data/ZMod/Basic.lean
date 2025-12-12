@@ -58,10 +58,13 @@ def val : ∀ {n : ℕ}, ZMod n → ℕ
   | 0 => Int.natAbs
   | n + 1 => ((↑) : Fin (n + 1) → ℕ)
 
+@[aesop safe]
 theorem val_lt {n : ℕ} [NeZero n] (a : ZMod n) : a.val < n := by
   cases n
   · cases NeZero.ne 0 rfl
   exact Fin.is_lt a
+
+grind_pattern val_lt => a.val
 
 theorem val_le {n : ℕ} [NeZero n] (a : ZMod n) : a.val ≤ n :=
   a.val_lt.le
@@ -149,6 +152,7 @@ theorem natCast_self (n : ℕ) : (n : ZMod n) = 0 :=
 theorem natCast_self' (n : ℕ) : (n + 1 : ZMod (n + 1)) = 0 := by
   rw [← Nat.cast_add_one, natCast_self (n + 1)]
 
+@[aesop unsafe 75%]
 lemma natCast_pow_eq_zero_of_le (p : ℕ) {m n : ℕ} (h : n ≤ m) :
     (p ^ m : ZMod (p ^ n)) = 0 := by
   obtain ⟨q, rfl⟩ := Nat.exists_eq_add_of_le h
@@ -650,6 +654,9 @@ theorem val_add_val_of_le {n : ℕ} [NeZero n] {a b : ZMod n} (h : n ≤ a.val +
     Nat.mod_eq_of_lt (val_lt _)]
   rwa [Nat.mod_eq_of_lt (val_lt _), Nat.mod_eq_of_lt (val_lt _)]
 
+grind_pattern val_add_val_of_le => a.val + b.val where
+  guard n ≤ a.val + b.val
+
 theorem val_add_of_le {n : ℕ} [NeZero n] {a b : ZMod n} (h : n ≤ a.val + b.val) :
     (a + b).val = a.val + b.val - n := by
   rw [val_add_val_of_le h]
@@ -735,7 +742,7 @@ theorem mul_inv_eq_gcd {n : ℕ} (a : ZMod n) : a * a⁻¹ = Nat.gcd a.val n := 
   · exact Subsingleton.elim _ _
   · simpa [ZMod.val_one'' hn] using mul_inv_eq_gcd (1 : ZMod n)
 
-@[simp]
+@[simp, grind =]
 theorem natCast_mod (a : ℕ) (n : ℕ) : ((a % n : ℕ) : ZMod n) = a :=
   (CharP.cast_eq_mod (ZMod n) n a).symm
 
@@ -787,8 +794,14 @@ lemma mul_val_inv (hmn : m.Coprime n) : (m * (m⁻¹ : ZMod n).val : ZMod n) = 1
   haveI : NeZero n := ⟨hn⟩
   rw [ZMod.natCast_zmod_val, ZMod.coe_mul_inv_eq_one _ hmn]
 
+grind_pattern mul_val_inv => (m * (m⁻¹ : ZMod n).val : ZMod n) where
+  guard m.Coprime n
+
 lemma val_inv_mul (hmn : m.Coprime n) : ((m⁻¹ : ZMod n).val * m : ZMod n) = 1 := by
   rw [mul_comm, mul_val_inv hmn]
+
+grind_pattern val_inv_mul => ((m⁻¹ : ZMod n).val * m : ZMod n) where
+  guard m.Coprime n
 
 /-- `unitOfCoprime` makes an element of `(ZMod n)ˣ` given
 a natural number `x` and a proof that `x` is coprime to `n` -/
