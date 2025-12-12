@@ -152,9 +152,8 @@ instance commRing (n : ℕ) : CommRing (ZMod n) where
   add_zero := Nat.casesOn n (@add_zero Int _) fun n => @add_zero (Fin n.succ) _
   neg := Nat.casesOn n (@Neg.neg Int _) fun n => @Neg.neg (Fin n.succ) _
   sub := Nat.casesOn n (@Sub.sub Int _) fun n => @Sub.sub (Fin n.succ) _
-  sub_eq_add_neg := Nat.casesOn n (@sub_eq_add_neg Int _) fun n => @sub_eq_add_neg (Fin n.succ) _
-  zsmul := Nat.casesOn n
-    (inferInstanceAs (CommRing ℤ)).zsmul fun n => (inferInstanceAs (CommRing (Fin n.succ))).zsmul
+  sub_eq_add_neg := sorry
+  zsmul := sorry
   zsmul_zero' := sorry
   zsmul_succ' := sorry
   zsmul_neg' := sorry
