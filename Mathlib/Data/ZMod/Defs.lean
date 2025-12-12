@@ -180,12 +180,11 @@ instance commRing (n : ℕ) : CommRing (ZMod n) where
   one_mul := Nat.casesOn n (@one_mul Int _) fun n => @one_mul (Fin n.succ) _
   mul_one := Nat.casesOn n (@mul_one Int _) fun n => @mul_one (Fin n.succ) _
   natCast := Nat.casesOn n ((↑) : ℕ → ℤ) fun n => ((↑) : ℕ → Fin n.succ)
-  natCast_zero := Nat.casesOn n (@Nat.cast_zero Int _) fun n => @Nat.cast_zero (Fin n.succ) _
-  natCast_succ := Nat.casesOn n (@Nat.cast_succ Int _) fun n => @Nat.cast_succ (Fin n.succ) _
-  intCast := Nat.casesOn n ((↑) : ℤ → ℤ) fun n => ((↑) : ℤ → Fin n.succ)
-  intCast_ofNat := Nat.casesOn n (@Int.cast_natCast Int _) fun n => @Int.cast_natCast (Fin n.succ) _
-  intCast_negSucc :=
-    Nat.casesOn n (@Int.cast_negSucc Int _) fun n => @Int.cast_negSucc (Fin n.succ) _
+  natCast_zero := sorry
+  natCast_succ := sorry
+  intCast := sorry
+  intCast_ofNat := sorry
+  intCast_negSucc := sorry
   left_distrib := sorry
   right_distrib := sorry
   mul_comm := sorry
