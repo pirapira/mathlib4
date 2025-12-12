@@ -60,7 +60,7 @@ open Fin.CommRing in
 /- We define each field by cases, to ensure that the eta-expanded `ZMod.commRing` is defeq to the
 original, this helps avoid diamonds with instances coming from classes extending `CommRing` such as
 field. -/
-instance commRing (n : ℕ) : Ring (ZMod n) where
+instance someStructure (n : ℕ) : Ring (ZMod n) where
   add := Nat.casesOn n (@Add.add Int _) fun n => @Add.add (Fin n.succ) _
   add_assoc := Nat.casesOn n (@add_assoc Int _) fun n => @add_assoc (Fin n.succ) _
   zero := Nat.casesOn n (0 : Int) fun n => (0 : Fin n.succ)
@@ -105,7 +105,7 @@ set_option pp.rawOnError true
 
 @[grind =]
 theorem dummy (n : Nat) :   @Eq (ZMod n)
-    (@NatCast.natCast (ZMod n) (commRing n).1.5 n)
+    (@NatCast.natCast (ZMod n) (someStructure n).1.5 n)
     (match n with
       | Nat.zero => (0 : ℤ)
       | Nat.succ pred => (0 : Fin (pred.succ))
