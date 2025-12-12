@@ -228,14 +228,46 @@ instance commRing (n : ℕ) : CommRing (ZMod n) where
 
 -- Nat.casesOn n ((↑) : ℕ → ℤ) fun n => ((↑) : ℕ → Fin n.succ)
 
+set_option pp.explicit true
 
 @[grind =]
 theorem dummy (n : Nat) :   @Eq (ZMod n)
-    (Nat.rec (motive := fun x ↦ ℕ → ZMod x) Nat.cast (fun n n_ih ↦ Nat.cast) n n)
+    (
+      @NatCast.natCast (ZMod n)
+      (@AddMonoidWithOne.toNatCast (ZMod n)
+        (@AddGroupWithOne.toAddMonoidWithOne (ZMod n)
+          (@Ring.toAddGroupWithOne (ZMod n) (@CommRing.toRing (ZMod n) (commRing n)))))
+      n)
     (match n with
       | Nat.zero => (0 : ℤ)
       | Nat.succ pred => (0 : Fin (pred.succ))
      ) := by
+  unfold AddMonoidWithOne.toNatCast
+  unfold AddGroupWithOne.toAddMonoidWithOne
+  unfold Ring.toAddGroupWithOne
+  unfold NatCast.natCast
+  simp only
+  unfold Semiring.toNatCast
+  unfold Ring.toSemiring
+  unfold CommRing.toRing
+  unfold commRing
+  simp only
+  unfold AddMonoidWithOne.toNatCast
+  unfold AddGroupWithOne.toAddMonoidWithOne
+  unfold Ring.toAddGroupWithOne
+  simp only
+  unfold Semiring.toNatCast
+  unfold Ring.toSemiring
+  unfold CommRing.toRing
+  unfold Fin.instCommRing
+  simp only
+  unfold AddMonoidWithOne.toNatCast
+  unfold Fin.instAddMonoidWithOne
+  simp only
+
+
+
+
   sorry
 
 example (k m : ℕ) : (m ^ 2) = m := by grind
