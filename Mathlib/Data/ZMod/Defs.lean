@@ -155,20 +155,11 @@ instance commRing (n : ℕ) : CommRing (ZMod n) where
   sub_eq_add_neg := Nat.casesOn n (@sub_eq_add_neg Int _) fun n => @sub_eq_add_neg (Fin n.succ) _
   zsmul := Nat.casesOn n
     (inferInstanceAs (CommRing ℤ)).zsmul fun n => (inferInstanceAs (CommRing (Fin n.succ))).zsmul
-  zsmul_zero' := Nat.casesOn n
-    (inferInstanceAs (CommRing ℤ)).zsmul_zero'
-    fun n => (inferInstanceAs (CommRing (Fin n.succ))).zsmul_zero'
-  zsmul_succ' := Nat.casesOn n
-    (inferInstanceAs (CommRing ℤ)).zsmul_succ'
-    fun n => (inferInstanceAs (CommRing (Fin n.succ))).zsmul_succ'
-  zsmul_neg' := Nat.casesOn n
-    (inferInstanceAs (CommRing ℤ)).zsmul_neg'
-    fun n => (inferInstanceAs (CommRing (Fin n.succ))).zsmul_neg'
-  nsmul := Nat.casesOn n
-    (inferInstanceAs (CommRing ℤ)).nsmul fun n => (inferInstanceAs (CommRing (Fin n.succ))).nsmul
-  nsmul_zero := Nat.casesOn n
-    (inferInstanceAs (CommRing ℤ)).nsmul_zero
-    fun n => (inferInstanceAs (CommRing (Fin n.succ))).nsmul_zero
+  zsmul_zero' := sorry
+  zsmul_succ' := sorry
+  zsmul_neg' := sorry
+  nsmul := sorry
+  nsmul_zero := sorry
   nsmul_succ := sorry
   neg_add_cancel := sorry
   add_comm := sorry
