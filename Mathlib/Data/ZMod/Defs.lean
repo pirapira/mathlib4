@@ -194,9 +194,7 @@ instance commRing (n : ℕ) : CommRing (ZMod n) where
   mul_zero := Nat.casesOn n (@mul_zero Int _) fun n => @mul_zero (Fin n.succ) _
   npow := Nat.casesOn n
     (inferInstanceAs (CommRing ℤ)).npow fun n => (inferInstanceAs (CommRing (Fin n.succ))).npow
-  npow_zero := Nat.casesOn n
-    (inferInstanceAs (CommRing ℤ)).npow_zero
-    fun n => (inferInstanceAs (CommRing (Fin n.succ))).npow_zero
+  npow_zero := sorry
   npow_succ := sorry
 -- n : ZMod n = 0
 
