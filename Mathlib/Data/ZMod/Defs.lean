@@ -7,9 +7,6 @@ module
 
 public import Mathlib.Algebra.Group.Fin.Basic
 public import Mathlib.Algebra.Ring.Int.Defs
-public import Mathlib.Algebra.Ring.GrindInstances
-public import Mathlib.Data.Nat.ModEq
-
 
 /-!
 demonstrating an error in grind
@@ -36,7 +33,7 @@ to register the ring structure on `ZMod n` as type class instance.
 -/
 
 
-open Nat.ModEq Int
+open Int
 
 open scoped Fin.IntCast Fin.NatCast
 
