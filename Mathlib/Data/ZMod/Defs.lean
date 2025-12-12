@@ -121,8 +121,6 @@ def instCommRing (n : ℕ) [NeZero n] : CommRing (Fin n) where
 
 namespace CommRing
 
-attribute [scoped instance] Fin.instCommRing
-
 end CommRing
 
 
