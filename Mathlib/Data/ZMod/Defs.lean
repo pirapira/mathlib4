@@ -175,8 +175,8 @@ instance commRing (n : ℕ) : CommRing (ZMod n) where
   neg_add_cancel := Nat.casesOn n (@neg_add_cancel Int _) fun n => @neg_add_cancel (Fin n.succ) _
   add_comm := Nat.casesOn n (@add_comm Int _) fun n => @add_comm (Fin n.succ) _
   mul := Nat.casesOn n (@Mul.mul Int _) fun n => @Mul.mul (Fin n.succ) _
-  mul_assoc := Nat.casesOn n (@mul_assoc Int _) fun n => @mul_assoc (Fin n.succ) _
-  one := Nat.casesOn n (1 : Int) fun n => (1 : Fin n.succ)
+  mul_assoc := sorry
+  one := sorry
   one_mul := sorry
   mul_one := sorry
   natCast := sorry
