@@ -97,28 +97,6 @@ instance instHasDistribNeg (n : ℕ) : HasDistribNeg (Fin n) where
   mul_neg := Nat.casesOn n finZeroElim fun _i => mul_neg
   neg_mul := Nat.casesOn n finZeroElim fun _i => neg_mul
 
-/--
-Commutative ring structure on `Fin n`.
-
-This is not a global instance, but can introduced locally using `open Fin.CommRing in ...`.
-
-This is not an instance because the `binop%` elaborator assumes that
-there are no non-trivial coercion loops,
-but this instance would introduce a coercion from `Nat` to `Fin n` and back.
-Non-trivial loops lead to undesirable and counterintuitive elaboration behavior.
-
-For example, for `x : Fin k` and `n : Nat`,
-it causes `x < n` to be elaborated as `x < ↑n` rather than `↑x < n`,
-silently introducing wraparound arithmetic.
--/
-def instCommRing (n : ℕ) [NeZero n] : CommRing (Fin n) where
-  __ := Fin.instAddMonoidWithOne n
-  __ := Fin.addCommGroup n
-  __ := Fin.instCommSemigroup n
-  __ := Fin.instNonUnitalCommRing n
-  __ := Fin.instCommMonoid n
-  intCast n := Fin.intCast n
-
 namespace CommRing
 
 end CommRing
