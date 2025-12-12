@@ -40,63 +40,6 @@ open Nat.ModEq Int
 
 open scoped Fin.IntCast Fin.NatCast
 
-@[simp] theorem val_intCast {n : Nat} [NeZero n] (x : Int) :
-    (x : Fin n).val = (x % n).toNat := by
-  rw [Fin.intCast_def']
-  split <;> rename_i h
-  · simp [Int.emod_natAbs_of_nonneg h]
-  · simp only [Fin.val_neg, Fin.natCast_eq_zero, Fin.val_natCast]
-    split <;> rename_i h
-    · rw [← Int.natCast_dvd] at h
-      rw [Int.emod_eq_zero_of_dvd h, Int.toNat_zero]
-    · rw [Int.emod_natAbs_of_neg (by lia) (NeZero.ne n),
-        if_neg (by rwa [← Int.natCast_dvd] at h)]
-      have : x % n < n := Int.emod_lt_of_pos x (by have := NeZero.ne n; lia)
-      lia
-
-/-- Multiplicative commutative semigroup structure on `Fin n`. -/
-instance instCommSemigroup (n : ℕ) : CommSemigroup (Fin n) :=
-  { inferInstanceAs (Mul (Fin n)) with
-    mul_assoc := fun ⟨a, _⟩ ⟨b, _⟩ ⟨c, _⟩ =>
-      Fin.eq_of_val_eq <|
-        calc
-          a * b % n * c ≡ a * b * c [MOD n] := (Nat.mod_modEq _ _).mul_right _
-          _ ≡ a * (b * c) [MOD n] := by rw [mul_assoc]
-          _ ≡ a * (b * c % n) [MOD n] := (Nat.mod_modEq _ _).symm.mul_left _
-    mul_comm := Fin.mul_comm }
-
-private theorem left_distrib_aux (n : ℕ) : ∀ a b c : Fin n, a * (b + c) = a * b + a * c :=
-  fun ⟨a, _⟩ ⟨b, _⟩ ⟨c, _⟩ =>
-  Fin.eq_of_val_eq <|
-    calc
-      a * ((b + c) % n) ≡ a * (b + c) [MOD n] := (Nat.mod_modEq _ _).mul_left _
-      _ ≡ a * b + a * c [MOD n] := by rw [mul_add]
-      _ ≡ a * b % n + a * c % n [MOD n] := (Nat.mod_modEq _ _).symm.add (Nat.mod_modEq _ _).symm
-
-/-- Distributive structure on `Fin n`. -/
-instance instDistrib (n : ℕ) : Distrib (Fin n) :=
-  { Fin.addCommSemigroup n, Fin.instCommSemigroup n with
-    left_distrib := left_distrib_aux n
-    right_distrib := fun a b c => by
-      rw [mul_comm, left_distrib_aux, mul_comm _ b, mul_comm] }
-
-instance instNonUnitalCommRing (n : ℕ) [NeZero n] : NonUnitalCommRing (Fin n) where
-  __ := Fin.addCommGroup n
-  __ := Fin.instCommSemigroup n
-  __ := Fin.instDistrib n
-  zero_mul := Fin.zero_mul
-  mul_zero := Fin.mul_zero
-
-instance instCommMonoid (n : ℕ) [NeZero n] : CommMonoid (Fin n) where
-  one_mul := Fin.one_mul
-  mul_one := Fin.mul_one
-
-/-- Note this is more general than `Fin.instCommRing` as it applies (vacuously) to `Fin 0` too. -/
-instance instHasDistribNeg (n : ℕ) : HasDistribNeg (Fin n) where
-  toInvolutiveNeg := Fin.instInvolutiveNeg n
-  mul_neg := Nat.casesOn n finZeroElim fun _i => mul_neg
-  neg_mul := Nat.casesOn n finZeroElim fun _i => neg_mul
-
 namespace CommRing
 
 end CommRing
