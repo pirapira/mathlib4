@@ -104,11 +104,22 @@ def IsPrimitiveClassified (_ : PythagoreanTriple x y z) :=
     (x = m ^ 2 - n ^ 2 ∧ y = 2 * m * n ∨ x = 2 * m * n ∧ y = m ^ 2 - n ^ 2) ∧
       Int.gcd m n = 1 ∧ (m % 2 = 0 ∧ n % 2 = 1 ∨ m % 2 = 1 ∧ n % 2 = 0)
 
+example
+  (z k l m n : ℤ) :
+  (k * (l * (2 * n)) = (2 * m * n) ∨
+    ( (m ^ 2 - n ^ 2)) = k  ∧ (l * n) = (m - n)) := by grind
+
 variable (h : PythagoreanTriple x y z)
 include h
 
+
+
 theorem mul_isClassified (k : ℤ) (hc : h.IsClassified) : (h.mul k).IsClassified := by
-  obtain ⟨l, m, n, ⟨⟨rfl, rfl⟩ | ⟨rfl, rfl⟩, co⟩⟩ := hc <;> use k * l, m, n <;> grind
+  obtain ⟨l, m, n, ⟨⟨rfl, rfl⟩ | ⟨rfl, rfl⟩, co⟩⟩ := hc <;> use k * l, m, n
+  · clear h
+    clear co
+    grind
+  · sorry
 
 theorem even_odd_of_coprime (hc : Int.gcd x y = 1) :
     x % 2 = 0 ∧ y % 2 = 1 ∨ x % 2 = 1 ∧ y % 2 = 0 := by
