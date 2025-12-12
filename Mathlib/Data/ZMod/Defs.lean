@@ -142,10 +142,6 @@ instance ZMod.decidableEq : ∀ n : ℕ, DecidableEq (ZMod n)
   | 0 => inferInstanceAs (DecidableEq ℤ)
   | n + 1 => inferInstanceAs (DecidableEq (Fin (n + 1)))
 
-instance ZMod.repr : ∀ n : ℕ, Repr (ZMod n)
-  | 0 => by dsimp [ZMod]; infer_instance
-  | n + 1 => by dsimp [ZMod]; infer_instance
-
 namespace ZMod
 
 instance instUnique : Unique (ZMod 1) := Fin.instUnique
