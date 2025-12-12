@@ -60,23 +60,15 @@ open Fin.CommRing in
 /- We define each field by cases, to ensure that the eta-expanded `ZMod.commRing` is defeq to the
 original, this helps avoid diamonds with instances coming from classes extending `CommRing` such as
 field. -/
-instance someStructure (n : ℕ) : Ring (ZMod n) where
+instance someStructure (n : ℕ) : Semiring (ZMod n) where
   add := Nat.casesOn n (@Add.add Int _) fun n => @Add.add (Fin n.succ) _
   add_assoc := Nat.casesOn n (@add_assoc Int _) fun n => @add_assoc (Fin n.succ) _
   zero := Nat.casesOn n (0 : Int) fun n => (0 : Fin n.succ)
   zero_add := Nat.casesOn n (@zero_add Int _) fun n => @zero_add (Fin n.succ) _
   add_zero := Nat.casesOn n (@add_zero Int _) fun n => @add_zero (Fin n.succ) _
-  neg := Nat.casesOn n (@Neg.neg Int _) fun n => @Neg.neg (Fin n.succ) _
-  sub := Nat.casesOn n (@Sub.sub Int _) fun n => @Sub.sub (Fin n.succ) _
-  sub_eq_add_neg := sorry
-  zsmul := sorry
-  zsmul_zero' := sorry
-  zsmul_succ' := sorry
-  zsmul_neg' := sorry
   nsmul := sorry
   nsmul_zero := sorry
   nsmul_succ := sorry
-  neg_add_cancel := sorry
   add_comm := sorry
   mul := sorry
   mul_assoc := sorry
@@ -86,9 +78,6 @@ instance someStructure (n : ℕ) : Ring (ZMod n) where
   natCast := sorry
   natCast_zero := sorry
   natCast_succ := sorry
-  intCast := sorry
-  intCast_ofNat := sorry
-  intCast_negSucc := sorry
   left_distrib := sorry
   right_distrib := sorry
   zero_mul := sorry
@@ -103,9 +92,11 @@ instance someStructure (n : ℕ) : Ring (ZMod n) where
 set_option pp.explicit true
 set_option pp.rawOnError true
 
+#check (someStructure ?_).5
+
 @[grind =]
 theorem dummy (n : Nat) :   @Eq (ZMod n)
-    (@NatCast.natCast (ZMod n) (someStructure n).1.5 n)
+    (@NatCast.natCast (ZMod n) (someStructure n).5 n)
     (match n with
       | Nat.zero => (0 : ℤ)
       | Nat.succ pred => (0 : Fin (pred.succ))
