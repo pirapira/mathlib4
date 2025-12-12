@@ -104,10 +104,7 @@ def IsPrimitiveClassified (_ : PythagoreanTriple x y z) :=
     (x = m ^ 2 - n ^ 2 ∧ y = 2 * m * n ∨ x = 2 * m * n ∧ y = m ^ 2 - n ^ 2) ∧
       Int.gcd m n = 1 ∧ (m % 2 = 0 ∧ n % 2 = 1 ∨ m % 2 = 1 ∧ n % 2 = 0)
 
-example
-  (z k l m n : ℤ) :
-  (k * (l * (2 * n)) = (2 * m * n) ∨
-    ( (m ^ 2 - n ^ 2)) = k  ∧ (l * n) = (m - n)) := by grind
+example (k m : ℕ) : (m ^ 2) = m := by grind
 
 variable (h : PythagoreanTriple x y z)
 include h

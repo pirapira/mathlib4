@@ -12,23 +12,16 @@ public import Mathlib.Algebra.Ring.GrindInstances
 public import Mathlib.Data.Nat.ModEq
 public import Mathlib.Data.Fintype.EquivFin
 
+
 /-!
-# Definition of `ZMod n` + basic results.
+demonstrating an error in grind
 
-This file provides the basic details of `ZMod n`, including its commutative ring structure.
-
-## Implementation details
-
-This used to be inlined into `Data.ZMod.Basic`. This file imports `CharP.Lemmas`, which is an
-issue; all `CharP` instances create an `Algebra (ZMod p) R` instance; however, this instance may
-not be definitionally equal to other `Algebra` instances (for example, `GaloisField` also has an
-`Algebra` instance as it is defined as a `SplittingField`). The way to fix this is to use the
-forgetful inheritance pattern, and make `CharP` carry the data of what the `smul` should be (so
-for example, the `smul` on the `GaloisField` `CharP` instance should be equal to the `smul` from
-its `SplittingField` structure); there is only one possible `ZMod p` algebra for any `p`, so this
-is not an issue mathematically. For this to be possible, however, we need `CharP.Lemmas` to be
-able to import some part of `ZMod`.
-
+(kernel) application type mismatch
+  eq_false_of_decide (eagerReduce (Eq.refl false))
+argument has type
+  false = false
+but function has type
+  decide (2 = 0) = false → (2 = 0) = False
 -/
 
 @[expose] public section
@@ -231,10 +224,21 @@ instance commRing (n : ℕ) : CommRing (ZMod n) where
     (inferInstanceAs (CommRing ℤ)).npow_succ
     fun n => (inferInstanceAs (CommRing (Fin n.succ))).npow_succ
 
-instance inhabited (n : ℕ) : Inhabited (ZMod n) :=
-  ⟨0⟩
+-- n : ZMod n = 0
 
--- Verify that we can use `ZMod n` in `grind`.
-example (n : ℕ) : Lean.Grind.CommRing (ZMod n) := inferInstance
+@[grind =]
+theorem dummy (n : Nat) :   @Eq (ZMod n)
+    (@Nat.cast (ZMod n)
+      (@AddMonoidWithOne.toNatCast (ZMod n)
+        (@AddGroupWithOne.toAddMonoidWithOne (ZMod n)
+          (@Ring.toAddGroupWithOne (ZMod n) (@CommRing.toRing (ZMod n) (commRing n)))))
+      n)
+    (match n with
+      | Nat.zero => (0 : ℤ)
+      | Nat.succ pred => (0 : Fin (pred.succ))
+     ) := sorry
+
+example (k m : ℕ) : (m ^ 2) = m := by grind
+
 
 end ZMod
