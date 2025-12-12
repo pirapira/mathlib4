@@ -207,6 +207,7 @@ instance commRing (n : ℕ) : CommRing (ZMod n) where
 -- Nat.casesOn n ((↑) : ℕ → ℤ) fun n => ((↑) : ℕ → Fin n.succ)
 
 set_option pp.explicit true
+set_option pp.rawOnError true
 
 @[grind =]
 theorem dummy (n : Nat) :   @Eq (ZMod n)
