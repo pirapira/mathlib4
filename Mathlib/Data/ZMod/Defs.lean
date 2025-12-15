@@ -61,8 +61,8 @@ open Fin.CommRing in
 original, this helps avoid diamonds with instances coming from classes extending `CommRing` such as
 field. -/
 instance someStructure (n : ℕ) : Semiring (ZMod n) where
-  add := Nat.casesOn n (@Add.add Int _) fun n => @Add.add (Fin n.succ) _
-  add_assoc := Nat.casesOn n (@add_assoc Int _) fun n => @add_assoc (Fin n.succ) _
+  add := sorry
+  add_assoc := sorry
   zero := sorry
   zero_add := sorry
   add_zero := sorry
