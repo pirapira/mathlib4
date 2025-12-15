@@ -304,28 +304,3 @@ instance (priority := 100) MulZeroClass.negZeroClass : NegZeroClass α where
 end MulZeroClass
 
 end HasDistribNeg
-
-/-!
-### Rings
--/
-
-section NonUnitalNonAssocRing
-
-variable [NonUnitalNonAssocRing α]
-
-instance (priority := 100) NonUnitalNonAssocRing.toHasDistribNeg : HasDistribNeg α where
-  neg_neg := neg_neg
-  neg_mul a b := eq_neg_of_add_eq_zero_left <| by rw [← right_distrib, neg_add_cancel, zero_mul]
-  mul_neg a b := eq_neg_of_add_eq_zero_left <| by rw [← left_distrib, neg_add_cancel, mul_zero]
-
-theorem mul_sub_left_distrib (a b c : α) : a * (b - c) = a * b - a * c := by
-  simpa only [sub_eq_add_neg, neg_mul_eq_mul_neg] using mul_add a b (-c)
-
-alias mul_sub := mul_sub_left_distrib
-
-theorem mul_sub_right_distrib (a b c : α) : (a - b) * c = a * c - b * c := by
-  simpa only [sub_eq_add_neg, neg_mul_eq_neg_mul] using add_mul a (-b) c
-
-alias sub_mul := mul_sub_right_distrib
-
-end NonUnitalNonAssocRing
