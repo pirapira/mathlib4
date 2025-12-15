@@ -359,26 +359,3 @@ instance (priority := 100) Ring.toNonAssocRing : NonAssocRing α :=
   { ‹Ring α› with }
 
 end Ring
-
-/-- A non-unital non-associative commutative ring is a `NonUnitalNonAssocRing` with commutative
-multiplication. -/
-class NonUnitalNonAssocCommRing (α : Type u)
-  extends NonUnitalNonAssocRing α, NonUnitalNonAssocCommSemiring α
-
-/-- A non-unital commutative ring is a `NonUnitalRing` with commutative multiplication. -/
-class NonUnitalCommRing (α : Type u) extends NonUnitalRing α, NonUnitalNonAssocCommRing α
-
--- see Note [lower instance priority]
-instance (priority := 100) NonUnitalCommRing.toNonUnitalCommSemiring [s : NonUnitalCommRing α] :
-    NonUnitalCommSemiring α :=
-  { s with }
-
-/-- A commutative ring is a ring with commutative multiplication. -/
-class CommRing (α : Type u) extends Ring α, CommMonoid α
-
-instance (priority := 100) CommRing.toCommSemiring [s : CommRing α] : CommSemiring α :=
-  { s with }
-
--- see Note [lower instance priority]
-instance (priority := 100) CommRing.toNonUnitalCommRing [s : CommRing α] : NonUnitalCommRing α :=
-  { s with }
