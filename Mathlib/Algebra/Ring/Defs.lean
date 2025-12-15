@@ -329,33 +329,3 @@ theorem mul_sub_right_distrib (a b c : α) : (a - b) * c = a * c - b * c := by
 alias sub_mul := mul_sub_right_distrib
 
 end NonUnitalNonAssocRing
-
-section NonAssocRing
-
-variable [NonAssocRing α]
-
-theorem sub_one_mul (a b : α) : (a - 1) * b = a * b - b := by rw [sub_mul, one_mul]
-
-theorem mul_sub_one (a b : α) : a * (b - 1) = a * b - a := by rw [mul_sub, mul_one]
-
-theorem one_sub_mul (a b : α) : (1 - a) * b = b - a * b := by rw [sub_mul, one_mul]
-
-theorem mul_one_sub (a b : α) : a * (1 - b) = a - a * b := by rw [mul_sub, mul_one]
-
-end NonAssocRing
-
-section Ring
-
-variable [Ring α]
-
--- A (unital, associative) ring is a not-necessarily-unital ring
--- see Note [lower instance priority]
-instance (priority := 100) Ring.toNonUnitalRing : NonUnitalRing α :=
-  { ‹Ring α› with }
-
--- A (unital, associative) ring is a not-necessarily-associative ring
--- see Note [lower instance priority]
-instance (priority := 100) Ring.toNonAssocRing : NonAssocRing α :=
-  { ‹Ring α› with }
-
-end Ring
