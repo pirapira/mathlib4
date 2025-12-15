@@ -51,20 +51,3 @@ instance (priority := 100) CommSemiring.toGrindCommSemiring [s : CommSemiring α
     Grind.CommSemiring α :=
   { Semiring.toGrindSemiring α with
     mul_comm := s.mul_comm }
-
-instance (priority := 100) Ring.toGrindRing [s : Ring α] :
-    Grind.Ring α :=
-  { s, Semiring.toGrindSemiring α with
-    nsmul := ⟨s.nsmul⟩
-    npow := ⟨fun a n => a^n⟩
-    zsmul := ⟨s.zsmul⟩
-    natCast := inferInstance
-    intCast := inferInstance
-    neg_zsmul i a := neg_zsmul a i
-    neg_add_cancel := by simp [neg_add_cancel]
-    intCast_ofNat
-    | 0 => Int.cast_zero
-    | 1 => Int.cast_one
-    | _ + 2 => Int.cast_ofNat _
-    intCast_neg := Int.cast_neg
-    zsmul_natCast_eq_nsmul n a := natCast_zsmul a n }
