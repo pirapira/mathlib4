@@ -96,11 +96,13 @@ set_option pp.rawOnError true
 
 @[grind =]
 theorem dummy (n : Nat) :   @Eq (ZMod n)
-    (@NatCast.natCast (ZMod n) (someStructure n).5 n)
+    ((someStructure n).5.1 n)
     (match n with
       | Nat.zero => (0 : ℤ)
       | Nat.succ pred => (0 : Fin (pred.succ))
      ) := by
+  unfold NatCast.natCast
+  unfold Semiring.toNatCast
   sorry
 
 example (k m : ℕ) : (m ^ 2) = m := by grind
