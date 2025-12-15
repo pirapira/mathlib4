@@ -387,13 +387,3 @@ instance (priority := 100) CommRing.toNonUnitalCommRing [s : CommRing α] : NonU
 instance (priority := 100) CommRing.toAddCommGroupWithOne [s : CommRing α] :
     AddCommGroupWithOne α :=
   { s with }
-
-/-- A domain is a nontrivial semiring such that multiplication by a nonzero element
-is cancellative on both sides. In other words, a nontrivial semiring `R` satisfying
-`∀ {a b c : R}, a ≠ 0 → a * b = a * c → b = c` and
-`∀ {a b c : R}, b ≠ 0 → a * b = c * b → a = c`.
-
-This is implemented as a mixin for `Semiring α`.
-To obtain an integral domain use `[CommRing α] [IsDomain α]`. -/
-@[stacks 09FE]
-class IsDomain (α : Type u) [Semiring α] : Prop extends IsCancelMulZero α, Nontrivial α
