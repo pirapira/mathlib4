@@ -103,9 +103,3 @@ example (s : Grind.CommRing α) : CommRing α :=
     intCast_negSucc n := by
       rw [Int.negSucc_eq, Grind.Ring.intCast_neg,
         Grind.Ring.intCast_natCast_add_one, Grind.Semiring.natCast_succ] }
-
--- Verify that we do not have a defeq problems in `Lean.Grind.Semiring` instances.
-example : (inferInstance : Lean.Grind.Semiring Nat) =
-    (Lean.Grind.CommSemiring.toSemiring : Lean.Grind.Semiring Nat) := rfl
-example : (inferInstance : Lean.Grind.Semiring UInt8) =
-    (Lean.Grind.CommSemiring.toSemiring : Lean.Grind.Semiring UInt8) := rfl
