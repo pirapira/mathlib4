@@ -382,8 +382,3 @@ instance (priority := 100) CommRing.toCommSemiring [s : CommRing α] : CommSemir
 -- see Note [lower instance priority]
 instance (priority := 100) CommRing.toNonUnitalCommRing [s : CommRing α] : NonUnitalCommRing α :=
   { s with }
-
--- see Note [lower instance priority]
-instance (priority := 100) CommRing.toAddCommGroupWithOne [s : CommRing α] :
-    AddCommGroupWithOne α :=
-  { s with }
