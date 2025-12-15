@@ -293,14 +293,4 @@ theorem neg_one_mul (a : α) : -1 * a = -a := by simp
 
 end MulOneClass
 
-section MulZeroClass
-
-variable [MulZeroClass α] [HasDistribNeg α]
-
-instance (priority := 100) MulZeroClass.negZeroClass : NegZeroClass α where
-  __ := inferInstanceAs (Zero α); __ := inferInstanceAs (InvolutiveNeg α)
-  neg_zero := by rw [← zero_mul (0 : α), ← neg_mul, mul_zero, mul_zero]
-
-end MulZeroClass
-
 end HasDistribNeg
