@@ -5,7 +5,6 @@ Authors: Eric Rodriguez
 -/
 module
 
-public import Mathlib.Algebra.Group.Fin.Basic
 public import Mathlib.Algebra.Ring.Int.Defs
 
 /-!
@@ -101,8 +100,6 @@ theorem dummy (n : Nat) :   @Eq (ZMod n)
       | Nat.zero => (0 : ℤ)
       | Nat.succ pred => (0 : Fin (pred.succ))
      ) := by
-  unfold NatCast.natCast
-  unfold Semiring.toNatCast
   sorry
 
 example (k m : ℕ) : (m ^ 2) = m := by grind
