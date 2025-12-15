@@ -63,9 +63,9 @@ field. -/
 instance someStructure (n : ℕ) : Semiring (ZMod n) where
   add := Nat.casesOn n (@Add.add Int _) fun n => @Add.add (Fin n.succ) _
   add_assoc := Nat.casesOn n (@add_assoc Int _) fun n => @add_assoc (Fin n.succ) _
-  zero := Nat.casesOn n (0 : Int) fun n => (0 : Fin n.succ)
-  zero_add := Nat.casesOn n (@zero_add Int _) fun n => @zero_add (Fin n.succ) _
-  add_zero := Nat.casesOn n (@add_zero Int _) fun n => @add_zero (Fin n.succ) _
+  zero := sorry
+  zero_add := sorry
+  add_zero := sorry
   nsmul := sorry
   nsmul_zero := sorry
   nsmul_succ := sorry
