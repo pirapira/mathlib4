@@ -46,8 +46,3 @@ instance (priority := 100) Semiring.toGrindSemiring [s : Semiring α] :
       change Nat.cast (n + 2 + 1) = Nat.cast (n + 2) + 1
       rw [← AddMonoidWithOne.natCast_succ]
     nsmul_eq_natCast_mul n a := nsmul_eq_mul n a }
-
-instance (priority := 100) CommSemiring.toGrindCommSemiring [s : CommSemiring α] :
-    Grind.CommSemiring α :=
-  { Semiring.toGrindSemiring α with
-    mul_comm := s.mul_comm }
