@@ -101,7 +101,6 @@ end CommRing
 end Fin
 
 /-- The integers modulo `n : ℕ`. -/
-@[to_additive_dont_translate]
 def ZMod : ℕ → Type
   | 0 => Int
   | n + 1 => Fin (n + 1)
