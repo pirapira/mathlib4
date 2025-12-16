@@ -5,7 +5,6 @@ Authors: Jeremy Avigad, Leonardo de Moura, Simon Hudon, Mario Carneiro
 -/
 module
 
-public import Batteries.Logic
 public import Mathlib.Algebra.Notation.Defs
 public import Mathlib.Algebra.Regular.Defs
 public import Mathlib.Data.Int.Notation
