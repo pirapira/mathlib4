@@ -6,7 +6,7 @@ Authors: Eric Rodriguez
 module
 
 public import Mathlib.Algebra.Notation.Defs
-public import Mathlib.Algebra.Regular.Defs
+-- public import Mathlib.Algebra.Regular.Defs
 public import Mathlib.Data.Int.Notation
 
 /-!
