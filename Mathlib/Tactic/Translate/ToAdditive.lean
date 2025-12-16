@@ -20,15 +20,6 @@ public meta section
 namespace Mathlib.Tactic.ToAdditive
 open Lean Elab Translate
 
-@[inherit_doc TranslateData.ignoreArgsAttr]
-syntax (name := to_additive_ignore_args) "to_additive_ignore_args" (ppSpace num)* : attr
-
-@[inherit_doc TranslateData.doTranslateAttr]
-syntax (name := to_additive_do_translate) "to_additive_do_translate" : attr
-
-@[inherit_doc TranslateData.doTranslateAttr]
-syntax (name := to_additive_dont_translate) "to_additive_dont_translate" : attr
-
 /-- The attribute `to_additive` can be used to automatically transport theorems
 and definitions (but not inductive types and structures) from a multiplicative
 theory to an additive theory.
@@ -249,19 +240,6 @@ syntax (name := to_additive) "to_additive" "?"? attrArgs : attr
 @[inherit_doc to_additive]
 macro "to_additive?" rest:attrArgs : attr => `(attr| to_additive ? $rest)
 
-
-@[inherit_doc to_additive_ignore_args]
-initialize ignoreArgsAttr : NameMapExtension (List Nat) ←
-  registerNameMapAttribute {
-    name := `to_additive_ignore_args
-    descr :=
-      "Auxiliary attribute for `to_additive` stating that certain arguments are not additivized."
-    add := fun _ stx ↦ do
-        let ids ← match stx with
-          | `(attr| to_additive_ignore_args $[$ids:num]*) => pure <| ids.map (·.1.isNatLit?.get!)
-          | _ => throwUnsupportedSyntax
-        return ids.toList }
-
 @[inherit_doc TranslateData.argInfoAttr]
 initialize argInfoAttr : NameMapExtension ArgInfo ← registerNameMapExtension _
 
@@ -371,23 +349,6 @@ def abbreviationDict : Std.HashMap String String := .ofList [
   ("divisionAddMonoid", "SubtractionMonoid"),
   ("subNegZeroAddMonoid", "SubNegZeroMonoid"),
   ("modularCharacter", "AddModularCharacter")]
-
-/-- The bundle of environment extensions for `to_additive` -/
-def data : TranslateData where
-  ignoreArgsAttr; argInfoAttr; doTranslateAttr; translations
-  attrName := `to_additive
-  changeNumeral := true
-  isDual := false
-  guessNameData := { nameDict, abbreviationDict }
-
-initialize registerBuiltinAttribute {
-    name := `to_additive
-    descr := "Transport multiplicative to additive"
-    add := fun src stx kind ↦ discard do
-      addTranslationAttr data src (← elabTranslationAttr src stx) kind
-    -- we (presumably) need to run after compilation to properly add the `simp` attribute
-    applicationTime := .afterCompilation
-  }
 
 /-- `insert_to_additive_translation mulName addName` inserts the translation `mulName ↦ addName`
 into the `to_additive` dictionary. This is useful for translating namespaces that don't (yet)
