@@ -100,24 +100,6 @@ variable {R : Type*}
 
 end Regular
 
-section IsLeftCancelMul
-
-variable [IsLeftCancelMul G] {a b c : G}
-
-@[to_additive]
-theorem mul_left_cancel : a * b = a * c → b = c :=
-  (IsLeftCancelMul.mul_left_cancel a ·)
-
-end IsLeftCancelMul
-
-section IsRightCancelMul
-
-variable [IsRightCancelMul G] {a b c : G}
-
-end IsRightCancelMul
-
-end Mul
-
 /-- A semigroup is a type with an associative `(*)`. -/
 @[ext]
 class Semigroup (G : Type u) extends Mul G where
