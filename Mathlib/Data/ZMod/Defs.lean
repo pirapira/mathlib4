@@ -88,8 +88,6 @@ class Semiring (α : Type u) extends MulOneClass α, AddMonoidWithOne α
 # Instances for `grind`.
 -/
 
-@[expose] public section
-
 open Lean
 
 variable (α : Type*)
