@@ -1,10 +1,3 @@
-/-
-Copyright (c) 2022 Eric Rodriguez. All rights reserved.
-Released under Apache 2.0 license as described in the file LICENSE.
-Authors: Eric Rodriguez, Yoichi Hirai
--/
-module
-
 universe u v
 
 class Semiring (α : Type u) extends One α, NatCast α where
@@ -36,19 +29,6 @@ instance (priority := 100) Semiring.toGrindSemiring {α : Type u} [s : Semiring 
     mul_assoc := sorry
   }
 
-/-!
-demonstrating an error in grind
-
-(kernel) application type mismatch
-  eq_false_of_decide (eagerReduce (Eq.refl false))
-argument has type
-  false = false
-but function has type
-  decide (2 = 0) = false → (2 = 0) = False
--/
-
-
-/-- The integers modulo `n : ℕ`. -/
 def ZMod : Nat → Type
   | 0 => Int
   | n + 1 => Fin (n + 1)
@@ -57,9 +37,6 @@ instance ZMod.decidableEq : ∀ n : Nat, DecidableEq (ZMod n)
   | 0 => inferInstanceAs (DecidableEq Int)
   | n + 1 => inferInstanceAs (DecidableEq (Fin (n + 1)))
 
-/- We define each field by cases, to ensure that the eta-expanded `ZMod.commRing` is defeq to the
-original, this helps avoid diamonds with instances coming from classes extending `CommRing` such as
-field. -/
 instance someStructure (n : Nat) : Semiring (ZMod n) where
   one := sorry
   natCast := sorry
