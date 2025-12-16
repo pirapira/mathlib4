@@ -59,14 +59,9 @@ class IsLeftCancelAdd (G : Type u) [Add G] : Prop where
   /-- Addition is left cancellative (i.e. left regular). -/
   protected add_left_cancel (a : G) : IsAddLeftRegular a
 
-/-- A mixin for right cancellative addition. -/
-class IsRightCancelAdd (G : Type u) [Add G] : Prop where
-  /-- Addition is right cancellative (i.e. right regular). -/
-  protected add_right_cancel (a : G) : IsAddRightRegular a
-
 /-- A mixin for cancellative addition. -/
 @[mk_iff]
-class IsCancelAdd (G : Type u) [Add G] : Prop extends IsLeftCancelAdd G, IsRightCancelAdd G
+class IsCancelAdd (G : Type u) [Add G] : Prop extends IsLeftCancelAdd G
 
 section Regular
 
