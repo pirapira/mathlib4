@@ -898,19 +898,3 @@ section InvOneClass
 /-- Typeclass for expressing that `-0 = 0`. -/
 class NegZeroClass (G : Type*) extends Zero G, Neg G where
   protected neg_zero : -(0 : G) = 0
-
-/-- A `SubNegMonoid` where `-0 = 0`. -/
-class SubNegZeroMonoid (G : Type*) extends SubNegMonoid G, NegZeroClass G
-
-/-- Typeclass for expressing that `1⁻¹ = 1`. -/
-@[to_additive]
-class InvOneClass (G : Type*) extends One G, Inv G where
-  protected inv_one : (1 : G)⁻¹ = 1
-
-/-- A `DivInvMonoid` where `1⁻¹ = 1`. -/
-@[to_additive]
-class DivInvOneMonoid (G : Type*) extends DivInvMonoid G, InvOneClass G
-
-variable [InvOneClass G]
-
-end InvOneClass
