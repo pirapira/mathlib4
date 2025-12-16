@@ -35,14 +35,6 @@ protected def Int.castDef {R : Type u} [NatCast R] [Neg R] : ℤ → R
 
 /-! ### Additive groups with one -/
 
-/-- An `AddGroupWithOne` is an `AddGroup` with a 1. It also contains data for the unique
-homomorphisms `ℕ → R` and `ℤ → R`. -/
-class AddGroupWithOne (R : Type u) extends IntCast R, AddMonoidWithOne R, AddGroup R where
-  /-- The canonical homomorphism `ℤ → R`. -/
-  intCast := Int.castDef
-  /-- The canonical homomorphism `ℤ → R` agrees with the one from `ℕ → R` on `ℕ`. -/
-  intCast_ofNat : ∀ n : ℕ, intCast (n : ℕ) = Nat.cast n := by intros; rfl
-
 /-- An `AddCommGroupWithOne` is an `AddGroupWithOne` satisfying `a + b = b + a`. -/
 class AddCommGroupWithOne (R : Type u)
-  extends AddCommGroup R, AddGroupWithOne R, AddCommMonoidWithOne R
+  extends AddCommGroup R, AddCommMonoidWithOne R
