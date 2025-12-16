@@ -14,7 +14,7 @@ public meta import Mathlib.Tactic.TypeStar
 
 universe u v w
 
-variable {R : Type*}
+variable {α : Type u} {R : Type v}
 
 /-- Recognize numeric literals which are at least `2` as terms of `R` via `Nat.cast`. This
 instance is what makes things like `37 : R` type check.  Note that `0` and `1` are not needed
@@ -33,8 +33,6 @@ class AddMonoidWithOne (R : Type*) extends NatCast R, One R where
   natCast := sorry
 
 @[expose] public section
-
-variable {α : Type u} {R : Type v}
 
 class Semiring (α : Type u) extends One α, AddMonoidWithOne α
 
