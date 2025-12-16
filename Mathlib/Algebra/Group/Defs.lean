@@ -54,11 +54,6 @@ section Mul
 
 variable [Mul G]
 
-/-- A mixin for left cancellative addition. -/
-class IsLeftCancelAdd (G : Type u) [Add G] : Prop where
-  /-- Addition is left cancellative (i.e. left regular). -/
-  protected add_left_cancel (a : G) : IsAddLeftRegular a
-
 section Regular
 
 variable {R : Type*}
