@@ -12,11 +12,6 @@ public import Mathlib.Data.Nat.Cast.Defs
 
 universe u
 
-/-- Default value for `IntCast.intCast` in an `AddGroupWithOne`. -/
-protected def Int.castDef {R : Type u} [NatCast R] [Neg R] : ℤ → R
-  | (n : ℕ) => n
-  | Int.negSucc n => -(n + 1 : ℕ)
-
 /-! ### Additive groups with one -/
 
 /-- An `AddCommGroupWithOne` is an `AddGroupWithOne` satisfying `a + b = b + a`. -/
