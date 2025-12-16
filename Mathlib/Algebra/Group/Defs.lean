@@ -40,17 +40,7 @@ We register the following instances:
 
 @[expose] public section
 
-assert_not_exists MonoidWithZero DenselyOrdered Function.const_injective
-
 universe u v w
-
-open Function
-
-variable {G : Type*}
-
-section Mul
-
-variable [Mul G]
 
 /-- A semigroup is a type with an associative `(*)`. -/
 @[ext]
