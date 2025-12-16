@@ -37,7 +37,10 @@ instance (priority := 100) Semiring.toGrindSemiring [s : Semiring α] :
     | 1 => Nat.cast_one.symm
     | n + 2 => rfl
     ofNat_succ := sorry
-    nsmul_eq_natCast_mul n a := sorry }
+    nsmul_eq_natCast_mul n a := sorry
+    left_distrib := sorry
+    right_distrib := sorry
+  }
 
 /-!
 demonstrating an error in grind
@@ -100,8 +103,6 @@ instance someStructure (n : ℕ) : Semiring (ZMod n) where
   natCast := sorry
   natCast_zero := sorry
   natCast_succ := sorry
-  left_distrib := sorry
-  right_distrib := sorry
   zero_mul := sorry
   mul_zero := sorry
   npow := sorry
