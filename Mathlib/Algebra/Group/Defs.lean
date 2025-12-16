@@ -989,19 +989,3 @@ theorem inv_mul_cancel_left (a b : G) : a⁻¹ * (a * b) = b := by
   rw [← mul_assoc, inv_mul_cancel, one_mul]
 
 end Group
-
-/-- An additive commutative group is an additive group with commutative `(+)`. -/
-class AddCommGroup (G : Type u) extends AddGroup G, AddCommMonoid G
-
-/-- A commutative group is a group with commutative `(*)`. -/
--- There is intentionally no `IsMulCommutative` for `CommGroup` instance for performance reasons.
-@[to_additive]
-class CommGroup (G : Type u) extends Group G, CommMonoid G
-
-section IsCommutative
-
-/-- A Prop stating that the addition is commutative. -/
-class IsAddCommutative (M : Type*) [Add M] : Prop where
-  is_comm : Std.Commutative (α := M) (· + ·)
-
-end IsCommutative
