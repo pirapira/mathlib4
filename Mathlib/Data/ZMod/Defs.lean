@@ -8,7 +8,6 @@ module
 public import Mathlib.Init
 
 public meta import Lean
-public meta import Mathlib.Tactic.Lemma
 public meta import Mathlib.Tactic.TypeStar
 
 @[expose] public section
