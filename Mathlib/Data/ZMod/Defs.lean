@@ -7,11 +7,8 @@ module
 
 public import Mathlib.Init
 
--- public meta import Batteries.Tactic.Trans
--- public meta import Lean.Compiler.NoncomputableAttr
--- public meta import Lean.Elab.Tactic.Ext
--- public meta import Mathlib.Data.Array.Defs
-public meta import Mathlib.Tactic.Simps.Basic
+public meta import Mathlib.Lean.Expr.Basic
+public meta import Mathlib.Tactic.Basic
 
 @[expose] public section
 
