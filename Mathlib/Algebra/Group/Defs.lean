@@ -569,12 +569,6 @@ lemma pow_add (a : M) (m : ℕ) : ∀ n, a ^ (m + n) = a ^ m * a ^ n
 
 variable (M)
 
-@[to_additive] instance [IsLeftCancelMul M] : IsDedekindFiniteMonoid M where
-  mul_eq_one_symm := (IsLeftCancelMul.mul_left_cancel _).mul_eq_one_symm
-
-@[to_additive] instance [IsRightCancelMul M] : IsDedekindFiniteMonoid M where
-  mul_eq_one_symm := (IsRightCancelMul.mul_right_cancel _).mul_eq_one_symm
-
 namespace IsDedekindFiniteMonoid
 
 /-- A monoid is Dedekind-finite if every element with a left inverse also has a right inverse. -/
