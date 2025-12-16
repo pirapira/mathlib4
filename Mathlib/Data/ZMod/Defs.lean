@@ -65,21 +65,6 @@ but function has type
   decide (2 = 0) = false → (2 = 0) = False
 -/
 
-@[expose] public section
-
-
-namespace Fin
-
-open Int
-
-open scoped Fin.IntCast Fin.NatCast
-
-namespace CommRing
-
-end CommRing
-
-
-end Fin
 
 /-- The integers modulo `n : ℕ`. -/
 def ZMod : Nat → Type
@@ -92,7 +77,6 @@ instance ZMod.decidableEq : ∀ n : Nat, DecidableEq (ZMod n)
 
 namespace ZMod
 
-open Fin.CommRing in
 /- We define each field by cases, to ensure that the eta-expanded `ZMod.commRing` is defeq to the
 original, this helps avoid diamonds with instances coming from classes extending `CommRing` such as
 field. -/
