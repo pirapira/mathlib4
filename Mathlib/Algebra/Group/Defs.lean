@@ -54,12 +54,6 @@ section Mul
 
 variable [Mul G]
 
-section Regular
-
-variable {R : Type*}
-
-end Regular
-
 /-- A semigroup is a type with an associative `(*)`. -/
 @[ext]
 class Semigroup (G : Type u) extends Mul G where
