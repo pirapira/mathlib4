@@ -635,20 +635,6 @@ lemma pow_add (a : M) (m : ℕ) : ∀ n, a ^ (m + n) = a ^ m * a ^ n
   | 0 => by rw [Nat.add_zero, pow_zero, mul_one]
   | n + 1 => by rw [pow_succ, ← mul_assoc, ← pow_add, ← pow_succ, Nat.add_assoc]
 
-@[to_additive] lemma pow_mul_comm (a : M) (m n : ℕ) : a ^ m * a ^ n = a ^ n * a ^ m := by
-  rw [← pow_add, ← pow_add, Nat.add_comm]
-
-@[to_additive mul_nsmul] lemma pow_mul (a : M) (m : ℕ) : ∀ n, a ^ (m * n) = (a ^ m) ^ n
-  | 0 => by rw [Nat.mul_zero, pow_zero, pow_zero]
-  | n + 1 => by rw [Nat.mul_succ, pow_add, pow_succ, pow_mul]
-
-@[to_additive mul_nsmul']
-lemma pow_mul' (a : M) (m n : ℕ) : a ^ (m * n) = (a ^ n) ^ m := by rw [Nat.mul_comm, pow_mul]
-
-@[to_additive nsmul_left_comm]
-lemma pow_right_comm (a : M) (m n : ℕ) : (a ^ m) ^ n = (a ^ n) ^ m := by
-  rw [← pow_mul, Nat.mul_comm, pow_mul]
-
 @[to_additive] protected lemma IsLeftRegular.mul_eq_one_symm {a b : M} (reg : IsLeftRegular a)
     (eq : a * b = 1) : b * a = 1 :=
   reg <| by simp [← mul_assoc, eq]
