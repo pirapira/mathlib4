@@ -7,7 +7,7 @@ module
 
 public import Mathlib.Algebra.Group.Defs
 -- public import Mathlib.Logic.Nontrivial.Defs
-public import Mathlib.Logic.Basic
+-- public import Mathlib.Logic.Basic
 
 /-!
 # Typeclasses for groups with an adjoined zero element
