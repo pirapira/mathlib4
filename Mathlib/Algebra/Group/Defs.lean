@@ -696,22 +696,3 @@ def zsmulRec [Zero G] [Add G] [Neg G] (nsmul : ℕ → G → G := nsmulRec) : �
   | Int.negSucc n, a => -nsmul n.succ a
 
 attribute [to_additive existing] zpowRec
-
-section InvolutiveInv
-
-/-- Auxiliary typeclass for types with an involutive `Neg`. -/
-class InvolutiveNeg (A : Type*) extends Neg A where
-  protected neg_neg : ∀ x : A, - -x = x
-
-/-- Auxiliary typeclass for types with an involutive `Inv`. -/
-@[to_additive]
-class InvolutiveInv (G : Type*) extends Inv G where
-  protected inv_inv : ∀ x : G, x⁻¹⁻¹ = x
-
-variable [InvolutiveInv G]
-
-@[to_additive (attr := simp)]
-theorem inv_inv (a : G) : a⁻¹⁻¹ = a :=
-  InvolutiveInv.inv_inv _
-
-end InvolutiveInv
