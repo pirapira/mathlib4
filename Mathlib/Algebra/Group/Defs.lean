@@ -362,26 +362,6 @@ needed. These problems do not come up in practice, so most of the time we will n
 the `npow` field when defining multiplicative objects.
 -/
 
-/-- Exponentiation by repeated squaring. -/
-@[to_additive /-- Scalar multiplication by repeated self-addition,
-the additive version of exponentiation by repeated squaring. -/]
-def npowBinRec {M : Type*} [One M] [Mul M] (k : ℕ) : M → M :=
-  npowBinRec.go k 1
-where
-  /-- Auxiliary tail-recursive implementation for `npowBinRec`. -/
-  @[to_additive nsmulBinRec.go /-- Auxiliary tail-recursive implementation for `nsmulBinRec`. -/]
-  go (k : ℕ) : M → M → M :=
-    k.binaryRec (fun y _ ↦ y) fun bn _n fn y x ↦ fn (cond bn (y * x) y) (x * x)
-
-
-/--
-A variant of `nsmulRec` which is a semigroup homomorphism from `ℕ₊` to `M`.
--/
-def nsmulRec' {M : Type*} [Zero M] [Add M] : ℕ → M → M
-  | 0, _ => 0
-  | 1, m => m
-  | k + 2, m => nsmulRec' (k + 1) m + m
-
 /-- An `AddMonoid` is an `AddSemigroup` with an element `0` such that `0 + a = a + 0 = a`. -/
 class AddMonoid (M : Type u) extends AddSemigroup M, AddZeroClass M where
   /-- Multiplication by a natural number.
