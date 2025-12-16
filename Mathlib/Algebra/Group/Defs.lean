@@ -276,15 +276,6 @@ export IsDedekindFiniteMonoid (mul_eq_one_symm)
 export IsDedekindFiniteAddMonoid (add_eq_zero_symm)
 attribute [to_additive existing] isDedekindFiniteMonoid_iff
 
-@[to_additive] theorem mul_eq_one_comm {M} [MulOne M] [IsDedekindFiniteMonoid M] {a b : M} :
-    a * b = 1 ↔ b * a = 1 where
-  mp := mul_eq_one_symm
-  mpr := mul_eq_one_symm
-
-@[to_additive] instance (priority := low) (M) [MulOne M] [Std.Commutative (α := M) (· * ·)] :
-    IsDedekindFiniteMonoid M where
-  mul_eq_one_symm := (Std.Commutative.comm ..).trans
-
 /-- Typeclass for expressing that a type `M` with addition and a zero satisfies
 `0 + a = a` and `a + 0 = a` for all `a : M`. -/
 class AddZeroClass (M : Type u) extends AddZero M where
