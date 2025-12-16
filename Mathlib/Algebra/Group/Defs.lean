@@ -333,15 +333,6 @@ attribute [to_additive existing] npowRec
 variable [One M] [Semigroup M] (m n : ℕ) (hn : n ≠ 0) (a : M) (ha : 1 * a = a)
 include hn ha
 
-@[to_additive] theorem npowRec_add : npowRec (m + n) a = npowRec m a * npowRec n a := by
-  obtain _ | n := n; · exact (hn rfl).elim
-  induction n with
-  | zero => simp only [npowRec, ha]
-  | succ n ih => rw [← Nat.add_assoc, npowRec, ih n.succ_ne_zero]; simp only [npowRec, mul_assoc]
-
-@[to_additive] theorem npowRec_succ : npowRec (n + 1) a = a * npowRec n a := by
-  rw [Nat.add_comm, npowRec_add 1 n hn a ha, npowRec, npowRec, ha]
-
 end
 
 
@@ -391,18 +382,6 @@ def nsmulRec' {M : Type*} [Zero M] [Add M] : ℕ → M → M
   | 1, m => m
   | k + 2, m => nsmulRec' (k + 1) m + m
 
-/--
-An abbreviation for `npowRec` with an additional typeclass assumption on associativity
-so that we can use `@[csimp]` to replace it with an implementation by repeated squaring
-in compiled code.
--/
-@[to_additive
-/-- An abbreviation for `nsmulRec` with an additional typeclass assumptions on associativity
-so that we can use `@[csimp]` to replace it with an implementation by repeated doubling in compiled
-code as an automatic parameter. -/]
-abbrev npowRecAuto {M : Type*} [Semigroup M] [One M] (k : ℕ) (m : M) : M :=
-  npowRec k m
-
 /-- An `AddMonoid` is an `AddSemigroup` with an element `0` such that `0 + a = a + 0 = a`. -/
 class AddMonoid (M : Type u) extends AddSemigroup M, AddZeroClass M where
   /-- Multiplication by a natural number.
@@ -419,7 +398,7 @@ attribute [instance 50] AddZero.toAdd
 /-- A `Monoid` is a `Semigroup` with an element `1` such that `1 * a = a * 1 = a`. -/
 class Monoid (M : Type u) extends Semigroup M, MulOneClass M where
   /-- Raising to the power of a natural number. -/
-  protected npow : ℕ → M → M := npowRecAuto
+  protected npow : ℕ → M → M := sorry
   /-- Raising to the power `(0 : ℕ)` gives `1`. -/
   protected npow_zero : ∀ x, npow 0 x = 1 := by intros; rfl
   /-- Raising to the power `(n + 1 : ℕ)` behaves as expected. -/
