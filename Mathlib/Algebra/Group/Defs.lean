@@ -941,12 +941,6 @@ class DivisionMonoid (G : Type u) extends DivInvMonoid G, InvolutiveInv G where
 /-- Commutative `SubtractionMonoid`. -/
 class SubtractionCommMonoid (G : Type u) extends SubtractionMonoid G, AddCommMonoid G
 
-/-- Commutative `DivisionMonoid`.
-
-This is the immediate common ancestor of `CommGroup` and `CommGroupWithZero`. -/
-@[to_additive SubtractionCommMonoid]
-class DivisionCommMonoid (G : Type u) extends DivisionMonoid G, CommMonoid G
-
 /-- A `Group` is a `Monoid` with an operation `⁻¹` satisfying `a⁻¹ * a = 1`.
 
 There is also a division operation `/` such that `a / b = a * b⁻¹`,
