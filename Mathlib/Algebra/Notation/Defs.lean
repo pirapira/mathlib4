@@ -84,35 +84,6 @@ variable {G : Type*}
 
 attribute [to_additive, notation_class] Inv
 
-section Star
-
-/-- Notation typeclass (with no default notation!) for an algebraic structure with a star operation.
--/
-class Star (R : Type u) where
-  star : R → R
-
-export Star (star)
-
-/-- A star operation (e.g. complex conjugate).
--/
-add_decl_doc star
-
-end Star
-
-section ite
-variable {α : Type*} (P : Prop) [Decidable P]
-
-section Mul
-variable [Mul α]
-
-@[to_additive]
-lemma mul_dite (a : α) (b : P → α) (c : ¬P → α) :
-    (a * if h : P then b h else c h) = if h : P then a * b h else a * c h := by split <;> rfl
-
-end Mul
-
-end ite
-
 variable {α : Type u}
 
 instance (priority := 20) Zero.instNonempty [Zero α] : Nonempty α := ⟨0⟩
