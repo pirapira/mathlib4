@@ -5,7 +5,7 @@ Authors: Eric Rodriguez
 -/
 module
 
-public import Mathlib.Algebra.GroupWithZero.Defs
+public import Mathlib.Algebra.Group.Defs
 
 variable {R : Type*}
 
@@ -128,7 +128,6 @@ instance someStructure (n : ℕ) : Semiring (ZMod n) where
   nsmul_zero := sorry
   nsmul_succ := sorry
   mul := sorry
-  mul_assoc := sorry
   one := sorry
   one_mul := sorry
   mul_one := sorry
