@@ -955,22 +955,6 @@ theorem zpow_natCast (a : G) : ∀ n : ℕ, a ^ (n : ℤ) = a ^ n
     _ = a ^ n * a := congrArg (· * a) (zpow_natCast a n)
     _ = a ^ (n + 1) := (pow_succ _ _).symm
 
-
-@[to_additive ofNat_zsmul]
-lemma zpow_ofNat (a : G) (n : ℕ) : a ^ (ofNat(n) : ℤ) = a ^ OfNat.ofNat n :=
-  zpow_natCast ..
-
-theorem zpow_negSucc (a : G) (n : ℕ) : a ^ (Int.negSucc n) = (a ^ (n + 1))⁻¹ := by
-  rw [← zpow_natCast]
-  exact DivInvMonoid.zpow_neg' n a
-
-theorem negSucc_zsmul {G} [SubNegMonoid G] (a : G) (n : ℕ) :
-    Int.negSucc n • a = -((n + 1) • a) := by
-  rw [← natCast_zsmul]
-  exact SubNegMonoid.zsmul_neg' n a
-
-attribute [to_additive existing (attr := simp) negSucc_zsmul] zpow_negSucc
-
 /-- Dividing by an element is the same as multiplying by its inverse.
 
 This is a duplicate of `DivInvMonoid.div_eq_mul_inv` ensuring that the types unfold better.
