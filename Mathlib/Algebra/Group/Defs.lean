@@ -146,30 +146,6 @@ class AddSemigroup (G : Type u) extends Add G where
 
 attribute [to_additive] Semigroup
 
-/-- A commutative additive magma is a type with an addition which commutes. -/
-@[ext]
-class AddCommMagma (G : Type u) extends Add G where
-  /-- Addition is commutative in a commutative additive magma. -/
-  protected add_comm : ∀ a b : G, a + b = b + a
-
-/-- A commutative multiplicative magma is a type with a multiplication which commutes. -/
-@[ext]
-class CommMagma (G : Type u) extends Mul G where
-  /-- Multiplication is commutative in a commutative multiplicative magma. -/
-  protected mul_comm : ∀ a b : G, a * b = b * a
-
-attribute [to_additive] CommMagma
-
-/-- A commutative additive semigroup is a type with an associative commutative `(+)`. -/
-@[ext]
-class AddCommSemigroup (G : Type u) extends AddSemigroup G, AddCommMagma G where
-
-section CommMagma
-
-variable [CommMagma G] {a : G}
-
-end CommMagma
-
 /-- A `RightCancelSemigroup` is a semigroup such that `a * b = c * b` implies `a = c`. -/
 @[ext]
 class RightCancelSemigroup (G : Type u) extends Semigroup G, IsRightCancelMul G
