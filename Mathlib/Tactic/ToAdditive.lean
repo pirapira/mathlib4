@@ -4,5 +4,3 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Miyahara Kō
 -/
 module
-
-public meta import Mathlib.Tactic.Translate.ToAdditive

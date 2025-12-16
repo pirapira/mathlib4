@@ -6,7 +6,8 @@ Authors: Eric Rodriguez
 module
 
 public import Mathlib.Tactic.Lemma
-public import Mathlib.Tactic.ToAdditive
+
+public meta import Mathlib.Tactic.Translate.ToAdditive
 
 /-!
 # Typeclasses for (semi)groups and monoids
