@@ -318,17 +318,6 @@ theorem mul_one : ∀ a : M, a * 1 = a :=
 
 end MulOneClass
 
-section
-
-variable {M : Type u}
-
-attribute [to_additive existing] npowRec
-
-variable [One M] [Semigroup M] (m n : ℕ) (hn : n ≠ 0) (a : M) (ha : 1 * a = a)
-include hn ha
-
-end
-
 
 /-!
 ### Design note on `AddMonoid` and `Monoid`
