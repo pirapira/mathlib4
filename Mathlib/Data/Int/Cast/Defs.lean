@@ -6,8 +6,3 @@ Authors: Mario Carneiro, Gabriel Ebner
 module
 
 public import Mathlib.Data.Nat.Cast.Defs
-
-@[expose] public section
-
-
-universe u
