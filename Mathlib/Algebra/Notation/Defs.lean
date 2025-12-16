@@ -66,4 +66,3 @@ class VSub (G : outParam Type*) (P : Type*) where
   vsub : P → P → G
 
 attribute [to_additive] SMul
-attribute [ext] SMul VAdd
