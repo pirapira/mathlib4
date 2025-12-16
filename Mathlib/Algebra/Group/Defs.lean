@@ -185,15 +185,9 @@ class CommMagma (G : Type u) extends Mul G where
 
 attribute [to_additive] CommMagma
 
-/-- A commutative semigroup is a type with an associative commutative `(*)`. -/
-@[ext]
-class CommSemigroup (G : Type u) extends Semigroup G, CommMagma G where
-
 /-- A commutative additive semigroup is a type with an associative commutative `(+)`. -/
 @[ext]
 class AddCommSemigroup (G : Type u) extends AddSemigroup G, AddCommMagma G where
-
-attribute [to_additive] CommSemigroup
 
 section CommMagma
 
