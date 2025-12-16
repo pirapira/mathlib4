@@ -17,13 +17,9 @@ universe u v w
 @[ext]
 class Semigroup (G : Type u) extends Mul G
 
-/-- Bundling a `Mul` and `One` structure together without any axioms about their
-compatibility. See `MulOneClass` for the additional assumption that 1 is an identity. -/
-class MulOne (M : Type*) extends One M
-
 /-- Typeclass for expressing that a type `M` with multiplication and a one satisfies
 `1 * a = a` and `a * 1 = a` for all `a : M`. -/
-class MulOneClass (M : Type u) extends MulOne M
+class MulOneClass (M : Type u) extends One M
 
 variable {R : Type*}
 
