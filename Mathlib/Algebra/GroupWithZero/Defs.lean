@@ -236,21 +236,3 @@ lemma eq_zero_or_one_of_sq_eq_self (hx : x ^ 2 = x) : x = 0 ∨ x = 1 :=
   or_iff_not_imp_left.mpr (mul_left_injective₀ · <| by simpa [sq] using hx)
 
 end
-
-section GroupWithZero
-
-variable [GroupWithZero G₀] {a b : G₀}
-
-@[simp high] -- should take priority over `IsUnit.mul_inv_cancel_right`
-theorem mul_inv_cancel_right₀ (h : b ≠ 0) (a : G₀) : a * b * b⁻¹ = a :=
-  calc
-    a * b * b⁻¹ = a * (b * b⁻¹) := mul_assoc _ _ _
-    _ = a := by simp [h]
-
-@[simp high] -- should take priority over `IsUnit.mul_inv_cancel_left`
-theorem mul_inv_cancel_left₀ (h : a ≠ 0) (b : G₀) : a * (a⁻¹ * b) = b :=
-  calc
-    a * (a⁻¹ * b) = a * a⁻¹ * b := (mul_assoc _ _ _).symm
-    _ = b := by simp [h]
-
-end GroupWithZero
