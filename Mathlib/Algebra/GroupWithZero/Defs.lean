@@ -126,19 +126,6 @@ class CancelMonoidWithZero (M₀ : Type*) extends MonoidWithZero M₀, IsCancelM
 element, and `0` is left and right absorbing. -/
 class CommMonoidWithZero (M₀ : Type*) extends CommMonoid M₀, MonoidWithZero M₀
 
-section CancelMonoidWithZero
-
-variable [CancelMonoidWithZero M₀] {a b c : M₀}
-
-theorem mul_left_inj' (hc : c ≠ 0) : a * c = b * c ↔ a = b :=
-  (mul_left_injective₀ hc).eq_iff
-
-theorem mul_right_inj' (ha : a ≠ 0) : a * b = a * c ↔ b = c :=
-  (mul_right_injective₀ ha).eq_iff
-
-end CancelMonoidWithZero
-
-section CommSemigroup
 
 variable [CommSemigroup M₀] [Zero M₀]
 
@@ -160,8 +147,6 @@ lemma IsRightCancelMulZero.to_isCancelMulZero [IsRightCancelMulZero M₀] :
     IsCancelMulZero M₀ :=
 { IsRightCancelMulZero.to_isLeftCancelMulZero with }
 
-end CommSemigroup
-
 /-- A type `M` is a `CancelCommMonoidWithZero` if it is a commutative monoid with zero element,
 `0` is left and right absorbing,
 and left/right multiplication by a non-zero element is injective. -/
@@ -170,32 +155,12 @@ class CancelCommMonoidWithZero (M₀ : Type*) extends CommMonoidWithZero M₀, I
 -- See note [lower cancel priority]
 attribute [instance 75] CancelCommMonoidWithZero.toCommMonoidWithZero
 
-instance (priority := 100) CancelCommMonoidWithZero.toCancelMonoidWithZero
-    [CancelCommMonoidWithZero M₀] : CancelMonoidWithZero M₀ :=
-{ IsLeftCancelMulZero.to_isCancelMulZero (M₀ := M₀) with }
-
 /-- Prop-valued mixin for a monoid with zero to be equipped with a cancelling division.
 
 The obvious use case is groups with zero, but this condition is also satisfied by `ℕ`, `ℤ` and, more
 generally, any Euclidean domain. -/
 class MulDivCancelClass (M₀ : Type*) [MonoidWithZero M₀] [Div M₀] : Prop where
   protected mul_div_cancel (a b : M₀) : b ≠ 0 → a * b / b = a
-
-section MulDivCancelClass
-variable [MonoidWithZero M₀] [Div M₀] [MulDivCancelClass M₀]
-
-@[simp] lemma mul_div_cancel_right₀ (a : M₀) {b : M₀} (hb : b ≠ 0) : a * b / b = a :=
-  MulDivCancelClass.mul_div_cancel _ _ hb
-
-end MulDivCancelClass
-
-section MulDivCancelClass
-variable [CommMonoidWithZero M₀] [Div M₀] [MulDivCancelClass M₀]
-
-@[simp] lemma mul_div_cancel_left₀ (b : M₀) {a : M₀} (ha : a ≠ 0) : a * b / a = b := by
-  rw [mul_comm, mul_div_cancel_right₀ _ ha]
-
-end MulDivCancelClass
 
 /-- A type `G₀` is a “group with zero” if it is a monoid with zero element (distinct from `1`)
 such that every nonzero element is invertible.
