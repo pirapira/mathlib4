@@ -13,9 +13,6 @@ public meta import Mathlib.Tactic.Translate.ToAdditive
 
 universe u v w
 
-/-- A semigroup is a type with an associative `(*)`. -/
-class Semigroup (G : Type u) extends Mul G
-
 variable {R : Type*}
 
 /-- Recognize numeric literals which are at least `2` as terms of `R` via `Nat.cast`. This
