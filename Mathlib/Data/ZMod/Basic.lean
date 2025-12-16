@@ -73,19 +73,19 @@ theorem val_zero : ∀ {n}, (0 : ZMod n).val = 0
   | 0 => rfl
   | _ + 1 => rfl
 
-@[simp]
+@[simp, grind =]
 theorem val_one' : (1 : ZMod 0).val = 1 :=
   rfl
 
-@[simp]
+@[simp, grind =]
 theorem val_neg' {n : ZMod 0} : (-n).val = n.val :=
   Int.natAbs_neg n
 
-@[simp]
+@[simp, grind =]
 theorem val_mul' {m n : ZMod 0} : (m * n).val = m.val * n.val :=
   Int.natAbs_mul m n
 
-@[simp]
+@[simp, grind =]
 theorem val_natCast (n a : ℕ) : (a : ZMod n).val = a % n := by
   cases n
   · rw [Nat.mod_zero]
@@ -650,6 +650,9 @@ theorem val_add_val_of_le {n : ℕ} [NeZero n] {a b : ZMod n} (h : n ≤ a.val +
     Nat.mod_eq_of_lt (val_lt _)]
   rwa [Nat.mod_eq_of_lt (val_lt _), Nat.mod_eq_of_lt (val_lt _)]
 
+grind_pattern val_add_val_of_le => a.val + b.val where
+  guard n ≤ a.val + b.val
+
 theorem val_add_of_le {n : ℕ} [NeZero n] {a b : ZMod n} (h : n ≤ a.val + b.val) :
     (a + b).val = a.val + b.val - n := by
   rw [val_add_val_of_le h]
@@ -787,8 +790,14 @@ lemma mul_val_inv (hmn : m.Coprime n) : (m * (m⁻¹ : ZMod n).val : ZMod n) = 1
   haveI : NeZero n := ⟨hn⟩
   rw [ZMod.natCast_zmod_val, ZMod.coe_mul_inv_eq_one _ hmn]
 
+grind_pattern mul_val_inv => (m * (m⁻¹ : ZMod n).val : ZMod n) where
+  guard m.Coprime n
+
 lemma val_inv_mul (hmn : m.Coprime n) : ((m⁻¹ : ZMod n).val * m : ZMod n) = 1 := by
   rw [mul_comm, mul_val_inv hmn]
+
+grind_pattern val_inv_mul => ((m⁻¹ : ZMod n).val * m : ZMod n) where
+  guard m.Coprime n
 
 /-- `unitOfCoprime` makes an element of `(ZMod n)ˣ` given
 a natural number `x` and a proof that `x` is coprime to `n` -/
