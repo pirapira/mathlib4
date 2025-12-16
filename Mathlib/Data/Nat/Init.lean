@@ -259,33 +259,3 @@ lemma not_pos_pow_dvd {a n : ℕ} (ha : 1 < a) (hn : 1 < n) : ¬ a ^ n ∣ a :=
 @[simp]
 protected theorem not_two_dvd_bit1 (n : ℕ) : ¬2 ∣ 2 * n + 1 := by
   lia
-
-/-- A natural number `m` divides the sum `m + n` if and only if `m` divides `n`. -/
-@[simp] protected lemma dvd_add_self_left : m ∣ m + n ↔ m ∣ n := Nat.dvd_add_right (Nat.dvd_refl m)
-
-/-- A natural number `m` divides the sum `n + m` if and only if `m` divides `n`. -/
-@[simp] protected lemma dvd_add_self_right : m ∣ n + m ↔ m ∣ n := Nat.dvd_add_left (Nat.dvd_refl m)
-
-/-- `n` is not divisible by `a` iff it is between `a * k` and `a * (k + 1)` for some `k`. -/
-@[deprecated (since := "2025-06-05")] alias not_dvd_iff_between_consec_multiples :=
-  not_dvd_iff_lt_mul_succ
-
-/-- Two natural numbers are equal if and only if they have the same multiples. -/
-lemma dvd_right_iff_eq : (∀ a : ℕ, m ∣ a ↔ n ∣ a) ↔ m = n :=
-  ⟨fun h => Nat.dvd_antisymm ((h _).mpr (Nat.dvd_refl _)) ((h _).mp (Nat.dvd_refl _)),
-    fun h n => by rw [h]⟩
-
-/-- Two natural numbers are equal if and only if they have the same divisors. -/
-lemma dvd_left_iff_eq : (∀ a : ℕ, a ∣ m ↔ a ∣ n) ↔ m = n :=
-  ⟨fun h => Nat.dvd_antisymm ((h _).mp (Nat.dvd_refl _)) ((h _).mpr (Nat.dvd_refl _)),
-    fun h n => by rw [h]⟩
-
-/-! ### Decidability of predicates -/
-
-instance decidableLoHi (lo hi : ℕ) (P : ℕ → Prop) [DecidablePred P] :
-    Decidable (∀ x, lo ≤ x → x < hi → P x) :=
-  decidable_of_iff (∀ x < hi - lo, P (lo + x)) <| by
-    refine ⟨fun al x hl hh ↦ ?_,
-      fun al x h ↦ al _ (Nat.le_add_right _ _) (Nat.lt_sub_iff_add_lt'.1 h)⟩
-    have := al (x - lo) ((Nat.sub_lt_sub_iff_right hl).2 hh)
-    rwa [Nat.add_sub_cancel' hl] at this
