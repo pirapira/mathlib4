@@ -1004,9 +1004,4 @@ section IsCommutative
 class IsAddCommutative (M : Type*) [Add M] : Prop where
   is_comm : Std.Commutative (α := M) (· + ·)
 
-/-- A Prop stating that the multiplication is commutative. -/
-@[to_additive]
-class IsMulCommutative (M : Type*) [Mul M] : Prop where
-  is_comm : Std.Commutative (α := M) (· * ·)
-
 end IsCommutative
