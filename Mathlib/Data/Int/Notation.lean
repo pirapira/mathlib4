@@ -6,10 +6,3 @@ Authors: Jeremy Avigad
 module
 
 public import Mathlib.Init
-/-!
-# Notation `ℤ` for the integers.
--/
-
-@[expose] public section
-
-@[inherit_doc] notation "ℤ" => Int

@@ -154,11 +154,11 @@ end Fin
 /-- The integers modulo `n : ℕ`. -/
 @[to_additive_dont_translate]
 def ZMod : ℕ → Type
-  | 0 => ℤ
+  | 0 => Int
   | n + 1 => Fin (n + 1)
 
 instance ZMod.decidableEq : ∀ n : ℕ, DecidableEq (ZMod n)
-  | 0 => inferInstanceAs (DecidableEq ℤ)
+  | 0 => inferInstanceAs (DecidableEq Int)
   | n + 1 => inferInstanceAs (DecidableEq (Fin (n + 1)))
 
 namespace ZMod
@@ -183,7 +183,7 @@ set_option pp.rawOnError true
 theorem dummy (n : Nat) :   @Eq (ZMod n)
     (@NatCast.natCast (ZMod n) (@Semiring.toNatCast (ZMod n) (someStructure n)) n)
     (match n with
-      | Nat.zero => (0 : ℤ)
+      | Nat.zero => (0 : Int)
       | Nat.succ pred => (0 : Fin (pred.succ))
      ) := by
   sorry
