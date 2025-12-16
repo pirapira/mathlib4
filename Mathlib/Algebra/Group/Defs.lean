@@ -1053,28 +1053,6 @@ class DivisionMonoid (G : Type u) extends DivInvMonoid G, InvolutiveInv G where
   involutivity of inversion. -/
   protected inv_eq_of_mul (a b : G) : a * b = 1 → a⁻¹ = b
 
-section DivisionMonoid
-
-variable [DivisionMonoid G] {a b : G}
-
-@[to_additive (attr := simp) neg_add_rev]
-theorem mul_inv_rev (a b : G) : (a * b)⁻¹ = b⁻¹ * a⁻¹ :=
-  DivisionMonoid.mul_inv_rev _ _
-
-@[to_additive]
-theorem inv_eq_of_mul_eq_one_right : a * b = 1 → a⁻¹ = b :=
-  DivisionMonoid.inv_eq_of_mul _ _
-
-@[to_additive]
-theorem inv_eq_of_mul_eq_one_left (h : a * b = 1) : b⁻¹ = a := by
-  rw [← inv_eq_of_mul_eq_one_right h, inv_inv]
-
-@[to_additive]
-theorem eq_inv_of_mul_eq_one_left (h : a * b = 1) : a = b⁻¹ :=
-  (inv_eq_of_mul_eq_one_left h).symm
-
-end DivisionMonoid
-
 /-- Commutative `SubtractionMonoid`. -/
 class SubtractionCommMonoid (G : Type u) extends SubtractionMonoid G, AddCommMonoid G
 
@@ -1139,18 +1117,6 @@ theorem mul_inv_cancel_left (a b : G) : a * (a⁻¹ * b) = b := by
 theorem mul_inv_cancel_right (a b : G) : a * b * b⁻¹ = a := by
   rw [mul_assoc, mul_inv_cancel, mul_one]
 
-@[to_additive (attr := simp)]
-theorem mul_div_cancel_right (a b : G) : a * b / b = a := by
-  rw [div_eq_mul_inv, mul_inv_cancel_right a b]
-
-@[to_additive (attr := simp)]
-theorem inv_mul_cancel_right (a b : G) : a * b⁻¹ * b = a := by
-  rw [mul_assoc, inv_mul_cancel, mul_one]
-
-@[to_additive (attr := simp)]
-theorem div_mul_cancel (a b : G) : a / b * b = a := by
-  rw [div_eq_mul_inv, inv_mul_cancel_right a b]
-
 @[to_additive]
 instance (priority := 100) Group.toDivisionMonoid : DivisionMonoid G :=
   { inv_inv := fun a ↦ inv_eq_of_mul (inv_mul_cancel a)
@@ -1198,9 +1164,6 @@ lemma mul_inv_cancel_comm (a b : G) : a * b * a⁻¹ = b := by rw [mul_comm, inv
 
 @[to_additive (attr := simp)] lemma inv_mul_cancel_comm_assoc (a b : G) : a⁻¹ * (b * a) = b := by
   rw [mul_comm, mul_inv_cancel_right]
-
-@[to_additive (attr := simp)] lemma mul_inv_cancel_comm_assoc (a b : G) : a * (b * a⁻¹) = b := by
-  rw [mul_comm, inv_mul_cancel_right]
 
 end CommGroup
 
