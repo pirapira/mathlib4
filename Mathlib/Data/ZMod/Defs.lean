@@ -50,9 +50,7 @@ class MulOne (M : Type*) extends One M, Mul M
 
 /-- Typeclass for expressing that a type `M` with multiplication and a one satisfies
 `1 * a = a` and `a * 1 = a` for all `a : M`. -/
-class MulOneClass (M : Type u) extends MulOne M where
-  /-- One is a left neutral element for multiplication -/
-  protected one_mul : ∀ a : M, 1 * a = a
+class MulOneClass (M : Type u) extends MulOne M
 
 variable {R : Type*}
 
@@ -104,6 +102,7 @@ instance (priority := 100) Semiring.toGrindSemiring [s : Semiring α] :
     nsmul := sorry
     add := sorry
     add_assoc := sorry
+    one_mul := sorry
     npow := sorry
     ofNat | 0 | 1 | n + 2 => inferInstance
     natCast := inferInstance
@@ -168,7 +167,6 @@ field. -/
 instance someStructure (n : ℕ) : Semiring (ZMod n) where
   mul := sorry
   one := sorry
-  one_mul := sorry
   natCast := sorry
 -- n : ZMod n = 0
 
