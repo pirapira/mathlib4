@@ -382,13 +382,6 @@ where
   go (k : ℕ) : M → M → M :=
     k.binaryRec (fun y _ ↦ y) fun bn _n fn y x ↦ fn (cond bn (y * x) y) (x * x)
 
-/--
-A variant of `npowRec` which is a semigroup homomorphism from `ℕ₊` to `M`.
--/
-def npowRec' {M : Type*} [One M] [Mul M] : ℕ → M → M
-  | 0, _ => 1
-  | 1, m => m
-  | k + 2, m => npowRec' (k + 1) m * m
 
 /--
 A variant of `nsmulRec` which is a semigroup homomorphism from `ℕ₊` to `M`.
@@ -397,33 +390,6 @@ def nsmulRec' {M : Type*} [Zero M] [Add M] : ℕ → M → M
   | 0, _ => 0
   | 1, m => m
   | k + 2, m => nsmulRec' (k + 1) m + m
-
-attribute [to_additive existing] npowRec'
-
-@[to_additive]
-theorem npowRec'_succ {M : Type*} [Mul M] [One M] {k : ℕ} (_ : k ≠ 0) (m : M) :
-    npowRec' (k + 1) m = npowRec' k m * m :=
-  match k with
-  | _ + 1 => rfl
-
-@[to_additive]
-theorem npowRec'_two_mul {M : Type*} [Semigroup M] [One M] (k : ℕ) (m : M) :
-    npowRec' (2 * k) m = npowRec' k (m * m) := by
-  induction k using Nat.strongRecOn with
-  | ind k' ih =>
-    match k' with
-    | 0 => rfl
-    | 1 => simp [npowRec']
-    | k + 2 => simp [npowRec', ← mul_assoc, Nat.mul_add, ← ih]
-
-@[to_additive]
-theorem npowRec'_mul_comm {M : Type*} [Semigroup M] [One M] {k : ℕ} (k0 : k ≠ 0) (m : M) :
-    m * npowRec' k m = npowRec' k m * m := by
-  induction k using Nat.strongRecOn with
-  | ind k' ih =>
-    match k' with
-    | 1 => simp [npowRec']
-    | k + 2 => simp [npowRec', ← mul_assoc, ih]
 
 /--
 An abbreviation for `npowRec` with an additional typeclass assumption on associativity
