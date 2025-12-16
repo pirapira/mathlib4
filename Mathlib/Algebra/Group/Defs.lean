@@ -266,8 +266,6 @@ class MulOne (M : Type*) extends One M, Mul M
 class MulOneClass (M : Type u) extends MulOne M where
   /-- One is a left neutral element for multiplication -/
   protected one_mul : ∀ a : M, 1 * a = a
-  /-- One is a right neutral element for multiplication -/
-  protected mul_one : ∀ a : M, a * 1 = a
 
 /-!
 ### Design note on `AddMonoid` and `Monoid`
