@@ -1109,21 +1109,6 @@ theorem div_self' (a : G) : a / a = 1 := by rw [div_eq_mul_inv, mul_inv_cancel a
 theorem inv_mul_cancel_left (a b : G) : a⁻¹ * (a * b) = b := by
   rw [← mul_assoc, inv_mul_cancel, one_mul]
 
-@[to_additive (attr := simp)]
-theorem mul_inv_cancel_left (a b : G) : a * (a⁻¹ * b) = b := by
-  rw [← mul_assoc, mul_inv_cancel, one_mul]
-
-@[to_additive (attr := simp)]
-theorem mul_inv_cancel_right (a b : G) : a * b * b⁻¹ = a := by
-  rw [mul_assoc, mul_inv_cancel, mul_one]
-
-@[to_additive]
-instance (priority := 100) Group.toDivisionMonoid : DivisionMonoid G :=
-  { inv_inv := fun a ↦ inv_eq_of_mul (inv_mul_cancel a)
-    mul_inv_rev :=
-      fun a b ↦ inv_eq_of_mul <| by rw [mul_assoc, mul_inv_cancel_left, mul_inv_cancel]
-    inv_eq_of_mul := fun _ _ ↦ inv_eq_of_mul }
-
 end Group
 
 /-- An additive commutative group is an additive group with commutative `(+)`. -/
@@ -1138,16 +1123,8 @@ section CommGroup
 
 variable [CommGroup G]
 
--- see Note [lower instance priority]
-@[to_additive]
-instance (priority := 100) CommGroup.toDivisionCommMonoid : DivisionCommMonoid G :=
-  { ‹CommGroup G›, Group.toDivisionMonoid with }
-
 @[to_additive (attr := simp)]
 lemma mul_inv_cancel_comm (a b : G) : a * b * a⁻¹ = b := by rw [mul_comm, inv_mul_cancel_left]
-
-@[to_additive (attr := simp)] lemma inv_mul_cancel_comm_assoc (a b : G) : a⁻¹ * (b * a) = b := by
-  rw [mul_comm, mul_inv_cancel_right]
 
 end CommGroup
 
@@ -1163,16 +1140,3 @@ class IsMulCommutative (M : Type*) [Mul M] : Prop where
   is_comm : Std.Commutative (α := M) (· * ·)
 
 end IsCommutative
-
-/-! We initialize all projections for `@[simps]` here, so that we don't have to do it in later
-files.
-
-Note: the lemmas generated for the `npow`/`zpow` projections will *not* apply to `x ^ y`, since the
-argument order of these projections doesn't match the argument order of `^`.
-The `nsmul`/`zsmul` lemmas will be correct. -/
-initialize_simps_projections Semigroup
-initialize_simps_projections AddSemigroup
-initialize_simps_projections AddCommMonoid
-initialize_simps_projections AddGroup
-initialize_simps_projections CommGroup
-initialize_simps_projections AddCommGroup
