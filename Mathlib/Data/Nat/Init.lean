@@ -56,11 +56,6 @@ lemma two_lt_of_ne : ∀ {n}, n ≠ 0 → n ≠ 1 → n ≠ 2 → 2 < n
   | 2, _, _, h => (h rfl).elim
   | n + 3, _, _, _ => le_add_left 3 n
 
-lemma two_le_iff : ∀ n, 2 ≤ n ↔ n ≠ 0 ∧ n ≠ 1
-  | 0 => by simp
-  | 1 => by simp
-  | n + 2 => by simp
-
 /-! ### `add` -/
 
 /-! ### `sub` -/
