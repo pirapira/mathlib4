@@ -86,21 +86,6 @@ instance (priority := 100) Distrib.rightDistribClass (R : Type*) [Distrib R] :
     RightDistribClass R :=
   ⟨Distrib.right_distrib⟩
 
-theorem left_distrib [Mul R] [Add R] [LeftDistribClass R] (a b c : R) :
-    a * (b + c) = a * b + a * c :=
-  LeftDistribClass.left_distrib a b c
-
-alias mul_add := left_distrib
-
-theorem right_distrib [Mul R] [Add R] [RightDistribClass R] (a b c : R) :
-    (a + b) * c = a * c + b * c :=
-  RightDistribClass.right_distrib a b c
-
-alias add_mul := right_distrib
-
-theorem distrib_three_right [Mul R] [Add R] [RightDistribClass R] (a b c d : R) :
-    (a + b + c) * d = a * d + b * d + c * d := by simp [right_distrib]
-
 /-!
 ### Classes of semirings and rings
 
