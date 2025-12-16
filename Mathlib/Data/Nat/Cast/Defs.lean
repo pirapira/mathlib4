@@ -75,19 +75,3 @@ namespace Nat
 variable [AddMonoidWithOne R]
 
 end Nat
-
-namespace Nat
-
-/-- Computationally friendlier cast than `Nat.unaryCast`, using binary representation. -/
-protected def binCast [Zero R] [One R] [Add R] : ℕ → R
-  | 0 => 0
-  | n + 1 => if (n + 1) % 2 = 0
-    then (Nat.binCast ((n + 1) / 2)) + (Nat.binCast ((n + 1) / 2))
-    else (Nat.binCast ((n + 1) / 2)) + (Nat.binCast ((n + 1) / 2)) + 1
-
-attribute [simp, norm_cast] Int.natAbs_natCast
-
-end Nat
-section nsmul
-
-end nsmul
