@@ -45,7 +45,7 @@ instance (priority := 100) Semiring.toGrindSemiring [s : Semiring α] :
     | n + 2 => by
       change Nat.cast (n + 2 + 1) = Nat.cast (n + 2) + 1
       rw [← AddMonoidWithOne.natCast_succ]
-    nsmul_eq_natCast_mul n a := nsmul_eq_mul n a }
+    nsmul_eq_natCast_mul n a := sorry }
 
 /-!
 demonstrating an error in grind
