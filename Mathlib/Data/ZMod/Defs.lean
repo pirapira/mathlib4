@@ -1,13 +1,13 @@
 /-
 Copyright (c) 2022 Eric Rodriguez. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
-Authors: Eric Rodriguez
+Authors: Eric Rodriguez, Yoichi Hirai
 -/
 module
 
-universe u v w
+universe u v
 
-variable {α : Type u} {R : Type v}
+variable {R : Type v}
 
 /-! ### Additive monoids with one -/
 
@@ -28,7 +28,7 @@ open Lean
 
 -- This is a low priority instance so that the built-in `Lean.Grind.Semiring Nat` instance
 -- (which has a non-defeq `ofNat` instance) is used preferentially.
-instance (priority := 100) Semiring.toGrindSemiring [s : Semiring α] :
+instance (priority := 100) Semiring.toGrindSemiring {α : Type u} [s : Semiring α] :
     Grind.Semiring α :=
   { s with
     nsmul := sorry
