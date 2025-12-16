@@ -16,8 +16,6 @@ universe u v
 
 variable {α : Type u} {R : Type v}
 
-open Function
-
 /-!
 ### `Distrib` class
 -/
