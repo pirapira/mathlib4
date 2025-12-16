@@ -19,8 +19,7 @@ public meta import Mathlib.Lean.Meta.Simp
 public meta import Mathlib.Lean.Name
 public meta import Mathlib.Tactic.Eqns -- just to copy the attribute
 public meta import Mathlib.Tactic.Simps.Basic
-public meta import Mathlib.Tactic.Translate.GuessName
-\
+
 @[expose] public section
 
 universe u v w
