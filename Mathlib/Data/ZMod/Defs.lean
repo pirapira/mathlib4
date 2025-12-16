@@ -16,10 +16,6 @@ universe u v w
 /-- A semigroup is a type with an associative `(*)`. -/
 class Semigroup (G : Type u) extends Mul G
 
-/-- Typeclass for expressing that a type `M` with multiplication and a one satisfies
-`1 * a = a` and `a * 1 = a` for all `a : M`. -/
-class MulOneClass (M : Type u) extends One M
-
 variable {R : Type*}
 
 /-- Recognize numeric literals which are at least `2` as terms of `R` via `Nat.cast`. This
