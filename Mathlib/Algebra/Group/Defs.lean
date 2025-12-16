@@ -998,15 +998,6 @@ class AddCommGroup (G : Type u) extends AddGroup G, AddCommMonoid G
 @[to_additive]
 class CommGroup (G : Type u) extends Group G, CommMonoid G
 
-section CommGroup
-
-variable [CommGroup G]
-
-@[to_additive (attr := simp)]
-lemma mul_inv_cancel_comm (a b : G) : a * b * a⁻¹ = b := by rw [mul_comm, inv_mul_cancel_left]
-
-end CommGroup
-
 section IsCommutative
 
 /-- A Prop stating that the addition is commutative. -/
