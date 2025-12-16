@@ -60,13 +60,8 @@ class Semigroup (G : Type u) extends Mul G where
   /-- Multiplication is associative -/
   protected mul_assoc : ∀ a b c : G, a * b * c = a * (b * c)
 
-/-- Bundling an `Add` and `Zero` structure together without any axioms about their
-compatibility. See `AddZeroClass` for the additional assumption that 0 is an identity. -/
-class AddZero (M : Type*) extends Zero M, Add M
-
 /-- Bundling a `Mul` and `One` structure together without any axioms about their
 compatibility. See `MulOneClass` for the additional assumption that 1 is an identity. -/
-@[to_additive (attr := ext)]
 class MulOne (M : Type*) extends One M, Mul M
 
 /-- Typeclass for expressing that a type `M` with multiplication and a one satisfies
