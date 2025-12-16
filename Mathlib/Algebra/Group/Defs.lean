@@ -566,31 +566,3 @@ lemma pow_add (a : M) (m : ℕ) : ∀ n, a ^ (m + n) = a ^ m * a ^ n
 @[to_additive] protected lemma IsRightRegular.mul_eq_one_symm {a b : M} (reg : IsRightRegular a)
     (eq : b * a = 1) : a * b = 1 :=
   reg <| by simp [mul_assoc, eq]
-
-variable (M)
-
-namespace IsDedekindFiniteMonoid
-
-/-- A monoid is Dedekind-finite if every element with a left inverse also has a right inverse. -/
-@[to_additive] lemma of_exists_self_mul_eq_one (ex : ∀ x y : M, x * y = 1 → ∃ z, y * z = 1) :
-    IsDedekindFiniteMonoid M where
-  mul_eq_one_symm {x y} h := by
-    have ⟨z, hz⟩ := ex x y h
-    rwa [show x = z by simpa [← mul_assoc, h] using congr_arg (x * ·) hz.symm]
-
-/-- A monoid is Dedekind-finite if every element with a right inverse also has a left inverse. -/
-@[to_additive] lemma of_exists_mul_self_eq_one (ex : ∀ x y : M, x * y = 1 → ∃ z, z * x = 1) :
-    IsDedekindFiniteMonoid M where
-  mul_eq_one_symm {x y} h := by
-    have ⟨z, hz⟩ := ex x y h
-    rwa [show y = z by simpa [mul_assoc, h] using congr_arg (· * y) hz.symm]
-
-end IsDedekindFiniteMonoid
-
-end Monoid
-
-/-- An additive monoid is torsion-free if scalar multiplication by every non-zero element `n : ℕ` is
-injective. -/
-@[mk_iff]
-class IsAddTorsionFree (M : Type*) [AddMonoid M] where
-  protected nsmul_right_injective ⦃n : ℕ⦄ (hn : n ≠ 0) : Injective fun a : M ↦ n • a
