@@ -109,24 +109,6 @@ protected def binCast [Zero R] [One R] [Add R] : ℕ → R
     then (Nat.binCast ((n + 1) / 2)) + (Nat.binCast ((n + 1) / 2))
     else (Nat.binCast ((n + 1) / 2)) + (Nat.binCast ((n + 1) / 2)) + 1
 
-@[simp]
-theorem binCast_eq [AddMonoidWithOne R] (n : ℕ) :
-    (Nat.binCast n : R) = ((n : ℕ) : R) := by
-  induction n using Nat.strongRecOn with | ind k hk => ?_
-  cases k with
-  | zero => rw [Nat.binCast, Nat.cast_zero]
-  | succ k =>
-      rw [Nat.binCast]
-      by_cases h : (k + 1) % 2 = 0
-      · conv => rhs; rw [← Nat.mod_add_div (k + 1) 2]
-        rw [if_pos h, hk _ <| Nat.div_lt_self (Nat.succ_pos k) (Nat.le_refl 2), ← Nat.cast_add]
-        rw [h, Nat.zero_add, Nat.succ_mul, Nat.one_mul]
-      · conv => rhs; rw [← Nat.mod_add_div (k + 1) 2]
-        rw [if_neg h, hk _ <| Nat.div_lt_self (Nat.succ_pos k) (Nat.le_refl 2), ← Nat.cast_add]
-        have h1 := Or.resolve_left (Nat.mod_two_eq_zero_or_one (succ k)) h
-        rw [h1, Nat.add_comm 1, Nat.succ_mul, Nat.one_mul]
-        simp only [Nat.cast_add, Nat.cast_one]
-
 attribute [simp, norm_cast] Int.natAbs_natCast
 
 end Nat
