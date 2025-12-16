@@ -1124,14 +1124,6 @@ instance (priority := 100) Group.toDivisionMonoid : DivisionMonoid G :=
       fun a b ↦ inv_eq_of_mul <| by rw [mul_assoc, mul_inv_cancel_left, mul_inv_cancel]
     inv_eq_of_mul := fun _ _ ↦ inv_eq_of_mul }
 
--- see Note [lower instance priority]
-@[to_additive]
-instance (priority := 100) Group.toCancelMonoid : CancelMonoid G where
-  mul_right_cancel := fun a b c h ↦ by
-    rw [← mul_inv_cancel_right b a, show b * a = c * a from h, mul_inv_cancel_right]
-  mul_left_cancel := fun a {b c} h ↦ by
-    rw [← inv_mul_cancel_left a b, show a * b = a * c from h, inv_mul_cancel_left]
-
 end Group
 
 /-- An additive commutative group is an additive group with commutative `(+)`. -/
@@ -1145,11 +1137,6 @@ class CommGroup (G : Type u) extends Group G, CommMonoid G
 section CommGroup
 
 variable [CommGroup G]
-
--- see Note [lower instance priority]
-@[to_additive]
-instance (priority := 100) CommGroup.toCancelCommMonoid : CancelCommMonoid G :=
-  { ‹CommGroup G›, Group.toCancelMonoid with }
 
 -- see Note [lower instance priority]
 @[to_additive]
@@ -1197,22 +1184,9 @@ initialize_simps_projections Semigroup
 initialize_simps_projections AddSemigroup
 initialize_simps_projections CommSemigroup
 initialize_simps_projections AddCommSemigroup
-initialize_simps_projections LeftCancelSemigroup
-initialize_simps_projections AddLeftCancelSemigroup
-initialize_simps_projections RightCancelSemigroup
-initialize_simps_projections AddRightCancelSemigroup
-initialize_simps_projections Monoid
 initialize_simps_projections AddMonoid
 initialize_simps_projections CommMonoid
 initialize_simps_projections AddCommMonoid
-initialize_simps_projections LeftCancelMonoid
-initialize_simps_projections AddLeftCancelMonoid
-initialize_simps_projections RightCancelMonoid
-initialize_simps_projections AddRightCancelMonoid
-initialize_simps_projections SubNegMonoid
-initialize_simps_projections DivInvOneMonoid
-initialize_simps_projections SubNegZeroMonoid
-initialize_simps_projections DivisionMonoid
 initialize_simps_projections AddGroup
 initialize_simps_projections CommGroup
 initialize_simps_projections AddCommGroup
