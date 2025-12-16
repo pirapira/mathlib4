@@ -42,7 +42,7 @@ class AddMonoidWithOne (R : Type*) extends NatCast R, One R where
 
 variable {α : Type u} {R : Type v}
 
-class Semiring (α : Type u) extends MulOneClass α, AddMonoidWithOne α
+class Semiring (α : Type u) extends One α, AddMonoidWithOne α
 
 /-!
 # Instances for `grind`.
