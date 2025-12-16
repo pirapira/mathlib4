@@ -7,8 +7,6 @@ module
 
 universe u v
 
-variable {R : Type v}
-
 /-! ### Additive monoids with one -/
 
 /-- An `AddMonoidWithOne` is an `AddMonoid` with a `1`.
