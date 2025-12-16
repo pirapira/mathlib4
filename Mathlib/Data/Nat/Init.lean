@@ -141,79 +141,12 @@ def leRec {n} {motive : (m : ℕ) → n ≤ m → Sort*}
       (fun h : n ≤ m ↦ le_succ_of_le h <| leRec refl le_succ_of_le h)
       (fun h : n = m + 1 ↦ h ▸ refl)
 
--- This verifies the signatures of the recursor matches the builtin one, as promised in the
--- above.
-theorem leRec_eq_leRec : @Nat.leRec.{0} = @Nat.le.rec := rfl
-
-@[simp]
-lemma leRec_self {n} {motive : (m : ℕ) → n ≤ m → Sort*}
-    (refl : motive n (Nat.le_refl _))
-    (le_succ_of_le : ∀ ⦃k⦄ (h : n ≤ k), motive k h → motive (k + 1) (le_succ_of_le h)) :
-    (leRec (motive := motive) refl le_succ_of_le (Nat.le_refl _) :
-    motive n (Nat.le_refl _)) = refl := by
-  cases n <;> simp [leRec, Or.by_cases, dif_neg]
-
-@[simp]
-lemma leRec_succ {n} {motive : (m : ℕ) → n ≤ m → Sort*}
-    (refl : motive n (Nat.le_refl _))
-    (le_succ_of_le : ∀ ⦃k⦄ (h : n ≤ k), motive k h → motive (k + 1) (le_succ_of_le h))
-    (h1 : n ≤ m) {h2 : n ≤ m + 1} :
-    (leRec (motive := motive) refl le_succ_of_le h2) =
-      le_succ_of_le h1 (leRec (motive := motive) refl le_succ_of_le h1) := by
-  conv =>
-    lhs
-    rw [leRec, Or.by_cases, dif_pos h1]
-
-lemma leRec_succ' {n} {motive : (m : ℕ) → n ≤ m → Sort*} (refl le_succ_of_le) :
-    (leRec (motive := motive) refl le_succ_of_le (le_succ _)) = le_succ_of_le _ refl := by
-  rw [leRec_succ, leRec_self]
-
-lemma leRec_trans {n m k} {motive : (m : ℕ) → n ≤ m → Sort*} (refl le_succ_of_le)
-    (hnm : n ≤ m) (hmk : m ≤ k) :
-    leRec (motive := motive) refl le_succ_of_le (Nat.le_trans hnm hmk) =
-      leRec
-        (leRec refl (fun _ h => le_succ_of_le h) hnm)
-        (fun _ h => le_succ_of_le <| Nat.le_trans hnm h) hmk := by
-  induction hmk with
-  | refl => rw [leRec_self]
-  | step hmk ih => rw [leRec_succ _ _ (Nat.le_trans hnm hmk), ih, leRec_succ]
-
-lemma leRec_succ_left {motive : (m : ℕ) → n ≤ m → Sort*}
-    (refl le_succ_of_le) {m} (h1 : n ≤ m) (h2 : n + 1 ≤ m) :
-    -- the `@` is needed for this to elaborate, even though we only provide explicit arguments!
-    @leRec _ _ (le_succ_of_le (Nat.le_refl _) refl)
-        (fun _ h ih => le_succ_of_le (le_of_succ_le h) ih) _ h2 =
-      leRec (motive := motive) refl le_succ_of_le h1 := by
-  rw [leRec_trans _ _ (le_succ n) h2, leRec_succ']
-
 /-- Recursion starting at a non-zero number: given a map `C k → C (k + 1)` for each `k`,
 there is a map from `C n` to each `C m`, `n ≤ m`. For a version where the assumption is only made
 when `k ≥ n`, see `Nat.leRec`. -/
 @[elab_as_elim]
 def leRecOn {C : ℕ → Sort*} {n : ℕ} : ∀ {m}, n ≤ m → (∀ {k}, C k → C (k + 1)) → C n → C m :=
   fun h of_succ self => Nat.leRec self (fun _ _ => @of_succ _) h
-
-lemma leRecOn_self {C : ℕ → Sort*} {n} {next : ∀ {k}, C k → C (k + 1)} (x : C n) :
-    (leRecOn n.le_refl next x : C n) = x :=
-  leRec_self _ _
-
-lemma leRecOn_succ {C : ℕ → Sort*} {n m} (h1 : n ≤ m) {h2 : n ≤ m + 1} {next} (x : C n) :
-    (leRecOn h2 next x : C (m + 1)) = next (leRecOn h1 next x : C m) :=
-  leRec_succ _ _ _
-
-lemma leRecOn_succ' {C : ℕ → Sort*} {n} {h : n ≤ n + 1} {next : ∀ {k}, C k → C (k + 1)} (x : C n) :
-    (leRecOn h next x : C (n + 1)) = next x :=
-  leRec_succ' _ _
-
-lemma leRecOn_trans {C : ℕ → Sort*} {n m k} (hnm : n ≤ m) (hmk : m ≤ k) {next} (x : C n) :
-    (leRecOn (Nat.le_trans hnm hmk) (@next) x : C k) =
-      leRecOn hmk (@next) (leRecOn hnm (@next) x) :=
-  leRec_trans _ _ _ _
-
-lemma leRecOn_succ_left {C : ℕ → Sort*} {n m}
-    {next : ∀ {k}, C k → C (k + 1)} (x : C n) (h1 : n ≤ m) (h2 : n + 1 ≤ m) :
-    (leRecOn h2 next (next x) : C m) = (leRecOn h1 next x : C m) :=
-  leRec_succ_left (motive := fun n _ => C n) _ (fun _ _ => @next _) _ _
 
 private abbrev strongRecAux {p : ℕ → Sort*} (H : ∀ n, (∀ m < n, p m) → p n) :
     ∀ n : ℕ, ∀ m < n, p m
@@ -287,41 +220,6 @@ def decreasingInduction {n} {motive : (m : ℕ) → m ≤ n → Sort*}
   | refl => exact self
   | @le_succ_of_le k _ ih =>
     apply ih (fun i hi => of_succ i (le_succ_of_le hi)) (of_succ k (lt_succ_self _) self)
-
-@[simp]
-lemma decreasingInduction_self {n} {motive : (m : ℕ) → m ≤ n → Sort*} (of_succ self) :
-    (decreasingInduction (motive := motive) of_succ self (Nat.le_refl _)) = self := by
-  dsimp only [decreasingInduction]
-  rw [leRec_self]
-
-lemma decreasingInduction_succ {n} {motive : (m : ℕ) → m ≤ n + 1 → Sort*} (of_succ self)
-    (mn : m ≤ n) (msn : m ≤ n + 1) :
-    (decreasingInduction (motive := motive) of_succ self msn : motive m msn) =
-      decreasingInduction (motive := fun m h => motive m (le_succ_of_le h))
-        (fun _ _ => of_succ _ _) (of_succ _ _ self) mn := by
-  dsimp only [decreasingInduction]; rw [leRec_succ]
-
-@[simp]
-lemma decreasingInduction_succ' {n} {motive : (m : ℕ) → m ≤ n + 1 → Sort*} (of_succ self) :
-    decreasingInduction (motive := motive) of_succ self n.le_succ = of_succ _ _ self := by
-  dsimp only [decreasingInduction]; rw [leRec_succ']
-
-lemma decreasingInduction_trans {motive : (m : ℕ) → m ≤ k → Sort*} (hmn : m ≤ n) (hnk : n ≤ k)
-    (of_succ self) :
-    (decreasingInduction (motive := motive) of_succ self (Nat.le_trans hmn hnk) : motive m _) =
-    decreasingInduction (fun _ _ => of_succ _ _) (decreasingInduction of_succ self hnk) hmn := by
-  induction hnk with
-  | refl => rw [decreasingInduction_self]
-  | step hnk ih =>
-      rw [decreasingInduction_succ _ _ (Nat.le_trans hmn hnk), ih, decreasingInduction_succ]
-
-lemma decreasingInduction_succ_left {motive : (m : ℕ) → m ≤ n → Sort*} (of_succ self)
-    (smn : m + 1 ≤ n) (mn : m ≤ n) :
-    decreasingInduction (motive := motive) of_succ self mn =
-      of_succ m smn (decreasingInduction of_succ self smn) := by
-  rw [Subsingleton.elim mn (Nat.le_trans (le_succ m) smn),
-    decreasingInduction_trans (n := m + 1) (Nat.le_succ m),
-    decreasingInduction_succ']
 
 /-- Given `P : ℕ → ℕ → Sort*`, if for all `m n : ℕ` we can extend `P` from the rectangle
 strictly below `(m, n)` to `P m n`, then we have `P n m` for all `n m : ℕ`.
