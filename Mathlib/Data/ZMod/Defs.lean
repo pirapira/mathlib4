@@ -21,7 +21,7 @@ because they are recognized as terms of `R` (at least when `R` is an `AddMonoidW
 @[nolint unusedArguments]
 instance (priority := 100) instOfNatAtLeastTwo {n : ℕ} [NatCast R] [Nat.AtLeastTwo n] :
     OfNat R n where
-  ofNat := n.cast
+  ofNat := sorry
 
 /-! ### Additive monoids with one -/
 
