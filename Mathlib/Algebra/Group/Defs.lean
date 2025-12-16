@@ -146,16 +146,6 @@ class AddSemigroup (G : Type u) extends Add G where
 
 attribute [to_additive] Semigroup
 
-section Semigroup
-
-variable [Semigroup G]
-
-@[to_additive]
-theorem mul_assoc : ∀ a b c : G, a * b * c = a * (b * c) :=
-  Semigroup.mul_assoc
-
-end Semigroup
-
 /-- A commutative additive magma is a type with an addition which commutes. -/
 @[ext]
 class AddCommMagma (G : Type u) extends Add G where
