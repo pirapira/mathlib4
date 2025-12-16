@@ -106,8 +106,6 @@ instance someStructure (n : ℕ) : Semiring (ZMod n) where
 set_option pp.explicit true
 set_option pp.rawOnError true
 
-#check (someStructure ?_).5
-
 @[grind =]
 theorem dummy (n : Nat) :   @Eq (ZMod n)
     (@NatCast.natCast (ZMod n) (@Semiring.toNatCast (ZMod n) (someStructure n)) n)
