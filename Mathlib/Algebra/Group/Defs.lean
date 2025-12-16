@@ -313,9 +313,6 @@ variable {M : Type u} [MulOneClass M]
 theorem one_mul : ∀ a : M, 1 * a = a :=
   MulOneClass.one_mul
 
-theorem mul_one : ∀ a : M, a * 1 = a :=
-  MulOneClass.mul_one
-
 end MulOneClass
 
 
