@@ -7,22 +7,6 @@ module
 
 public import Mathlib.Data.Nat.Cast.Defs
 
-/-!
-# Cast of integers
-
-This file defines the *canonical* homomorphism from the integers into an
-additive group with a one (typically a `Ring`).  In additive groups with a one
-element, there exists a unique such homomorphism and we store it in the
-`intCast : ℤ → R` field.
-
-Preferentially, the homomorphism is written as a coercion.
-
-## Main declarations
-
-* `Int.cast`: Canonical homomorphism `ℤ → R`.
-* `AddGroupWithOne`: Type class for `Int.cast`.
--/
-
 @[expose] public section
 
 
