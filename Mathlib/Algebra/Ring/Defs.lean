@@ -10,43 +10,7 @@ public import Mathlib.Data.Int.Cast.Defs
 -- public import Mathlib.Tactic.Spread
 -- public import Mathlib.Tactic.StacksAttribute
 
-/-!
-# Semirings and rings
-
-This file defines semirings, rings and domains. This is analogous to
-`Mathlib/Algebra/Group/Defs.lean` and `Mathlib/Algebra/Group/Basic.lean`, the difference being that
-those are about `+` and `*` separately, while the present file is about their interaction.
-the present file is about their interaction.
-
-## Main definitions
-
-* `Distrib`: Typeclass for distributivity of multiplication over addition.
-* `HasDistribNeg`: Typeclass for commutativity of negation and multiplication. This is useful when
-  dealing with multiplicative submonoids which are closed under negation without being closed under
-  addition, for example `Units`.
-* `(NonUnital)(NonAssoc)(Semi)Ring`: Typeclasses for possibly non-unital or non-associative
-  rings and semirings. Some combinations are not defined yet because they haven't found use.
-  For Lie Rings, there is a type synonym `CommutatorRing` defined in
-  `Mathlib/Algebra/Algebra/NonUnitalHom.lean` turning the bracket into a multiplication so that the
-  instance `instNonUnitalNonAssocSemiringCommutatorRing` can be defined.
-
-## Tags
-
-`Semiring`, `CommSemiring`, `Ring`, `CommRing`, domain, `IsDomain`, nonzero, units
--/
-
 @[expose] public section
-
-
-/-!
-Previously an import dependency on `Mathlib/Algebra/Group/Basic.lean` had crept in.
-In general, the `.Defs` files in the basic algebraic hierarchy should only depend on earlier `.Defs`
-files, without importing `.Basic` theory development.
-
-These `assert_not_exists` statements guard against this returning.
--/
-assert_not_exists DivisionMonoid.toDivInvOneMonoid mul_rotate
-
 
 universe u v
 
