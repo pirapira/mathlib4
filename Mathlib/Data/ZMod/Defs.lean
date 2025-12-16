@@ -29,7 +29,7 @@ instance (priority := 100) instOfNatAtLeastTwo {n : Nat} [NatCast R] :
 
 /-- An `AddMonoidWithOne` is an `AddMonoid` with a `1`.
 It also contains data for the unique homomorphism `ℕ → R`. -/
-class AddMonoidWithOne (R : Type*) extends NatCast R, One R where
+class AddMonoidWithOne (R : Type w) extends NatCast R, One R where
   natCast := sorry
 
 @[expose] public section
