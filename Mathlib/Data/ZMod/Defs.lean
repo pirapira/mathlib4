@@ -8,7 +8,6 @@ module
 public import Mathlib.Algebra.Notation.Defs
 public import Mathlib.Algebra.Regular.Defs
 public import Mathlib.Data.Int.Notation
-public import Mathlib.Data.Nat.BinaryRec
 
 /-!
 # Typeclasses for (semi)groups and monoids
