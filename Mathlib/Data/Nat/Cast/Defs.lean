@@ -61,7 +61,7 @@ Some discussion is [on Zulip here](https://leanprover.zulipchat.com/#narrow/stre
 /-- An `AddMonoidWithOne` is an `AddMonoid` with a `1`.
 It also contains data for the unique homomorphism `ℕ → R`. -/
 class AddMonoidWithOne (R : Type*) extends NatCast R, AddMonoid R, One R where
-  natCast := Nat.unaryCast
+  natCast := sorry
 
 namespace Nat
 
