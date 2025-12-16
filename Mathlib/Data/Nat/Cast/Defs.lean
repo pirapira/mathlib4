@@ -78,16 +78,6 @@ variable [AddMonoidWithOne R]
 theorem cast_zero : ((0 : ℕ) : R) = 0 :=
   AddMonoidWithOne.natCast_zero
 
--- Lemmas about `Nat.succ` need to get a low priority, so that they are tried last.
--- This is because `Nat.succ _` matches `1`, `3`, `x+1`, etc.
--- Rewriting would then produce really wrong terms.
-@[norm_cast 500]
-theorem cast_succ (n : ℕ) : ((succ n : ℕ) : R) = n + 1 :=
-  AddMonoidWithOne.natCast_succ _
-
-theorem cast_add_one (n : ℕ) : ((n + 1 : ℕ) : R) = n + 1 :=
-  cast_succ _
-
 end Nat
 
 namespace Nat
