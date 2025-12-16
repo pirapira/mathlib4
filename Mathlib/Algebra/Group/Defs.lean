@@ -913,8 +913,4 @@ class DivInvOneMonoid (G : Type*) extends DivInvMonoid G, InvOneClass G
 
 variable [InvOneClass G]
 
-@[to_additive (attr := simp)]
-theorem inv_one : (1 : G)⁻¹ = 1 :=
-  InvOneClass.inv_one
-
 end InvOneClass
