@@ -31,7 +31,7 @@ instance (priority := 100) Semiring.toGrindSemiring [s : Semiring α] :
     mul_one := by simp [mul_one]
     zero_mul := by simp [zero_mul]
     pow_zero a := by simp
-    pow_succ a n := by simp [pow_succ]
+    pow_succ a n := sorry
     ofNat_eq_natCast
     | 0 => Nat.cast_zero.symm
     | 1 => Nat.cast_one.symm
