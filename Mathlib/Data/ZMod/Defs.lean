@@ -5,8 +5,6 @@ Authors: Eric Rodriguez
 -/
 module
 
-public meta import Lean
-
 @[expose] public section
 
 universe u v w
