@@ -16,8 +16,3 @@ additive equivalent. See the docstrings of `to_additive` for more information.
 -/
 
 public meta section
-
-namespace Mathlib.Tactic.ToAdditive
-open Lean Elab Translate
-
-end Mathlib.Tactic.ToAdditive

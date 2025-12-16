@@ -7,7 +7,7 @@ module
 
 public import Mathlib.Init
 
-public meta import Mathlib.Tactic.Translate.ToAdditive
+public meta import Mathlib.Tactic.Translate.Core
 
 @[expose] public section
 
