@@ -20,22 +20,3 @@ members.
 * `GroupWithZero`
 * `CommGroupWithZero`
 -/
-
-@[expose] public section
-
-assert_not_exists DenselyOrdered Ring
-
-universe u
-
--- We have to fix the universe of `G₀` here, since the default argument to
--- `GroupWithZero.div'` cannot contain a universe metavariable.
-variable {G₀ : Type u} {M₀ : Type*}
-
-section IsRightCancelMulZero
-
-variable [Mul M₀] [Zero M₀] {a b c : M₀}
-
-end IsRightCancelMulZero
-/-- A type `S₀` is a "semigroup with zero” if it is a semigroup with zero element, and `0` is left
-and right absorbing. -/
-class SemigroupWithZero (S₀ : Type u) extends Semigroup S₀
