@@ -205,17 +205,6 @@ theorem mul_comm : ∀ a b : G, a * b = b * a := CommMagma.mul_comm
 @[to_additive]
 instance CommMagma.to_isCommutative [CommMagma G] : Std.Commutative (α := G) (· * ·) := ⟨mul_comm⟩
 
-@[to_additive (attr := simp)]
-lemma isLeftRegular_iff_isRegular : IsLeftRegular a ↔ IsRegular a := by
-  simp [isRegular_iff, IsLeftRegular, IsRightRegular, mul_comm]
-
-/-- Any `CommMagma G` that satisfies `IsLeftCancelMul G` also satisfies `IsRightCancelMul G`. -/
-@[to_additive AddCommMagma.IsLeftCancelAdd.toIsRightCancelAdd /-- Any `AddCommMagma G` that
-satisfies `IsLeftCancelAdd G` also satisfies `IsRightCancelAdd G`. -/]
-lemma CommMagma.IsLeftCancelMul.toIsRightCancelMul (G : Type u) [CommMagma G] [IsLeftCancelMul G] :
-    IsRightCancelMul G :=
-  ⟨fun _ _ _ h => mul_left_cancel <| (mul_comm _ _).trans (h.trans (mul_comm _ _))⟩
-
 end CommMagma
 
 /-- A `RightCancelSemigroup` is a semigroup such that `a * b = c * b` implies `a = c`. -/
