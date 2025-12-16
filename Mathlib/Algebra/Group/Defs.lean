@@ -290,19 +290,15 @@ attribute [to_additive existing] isDedekindFiniteMonoid_iff
 class AddZeroClass (M : Type u) extends AddZero M where
   /-- Zero is a left neutral element for addition -/
   protected zero_add : ∀ a : M, 0 + a = a
-  /-- Zero is a right neutral element for addition -/
-  protected add_zero : ∀ a : M, a + 0 = a
 
 /-- Typeclass for expressing that a type `M` with multiplication and a one satisfies
 `1 * a = a` and `a * 1 = a` for all `a : M`. -/
-@[to_additive]
 class MulOneClass (M : Type u) extends MulOne M where
   /-- One is a left neutral element for multiplication -/
   protected one_mul : ∀ a : M, 1 * a = a
   /-- One is a right neutral element for multiplication -/
   protected mul_one : ∀ a : M, a * 1 = a
 
-@[to_additive (attr := ext)]
 theorem MulOneClass.ext {M : Type u} : ∀ ⦃m₁ m₂ : MulOneClass M⦄, m₁.mul = m₂.mul → m₁ = m₂ := by
   rintro @⟨@⟨⟨one₁⟩, ⟨mul₁⟩⟩, one_mul₁, mul_one₁⟩ @⟨@⟨⟨one₂⟩, ⟨mul₂⟩⟩, one_mul₂, mul_one₂⟩ ⟨rfl⟩
   -- FIXME (See https://github.com/leanprover/lean4/issues/1711)
@@ -314,11 +310,9 @@ section MulOneClass
 
 variable {M : Type u} [MulOneClass M]
 
-@[to_additive (attr := simp)]
 theorem one_mul : ∀ a : M, 1 * a = a :=
   MulOneClass.one_mul
 
-@[to_additive (attr := simp)]
 theorem mul_one : ∀ a : M, a * 1 = a :=
   MulOneClass.mul_one
 
@@ -372,7 +366,3 @@ class AddMonoid (M : Type u) extends AddSemigroup M, AddZeroClass M where
 class Monoid (M : Type u) extends Semigroup M, MulOneClass M where
   /-- Raising to the power of a natural number. -/
   protected npow : ℕ → M → M := sorry
-  /-- Raising to the power `(0 : ℕ)` gives `1`. -/
-  protected npow_zero : ∀ x, npow 0 x = 1 := by intros; rfl
-  /-- Raising to the power `(n + 1 : ℕ)` behaves as expected. -/
-  protected npow_succ : ∀ (n : ℕ) (x), npow (n + 1) x = npow n x * x := by intros; rfl

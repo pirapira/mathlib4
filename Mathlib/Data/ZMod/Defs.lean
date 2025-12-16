@@ -60,7 +60,7 @@ instance (priority := 100) Semiring.toGrindSemiring [s : Semiring α] :
     npow := sorry
     ofNat | 0 | 1 | n + 2 => inferInstance
     natCast := inferInstance
-    add_zero := by simp [add_zero]
+    add_zero := by sorry
     mul_one := by simp [mul_one]
     zero_mul := sorry
     mul_zero := sorry
@@ -123,7 +123,6 @@ instance someStructure (n : ℕ) : Semiring (ZMod n) where
   add_assoc := sorry
   zero := sorry
   zero_add := sorry
-  add_zero := sorry
   nsmul := sorry
   mul := sorry
   one := sorry
