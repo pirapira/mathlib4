@@ -319,14 +319,4 @@ class AtLeastTwo (n : ℕ) : Prop where
 -- `2` in an abstract additive monoid...
 instance (n : ℕ) [NeZero n] : (n + 1).AtLeastTwo :=
   ⟨add_le_add (one_le_iff_ne_zero.mpr (NeZero.ne n)) (Nat.le_refl 1)⟩
-
-namespace AtLeastTwo
-
-variable {n : ℕ} [n.AtLeastTwo]
-
-variable (n) in
-lemma neZero_sub_one : NeZero (n - 1) := ⟨by have := prop (n := n); lia⟩
-
-end AtLeastTwo
-
 end Nat
