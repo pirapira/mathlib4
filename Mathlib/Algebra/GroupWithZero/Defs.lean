@@ -31,20 +31,6 @@ universe u
 -- `GroupWithZero.div'` cannot contain a universe metavariable.
 variable {G₀ : Type u} {M₀ : Type*}
 
-/-- A mixin for left cancellative multiplication by nonzero elements. -/
-@[mk_iff] class IsLeftCancelMulZero (M₀ : Type u) [Mul M₀] [Zero M₀] : Prop where
-  /-- Multiplication by a nonzero element is left cancellative. -/
-  protected mul_left_cancel_of_ne_zero : ∀ {a : M₀}, a ≠ 0 → IsLeftRegular a
-
-section IsLeftCancelMulZero
-
-variable [Mul M₀] [Zero M₀] [IsLeftCancelMulZero M₀] {a b c : M₀}
-
-theorem mul_left_cancel₀ (ha : a ≠ 0) (h : a * b = a * c) : b = c :=
-  IsLeftCancelMulZero.mul_left_cancel_of_ne_zero ha h
-
-end IsLeftCancelMulZero
-
 /-- A mixin for right cancellative multiplication by nonzero elements. -/
 @[mk_iff] class IsRightCancelMulZero (M₀ : Type u) [Mul M₀] [Zero M₀] : Prop where
   /-- Multiplication by a nonzero element is right cancellative. -/
@@ -58,15 +44,6 @@ theorem mul_right_cancel₀ (hb : b ≠ 0) (h : a * b = c * b) : a = c :=
   IsRightCancelMulZero.mul_right_cancel_of_ne_zero hb h
 
 end IsRightCancelMulZero
-
-/-- A mixin for cancellative multiplication by nonzero elements. -/
-@[mk_iff] class IsCancelMulZero (M₀ : Type u) [Mul M₀] [Zero M₀] : Prop
-  extends IsLeftCancelMulZero M₀, IsRightCancelMulZero M₀
-
-theorem isCancelMulZero_iff_forall_isRegular {M₀} [Mul M₀] [Zero M₀] :
-    IsCancelMulZero M₀ ↔ ∀ {a : M₀}, a ≠ 0 → IsRegular a := by
-  simp only [isCancelMulZero_iff, isLeftCancelMulZero_iff, isRightCancelMulZero_iff, ← forall_and]
-  exact forall₂_congr fun _ _ ↦ isRegular_iff.symm
 
 /-- Predicate typeclass for expressing that `a * b = 0` implies `a = 0` or `b = 0`
 for all `a` and `b` of type `M₀`. It is weaker than `IsCancelMulZero` in general,
