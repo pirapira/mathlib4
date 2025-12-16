@@ -940,14 +940,3 @@ class DivisionMonoid (G : Type u) extends DivInvMonoid G, InvolutiveInv G where
 
 /-- Commutative `SubtractionMonoid`. -/
 class SubtractionCommMonoid (G : Type u) extends SubtractionMonoid G, AddCommMonoid G
-
-/-- A `Group` is a `Monoid` with an operation `⁻¹` satisfying `a⁻¹ * a = 1`.
-
-There is also a division operation `/` such that `a / b = a * b⁻¹`,
-with a default so that `a / b = a * b⁻¹` holds by definition.
-
-Use `Group.ofLeftAxioms` or `Group.ofRightAxioms` to define a group structure
-on a type with the minimum proof obligations.
--/
-class Group (G : Type u) extends DivInvMonoid G where
-  protected inv_mul_cancel : ∀ a : G, a⁻¹ * a = 1
