@@ -973,19 +973,4 @@ variable [Group G] {a b : G}
 theorem inv_mul_cancel (a : G) : a⁻¹ * a = 1 :=
   Group.inv_mul_cancel a
 
-@[to_additive]
-private theorem inv_eq_of_mul (h : a * b = 1) : a⁻¹ = b :=
-  left_inv_eq_right_inv (inv_mul_cancel a) h
-
-@[to_additive (attr := simp)]
-theorem mul_inv_cancel (a : G) : a * a⁻¹ = 1 := by
-  rw [← inv_mul_cancel a⁻¹, inv_eq_of_mul (inv_mul_cancel a)]
-
-@[to_additive (attr := simp) sub_self]
-theorem div_self' (a : G) : a / a = 1 := by rw [div_eq_mul_inv, mul_inv_cancel a]
-
-@[to_additive (attr := simp)]
-theorem inv_mul_cancel_left (a b : G) : a⁻¹ * (a * b) = b := by
-  rw [← mul_assoc, inv_mul_cancel, one_mul]
-
 end Group
