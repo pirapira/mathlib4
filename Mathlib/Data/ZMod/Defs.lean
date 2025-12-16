@@ -12,8 +12,6 @@ public meta import Lean.Compiler.NoncomputableAttr
 public meta import Lean.Elab.Tactic.Ext
 public meta import Mathlib.Data.Array.Defs
 public meta import Mathlib.Data.Nat.Notation
-public meta import Mathlib.Lean.Expr.ReplaceRec
-public meta import Mathlib.Lean.Meta.Simp
 public meta import Mathlib.Lean.Name
 public meta import Mathlib.Tactic.Eqns -- just to copy the attribute
 public meta import Mathlib.Tactic.Simps.Basic
