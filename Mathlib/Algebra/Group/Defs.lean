@@ -616,12 +616,6 @@ lemma pow_one (a : M) : a ^ 1 = a := by rw [pow_succ, pow_zero, one_mul]
   | 0 => by simp
   | n + 1 => by rw [pow_succ _ n, pow_succ, pow_succ', mul_assoc]
 
-@[to_additive] lemma mul_pow_mul (a b : M) (n : ℕ) :
-    (a * b) ^ n * a = a * (b * a) ^ n := by
-  induction n with
-  | zero => simp
-  | succ n ih => simp [pow_succ', ← ih, mul_assoc]
-
 @[to_additive]
 lemma pow_mul_comm' (a : M) (n : ℕ) : a ^ n * a = a * a ^ n := by rw [← pow_succ, pow_succ']
 
@@ -630,12 +624,6 @@ lemma pow_mul_comm' (a : M) (n : ℕ) : a ^ n * a = a * a ^ n := by rw [← pow_
 
 -- TODO: Should `alias` automatically transfer `to_additive` statements?
 @[to_additive existing two_nsmul] alias sq := pow_two
-
-@[to_additive three'_nsmul]
-lemma pow_three' (a : M) : a ^ 3 = a * a * a := by rw [pow_succ, pow_two]
-
-@[to_additive three_nsmul]
-lemma pow_three (a : M) : a ^ 3 = a * (a * a) := by rw [pow_succ', pow_two]
 
 -- This lemma is higher priority than later `smul_zero` so that the `simpNF` is happy
 @[to_additive (attr := simp high) nsmul_zero] lemma one_pow : ∀ n, (1 : M) ^ n = 1
