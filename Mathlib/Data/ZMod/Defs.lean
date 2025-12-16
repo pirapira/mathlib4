@@ -6,7 +6,7 @@ Authors: Eric Rodriguez
 module
 
 public import Mathlib.Algebra.GroupWithZero.Defs
-public import Mathlib.Data.Int.Cast.Defs
+public import Mathlib.Data.Nat.Cast.Defs
 
 @[expose] public section
 
