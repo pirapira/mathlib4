@@ -11,7 +11,6 @@ public meta import Batteries.Tactic.Trans
 public meta import Lean.Compiler.NoncomputableAttr
 public meta import Lean.Elab.Tactic.Ext
 public meta import Mathlib.Data.Array.Defs
-public meta import Mathlib.Data.Nat.Notation
 public meta import Mathlib.Tactic.Simps.Basic
 
 @[expose] public section
@@ -25,7 +24,7 @@ instance is what makes things like `37 : R` type check.  Note that `0` and `1` a
 because they are recognized as terms of `R` (at least when `R` is an `AddMonoidWithOne`) through
 `Zero` and `One`, respectively. -/
 @[nolint unusedArguments]
-instance (priority := 100) instOfNatAtLeastTwo {n : ℕ} [NatCast R] :
+instance (priority := 100) instOfNatAtLeastTwo {n : Nat} [NatCast R] :
     OfNat R n where
   ofNat := sorry
 
@@ -106,11 +105,11 @@ end CommRing
 end Fin
 
 /-- The integers modulo `n : ℕ`. -/
-def ZMod : ℕ → Type
+def ZMod : Nat → Type
   | 0 => Int
   | n + 1 => Fin (n + 1)
 
-instance ZMod.decidableEq : ∀ n : ℕ, DecidableEq (ZMod n)
+instance ZMod.decidableEq : ∀ n : Nat, DecidableEq (ZMod n)
   | 0 => inferInstanceAs (DecidableEq Int)
   | n + 1 => inferInstanceAs (DecidableEq (Fin (n + 1)))
 
@@ -120,7 +119,7 @@ open Fin.CommRing in
 /- We define each field by cases, to ensure that the eta-expanded `ZMod.commRing` is defeq to the
 original, this helps avoid diamonds with instances coming from classes extending `CommRing` such as
 field. -/
-instance someStructure (n : ℕ) : Semiring (ZMod n) where
+instance someStructure (n : Nat) : Semiring (ZMod n) where
   one := sorry
   natCast := sorry
 -- n : ZMod n = 0
@@ -139,7 +138,7 @@ theorem dummy (n : Nat) :   @Eq (ZMod n)
      ) := by
   sorry
 
-example (k m : ℕ) : (m ^ 2) = m := by grind
+example (k m : Nat) : (m ^ 2) = m := by grind
 
 
 end ZMod
