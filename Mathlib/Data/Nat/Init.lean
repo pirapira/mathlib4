@@ -232,30 +232,3 @@ def pincerRecursion {P : ℕ → ℕ → Sort*} (Ha0 : ∀ m : ℕ, P m 0) (H0b 
   | m, 0 => Ha0 m
   | 0, n => H0b n
   | Nat.succ _, Nat.succ _ => H _ _ (pincerRecursion Ha0 H0b H _ _) (pincerRecursion Ha0 H0b H _ _)
-
-/-- Decreasing induction: if `P (k+1)` implies `P k` for all `m ≤ k < n`, then `P n` implies `P m`.
-Also works for functions to `Sort*`.
-
-Weakens the assumptions of `Nat.decreasingInduction`. -/
-@[elab_as_elim]
-def decreasingInduction' {P : ℕ → Sort*} (h : ∀ k < n, m ≤ k → P (k + 1) → P k)
-    (mn : m ≤ n) (hP : P n) : P m := by
-  induction mn using decreasingInduction with
-  | self => exact hP
-  | of_succ k hk ih =>
-    exact h _ (lt_of_succ_le hk) (Nat.le_refl _)
-      (ih fun k' hk' h'' => h k' hk' <| le_of_succ_le h'')
-
-/-! ### `mod`, `dvd` -/
-
-lemma not_pos_pow_dvd {a n : ℕ} (ha : 1 < a) (hn : 1 < n) : ¬ a ^ n ∣ a :=
-  not_dvd_of_pos_of_lt (Nat.lt_trans Nat.zero_lt_one ha)
-    (lt_of_eq_of_lt (Nat.pow_one a).symm ((Nat.pow_lt_pow_iff_right ha).2 hn))
-
-/-- `m` is not divisible by `n` if it is between `n * k` and `n * (k + 1)` for some `k`. -/
-@[deprecated (since := "2025-06-05")] alias not_dvd_of_between_consec_multiples :=
-  not_dvd_of_lt_of_lt_mul_succ
-
-@[simp]
-protected theorem not_two_dvd_bit1 (n : ℕ) : ¬2 ∣ 2 * n + 1 := by
-  lia
