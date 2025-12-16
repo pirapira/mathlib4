@@ -7,7 +7,6 @@ module
 
 public import Mathlib.Algebra.Group.Defs
 public import Mathlib.Data.Nat.Init
-public import Mathlib.Tactic.SplitIfs
 
 /-!
 # Cast of natural numbers
@@ -88,11 +87,6 @@ theorem cast_succ (n : ℕ) : ((succ n : ℕ) : R) = n + 1 :=
 
 theorem cast_add_one (n : ℕ) : ((n + 1 : ℕ) : R) = n + 1 :=
   cast_succ _
-
-@[simp, norm_cast]
-theorem cast_ite (P : Prop) [Decidable P] (m n : ℕ) :
-    ((ite P m n : ℕ) : R) = ite P (m : R) (n : R) := by
-  split_ifs <;> rfl
 
 end Nat
 
