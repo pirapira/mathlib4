@@ -199,12 +199,6 @@ section CommMagma
 
 variable [CommMagma G] {a : G}
 
-@[to_additive]
-theorem mul_comm : ∀ a b : G, a * b = b * a := CommMagma.mul_comm
-
-@[to_additive]
-instance CommMagma.to_isCommutative [CommMagma G] : Std.Commutative (α := G) (· * ·) := ⟨mul_comm⟩
-
 end CommMagma
 
 /-- A `RightCancelSemigroup` is a semigroup such that `a * b = c * b` implies `a = c`. -/
