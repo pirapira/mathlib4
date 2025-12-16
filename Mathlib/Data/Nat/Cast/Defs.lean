@@ -127,49 +127,9 @@ theorem binCast_eq [AddMonoidWithOne R] (n : ℕ) :
         rw [h1, Nat.add_comm 1, Nat.succ_mul, Nat.one_mul]
         simp only [Nat.cast_add, Nat.cast_one]
 
-theorem cast_two [NatCast R] : ((2 : ℕ) : R) = (2 : R) := rfl
-
-theorem cast_three [NatCast R] : ((3 : ℕ) : R) = (3 : R) := rfl
-
-theorem cast_four [NatCast R] : ((4 : ℕ) : R) = (4 : R) := rfl
-
 attribute [simp, norm_cast] Int.natAbs_natCast
 
 end Nat
-
-/-- `AddMonoidWithOne` implementation using unary recursion. -/
-protected abbrev AddMonoidWithOne.unary [AddMonoid R] [One R] : AddMonoidWithOne R :=
-  { ‹One R›, ‹AddMonoid R› with }
-
-/-- `AddMonoidWithOne` implementation using binary recursion. -/
-protected abbrev AddMonoidWithOne.binary [AddMonoid R] [One R] : AddMonoidWithOne R :=
-  { ‹One R›, ‹AddMonoid R› with
-    natCast := Nat.binCast,
-    natCast_zero := by simp only [Nat.binCast],
-    natCast_succ := fun n => by
-      letI : AddMonoidWithOne R := AddMonoidWithOne.unary
-      rw [Nat.binCast_eq, Nat.binCast_eq, Nat.cast_succ] }
-
-theorem one_add_one_eq_two [AddMonoidWithOne R] : 1 + 1 = (2 : R) := by
-  rw [← Nat.cast_one, ← Nat.cast_add]
-  apply congrArg
-  decide
-
-theorem two_add_one_eq_three [AddMonoidWithOne R] : 2 + 1 = (3 : R) := by
-  rw [← one_add_one_eq_two, ← Nat.cast_one, ← Nat.cast_add, ← Nat.cast_add]
-  apply congrArg
-  decide
-
-theorem three_add_one_eq_four [AddMonoidWithOne R] : 3 + 1 = (4 : R) := by
-  rw [← two_add_one_eq_three, ← one_add_one_eq_two, ← Nat.cast_one,
-    ← Nat.cast_add, ← Nat.cast_add, ← Nat.cast_add]
-  apply congrArg
-  decide
-
-theorem two_add_two_eq_four [AddMonoidWithOne R] : 2 + 2 = (4 : R) := by
-  simp [← one_add_one_eq_two, ← Nat.cast_one, ← three_add_one_eq_four,
-    ← two_add_one_eq_three, add_assoc]
-
 section nsmul
 
 @[simp] lemma nsmul_one {A} [AddMonoidWithOne A] : ∀ n : ℕ, n • (1 : A) = n
