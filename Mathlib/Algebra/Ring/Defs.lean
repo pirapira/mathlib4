@@ -183,21 +183,3 @@ theorem mul_two (n : α) : n * 2 = n + n :=
   | succ n ih => rw [succ_nsmul, ih, Nat.cast_succ, add_mul, one_mul]
 
 end NonAssocSemiring
-
-section MulZeroClass
-variable [MulZeroClass α] (P Q : Prop) [Decidable P] [Decidable Q] (a b : α)
-
-lemma ite_zero_mul : ite P a 0 * b = ite P (a * b) 0 := by simp
-
-lemma mul_ite_zero : a * ite P b 0 = ite P (a * b) 0 := by simp
-
-lemma ite_zero_mul_ite_zero : ite P a 0 * ite Q b 0 = ite (P ∧ Q) (a * b) 0 := by
-  simp only [← ite_and, ite_mul, mul_ite, mul_zero, zero_mul, and_comm]
-
-end MulZeroClass
-
-theorem mul_boole {α} [MulZeroOneClass α] (P : Prop) [Decidable P] (a : α) :
-    (a * if P then 1 else 0) = if P then a else 0 := by simp
-
-theorem boole_mul {α} [MulZeroOneClass α] (P : Prop) [Decidable P] (a : α) :
-    (if P then 1 else 0) * a = if P then a else 0 := by simp
