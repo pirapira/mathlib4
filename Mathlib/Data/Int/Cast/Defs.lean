@@ -11,9 +11,3 @@ public import Mathlib.Data.Nat.Cast.Defs
 
 
 universe u
-
-/-! ### Additive groups with one -/
-
-/-- An `AddCommGroupWithOne` is an `AddGroupWithOne` satisfying `a + b = b + a`. -/
-class AddCommGroupWithOne (R : Type u)
-  extends AddCommGroup R, AddCommMonoidWithOne R
