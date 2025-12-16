@@ -62,10 +62,6 @@ Some discussion is [on Zulip here](https://leanprover.zulipchat.com/#narrow/stre
 It also contains data for the unique homomorphism `ℕ → R`. -/
 class AddMonoidWithOne (R : Type*) extends NatCast R, AddMonoid R, One R where
   natCast := Nat.unaryCast
-  /-- The canonical map `ℕ → R` sends `0 : ℕ` to `0 : R`. -/
-  natCast_zero : natCast 0 = 0 := by intros; rfl
-  /-- The canonical map `ℕ → R` is a homomorphism. -/
-  natCast_succ : ∀ n, natCast (n + 1) = natCast n + 1 := by intros; rfl
 
 /-- An `AddCommMonoidWithOne` is an `AddMonoidWithOne` satisfying `a + b = b + a`. -/
 class AddCommMonoidWithOne (R : Type*) extends AddMonoidWithOne R
