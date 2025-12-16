@@ -68,7 +68,7 @@ class AddMonoidWithOne (R : Type*) extends NatCast R, AddMonoid R, One R where
   natCast_succ : ∀ n, natCast (n + 1) = natCast n + 1 := by intros; rfl
 
 /-- An `AddCommMonoidWithOne` is an `AddMonoidWithOne` satisfying `a + b = b + a`. -/
-class AddCommMonoidWithOne (R : Type*) extends AddMonoidWithOne R, AddCommMonoid R
+class AddCommMonoidWithOne (R : Type*) extends AddMonoidWithOne R
 
 namespace Nat
 

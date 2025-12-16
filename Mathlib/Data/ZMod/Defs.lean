@@ -38,6 +38,7 @@ instance (priority := 100) Semiring.toGrindSemiring [s : Semiring α] :
     nsmul_eq_natCast_mul n a := sorry
     left_distrib := sorry
     right_distrib := sorry
+    add_comm := sorry
   }
 
 /-!
@@ -92,7 +93,6 @@ instance someStructure (n : ℕ) : Semiring (ZMod n) where
   nsmul := sorry
   nsmul_zero := sorry
   nsmul_succ := sorry
-  add_comm := sorry
   mul := sorry
   mul_assoc := sorry
   one := sorry
