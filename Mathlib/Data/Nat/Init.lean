@@ -289,25 +289,3 @@ instance decidableLoHi (lo hi : ℕ) (P : ℕ → Prop) [DecidablePred P] :
       fun al x h ↦ al _ (Nat.le_add_right _ _) (Nat.lt_sub_iff_add_lt'.1 h)⟩
     have := al (x - lo) ((Nat.sub_lt_sub_iff_right hl).2 hh)
     rwa [Nat.add_sub_cancel' hl] at this
-
-/-! ### `Nat.AtLeastTwo` -/
-
-/-- A type class for natural numbers which are greater than or equal to `2`.
-
-`NeZero` and `AtLeastTwo` are used for numeric literals, and also for groups of related lemmas
-sharing a common value of `n` that needs to be nonzero, or at least `2`, and where it is
-convenient to pass this information implicitly. Instances for these classes cover some of the
-cases where it is most structurally obvious from the syntactic form of `n` that it satisfies the
-required conditions, such as `m + 1`. Less widely used cases may be defined as lemmas rather than
-global instances and then made into instances locally where needed. If implicit arguments,
-appearing before other explicit arguments, are allowed to be `autoParam`s in a future version of
-Lean, such an `autoParam` that is proved `by lia` might be a more general replacement for the
-use of typeclass inference for this purpose. -/
-class AtLeastTwo (n : ℕ) : Prop where
-  prop : 2 ≤ n
-
--- Note: the following should stay axiom-free, since it is used whenever one writes the symbol
--- `2` in an abstract additive monoid...
-instance (n : ℕ) [NeZero n] : (n + 1).AtLeastTwo :=
-  ⟨add_le_add (one_le_iff_ne_zero.mpr (NeZero.ne n)) (Nat.le_refl 1)⟩
-end Nat
