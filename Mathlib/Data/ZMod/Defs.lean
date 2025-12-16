@@ -5,7 +5,8 @@ Authors: Eric Rodriguez
 -/
 module
 
-public import Mathlib.Algebra.Notation.Defs
+public import Mathlib.Tactic.Lemma
+public import Mathlib.Tactic.ToAdditive
 
 /-!
 # Typeclasses for (semi)groups and monoids
