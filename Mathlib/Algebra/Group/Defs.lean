@@ -1172,10 +1172,6 @@ argument order of these projections doesn't match the argument order of `^`.
 The `nsmul`/`zsmul` lemmas will be correct. -/
 initialize_simps_projections Semigroup
 initialize_simps_projections AddSemigroup
-initialize_simps_projections CommSemigroup
-initialize_simps_projections AddCommSemigroup
-initialize_simps_projections AddMonoid
-initialize_simps_projections CommMonoid
 initialize_simps_projections AddCommMonoid
 initialize_simps_projections AddGroup
 initialize_simps_projections CommGroup
