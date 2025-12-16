@@ -109,13 +109,6 @@ variable [Mul α]
 lemma mul_dite (a : α) (b : P → α) (c : ¬P → α) :
     (a * if h : P then b h else c h) = if h : P then a * b h else a * c h := by split <;> rfl
 
-@[to_additive]
-lemma mul_ite (a b c : α) : (a * if P then b else c) = if P then a * b else a * c := mul_dite ..
-
-@[to_additive]
-lemma dite_mul (a : P → α) (b : ¬P → α) (c : α) :
-    (if h : P then a h else b h) * c = if h : P then a h * c else b h * c := by split <;> rfl
-
 end Mul
 
 end ite
