@@ -8,7 +8,6 @@ module
 public import Mathlib.Init
 
 public meta import Lean
-public meta import Mathlib.Tactic.TypeStar
 
 @[expose] public section
 
@@ -41,8 +40,6 @@ class Semiring (α : Type u) extends One α, AddMonoidWithOne α
 -/
 
 open Lean
-
-variable (α : Type*)
 
 -- This is a low priority instance so that the built-in `Lean.Grind.Semiring Nat` instance
 -- (which has a non-defeq `ofNat` instance) is used preferentially.
