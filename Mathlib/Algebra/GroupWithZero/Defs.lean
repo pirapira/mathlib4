@@ -45,4 +45,4 @@ class MulZeroOneClass (M₀ : Type u) extends MulOneClass M₀
 
 /-- A type `M₀` is a “monoid with zero” if it is a monoid with zero element, and `0` is left
 and right absorbing. -/
-class MonoidWithZero (M₀ : Type u) extends Monoid M₀, MulZeroOneClass M₀, SemigroupWithZero M₀
+class MonoidWithZero (M₀ : Type u) extends Monoid M₀, MulZeroOneClass M₀
