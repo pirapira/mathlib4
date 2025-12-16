@@ -951,22 +951,3 @@ on a type with the minimum proof obligations.
 -/
 class Group (G : Type u) extends DivInvMonoid G where
   protected inv_mul_cancel : ∀ a : G, a⁻¹ * a = 1
-
-/-- An `AddGroup` is an `AddMonoid` with a unary `-` satisfying `-a + a = 0`.
-
-There is also a binary operation `-` such that `a - b = a + -b`,
-with a default so that `a - b = a + -b` holds by definition.
-
-Use `AddGroup.ofLeftAxioms` or `AddGroup.ofRightAxioms` to define an
-additive group structure on a type with the minimum proof obligations.
--/
-class AddGroup (A : Type u) extends SubNegMonoid A where
-  protected neg_add_cancel : ∀ a : A, -a + a = 0
-
-attribute [to_additive] Group
-
-section Group
-
-variable [Group G] {a b : G}
-
-end Group
