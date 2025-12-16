@@ -294,6 +294,6 @@ the `npow` field when defining multiplicative objects.
 -/
 
 /-- A `Monoid` is a `Semigroup` with an element `1` such that `1 * a = a * 1 = a`. -/
-class Monoid (M : Type u) extends MulOneClass M where
+class Monoid (M : Type u) where
   /-- Raising to the power of a natural number. -/
   protected npow : ℕ → M → M := sorry
