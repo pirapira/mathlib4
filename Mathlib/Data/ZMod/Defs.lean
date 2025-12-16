@@ -125,8 +125,6 @@ instance someStructure (n : ℕ) : Semiring (ZMod n) where
   zero_add := sorry
   add_zero := sorry
   nsmul := sorry
-  nsmul_zero := sorry
-  nsmul_succ := sorry
   mul := sorry
   one := sorry
   one_mul := sorry

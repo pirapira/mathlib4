@@ -367,10 +367,6 @@ class AddMonoid (M : Type u) extends AddSemigroup M, AddZeroClass M where
   /-- Multiplication by a natural number.
   Set this to `nsmulRec` unless `Module` diamonds are possible. -/
   protected nsmul : ℕ → M → M
-  /-- Multiplication by `(0 : ℕ)` gives `0`. -/
-  protected nsmul_zero : ∀ x, nsmul 0 x = 0 := by intros; rfl
-  /-- Multiplication by `(n + 1 : ℕ)` behaves as expected. -/
-  protected nsmul_succ : ∀ (n : ℕ) (x), nsmul (n + 1) x = nsmul n x + x := by intros; rfl
 
 /-- A `Monoid` is a `Semigroup` with an element `1` such that `1 * a = a * 1 = a`. -/
 class Monoid (M : Type u) extends Semigroup M, MulOneClass M where
