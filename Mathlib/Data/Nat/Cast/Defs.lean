@@ -92,16 +92,6 @@ end Nat
 
 namespace Nat
 
-@[simp, norm_cast]
-theorem cast_one [AddMonoidWithOne R] : ((1 : ℕ) : R) = 1 := by
-  rw [cast_succ, Nat.cast_zero, zero_add]
-
-@[simp, norm_cast]
-theorem cast_add [AddMonoidWithOne R] (m n : ℕ) : ((m + n : ℕ) : R) = m + n := by
-  induction n with
-  | zero => simp
-  | succ n ih => rw [add_succ, cast_succ, ih, cast_succ, add_assoc]
-
 /-- Computationally friendlier cast than `Nat.unaryCast`, using binary representation. -/
 protected def binCast [Zero R] [One R] [Add R] : ℕ → R
   | 0 => 0
@@ -113,9 +103,5 @@ attribute [simp, norm_cast] Int.natAbs_natCast
 
 end Nat
 section nsmul
-
-@[simp] lemma nsmul_one {A} [AddMonoidWithOne A] : ∀ n : ℕ, n • (1 : A) = n
-  | 0 => by simp [zero_nsmul]
-  | n + 1 => by simp [succ_nsmul, nsmul_one n]
 
 end nsmul
