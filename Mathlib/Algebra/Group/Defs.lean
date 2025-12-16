@@ -98,20 +98,6 @@ variable {R : Type*}
   rw [isCancelMul_iff, isLeftCancelMul_iff, isRightCancelMul_iff, ← forall_and]
   exact forall_congr' fun _ ↦ isRegular_iff.symm
 
-/-- If all multiplications cancel on the left then every element is left-regular. -/
-@[to_additive /-- If all additions cancel on the left then every element is add-left-regular. -/]
-theorem IsLeftRegular.all [Mul R] [IsLeftCancelMul R] (g : R) : IsLeftRegular g :=
-  (isLeftCancelMul_iff R).mp ‹_› _
-
-/-- If all multiplications cancel on the right then every element is right-regular. -/
-@[to_additive /-- If all additions cancel on the right then every element is add-right-regular. -/]
-theorem IsRightRegular.all [Mul R] [IsRightCancelMul R] (g : R) : IsRightRegular g :=
-  (isRightCancelMul_iff R).mp ‹_› _
-
-/-- If all multiplications cancel then every element is regular. -/
-@[to_additive /-- If all additions cancel then every element is add-regular. -/]
-theorem IsRegular.all [Mul R] [IsCancelMul R] (g : R) : IsRegular g := ⟨.all g, .all g⟩
-
 end Regular
 
 section IsLeftCancelMul
