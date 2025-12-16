@@ -7,8 +7,7 @@ module
 
 public import Mathlib.Algebra.GroupWithZero.Defs
 
-public import Mathlib.Algebra.Group.Defs
--- public import Mathlib.Data.Nat.Init
+-- public import Mathlib.Algebra.Group.Defs
 
 @[expose] public section
 
