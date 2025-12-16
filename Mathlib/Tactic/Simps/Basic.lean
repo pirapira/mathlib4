@@ -129,28 +129,3 @@ def mkSimpContext (cfg : Meta.Simp.Config := {}) (simpOnly := false) (kind := Si
   return data.ctx
 
 end Lean.Meta
-
-namespace Lean.Parser
-namespace Attr
-
-
-/-! Declare notation classes. -/
-attribute [notation_class add] HAdd
-attribute [notation_class mul] HMul
-attribute [notation_class sub] HSub
-attribute [notation_class div] HDiv
-attribute [notation_class mod] HMod
-attribute [notation_class append] HAppend
-attribute [notation_class pow Simps.copyFirst] HPow
-attribute [notation_class andThen] HAndThen
-attribute [notation_class] Neg Dvd LE LT HasEquiv HasSubset HasSSubset Union Inter SDiff Insert
-  Singleton Sep Membership
-attribute [notation_class one Simps.findOneArgs] OfNat
-attribute [notation_class zero Simps.findZeroArgs] OfNat
-
-/-- An `(attr := ...)` option for `simps`. -/
-syntax simpsOptAttrOption := atomic(" (" &"attr" " := " Parser.Term.attrInstance,* ")")?
-
-/-- Arguments to `@[simps]` attribute.
-Currently, a potential `(attr := ...)` argument has to come before other configuration options. -/
-syntax simpsArgsRest := simpsOptAttrOption Tactic.optConfig (ppSpace ident)*
