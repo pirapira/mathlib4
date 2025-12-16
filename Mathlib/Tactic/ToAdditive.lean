@@ -16,5 +16,3 @@ public meta section
 set_option linter.privateModule false
 
 attribute [to_additive_do_translate] Empty PEmpty Unit PUnit
-
-attribute [translate_change_numeral 2] OfNat
