@@ -19,7 +19,7 @@ class Semigroup (G : Type u) extends Mul G
 
 /-- Bundling a `Mul` and `One` structure together without any axioms about their
 compatibility. See `MulOneClass` for the additional assumption that 1 is an identity. -/
-class MulOne (M : Type*) extends One M, Mul M
+class MulOne (M : Type*) extends One M
 
 /-- Typeclass for expressing that a type `M` with multiplication and a one satisfies
 `1 * a = a` and `a * 1 = a` for all `a : M`. -/
@@ -73,6 +73,7 @@ instance (priority := 100) Semiring.toGrindSemiring [s : Semiring α] :
     nsmul := sorry
     add := sorry
     add_assoc := sorry
+    mul := sorry
     one_mul := sorry
     npow := sorry
     ofNat | 0 | 1 | n + 2 => inferInstance
@@ -136,7 +137,6 @@ open Fin.CommRing in
 original, this helps avoid diamonds with instances coming from classes extending `CommRing` such as
 field. -/
 instance someStructure (n : ℕ) : Semiring (ZMod n) where
-  mul := sorry
   one := sorry
   natCast := sorry
 -- n : ZMod n = 0
