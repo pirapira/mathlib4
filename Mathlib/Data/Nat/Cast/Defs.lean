@@ -51,9 +51,3 @@ instance (priority := 100) instOfNatAtLeastTwo {n : ℕ} [NatCast R] [Nat.AtLeas
 It also contains data for the unique homomorphism `ℕ → R`. -/
 class AddMonoidWithOne (R : Type*) extends NatCast R, AddMonoid R, One R where
   natCast := sorry
-
-namespace Nat
-
-variable [AddMonoidWithOne R]
-
-end Nat
