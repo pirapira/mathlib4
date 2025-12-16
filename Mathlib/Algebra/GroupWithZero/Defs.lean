@@ -41,15 +41,6 @@ section IsRightCancelMulZero
 variable [Mul M₀] [Zero M₀] [IsRightCancelMulZero M₀] {a b c : M₀}
 
 end IsRightCancelMulZero
-
-/-- Predicate typeclass for expressing that `a * b = 0` implies `a = 0` or `b = 0`
-for all `a` and `b` of type `M₀`. It is weaker than `IsCancelMulZero` in general,
-but equivalent to it if `M₀` is a (not necessarily unital or associative) ring. -/
-@[mk_iff] class NoZeroDivisors (M₀ : Type*) [Mul M₀] [Zero M₀] : Prop where
-  /-- For all `a` and `b` of `M₀`, `a * b = 0` implies `a = 0` or `b = 0`. -/
-  eq_zero_or_eq_zero_of_mul_eq_zero : ∀ {a b : M₀}, a * b = 0 → a = 0 ∨ b = 0
-
-export NoZeroDivisors (eq_zero_or_eq_zero_of_mul_eq_zero)
 /-- A type `S₀` is a "semigroup with zero” if it is a semigroup with zero element, and `0` is left
 and right absorbing. -/
 class SemigroupWithZero (S₀ : Type u) extends Semigroup S₀
