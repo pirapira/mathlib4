@@ -873,15 +873,4 @@ theorem zpow_natCast (a : G) : ∀ n : ℕ, a ^ (n : ℤ) = a ^ n
     _ = a ^ n * a := congrArg (· * a) (zpow_natCast a n)
     _ = a ^ (n + 1) := (pow_succ _ _).symm
 
-/-- Dividing by an element is the same as multiplying by its inverse.
-
-This is a duplicate of `DivInvMonoid.div_eq_mul_inv` ensuring that the types unfold better.
--/
-@[to_additive /-- Subtracting an element is the same as adding by its negative.
-This is a duplicate of `SubNegMonoid.sub_eq_add_neg` ensuring that the types unfold better. -/]
-theorem div_eq_mul_inv (a b : G) : a / b = a * b⁻¹ :=
-  DivInvMonoid.div_eq_mul_inv _ _
-
-alias division_def := div_eq_mul_inv
-
 end DivInvMonoid
