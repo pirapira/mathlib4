@@ -31,12 +31,6 @@ universe u
 -- `GroupWithZero.div'` cannot contain a universe metavariable.
 variable {G₀ : Type u} {M₀ : Type*}
 
-/-- Typeclass for expressing that a type `M₀` with multiplication and a zero satisfies
-`0 * a = 0` and `a * 0 = 0` for all `a : M₀`. -/
-class MulZeroClass (M₀ : Type u) extends Mul M₀, Zero M₀ where
-  /-- Zero is a left absorbing element for multiplication -/
-  zero_mul : ∀ a : M₀, 0 * a = 0
-
 /-- A mixin for left cancellative multiplication by nonzero elements. -/
 @[mk_iff] class IsLeftCancelMulZero (M₀ : Type u) [Mul M₀] [Zero M₀] : Prop where
   /-- Multiplication by a nonzero element is left cancellative. -/
@@ -48,9 +42,6 @@ variable [Mul M₀] [Zero M₀] [IsLeftCancelMulZero M₀] {a b c : M₀}
 
 theorem mul_left_cancel₀ (ha : a ≠ 0) (h : a * b = a * c) : b = c :=
   IsLeftCancelMulZero.mul_left_cancel_of_ne_zero ha h
-
-theorem mul_right_injective₀ (ha : a ≠ 0) : Function.Injective (a * ·) :=
-  fun _ _ => mul_left_cancel₀ ha
 
 end IsLeftCancelMulZero
 
@@ -90,10 +81,10 @@ but equivalent to it if `M₀` is a (not necessarily unital or associative) ring
 export NoZeroDivisors (eq_zero_or_eq_zero_of_mul_eq_zero)
 /-- A type `S₀` is a "semigroup with zero” if it is a semigroup with zero element, and `0` is left
 and right absorbing. -/
-class SemigroupWithZero (S₀ : Type u) extends Semigroup S₀, MulZeroClass S₀
+class SemigroupWithZero (S₀ : Type u) extends Semigroup S₀
 
 /-- A typeclass for non-associative monoids with zero elements. -/
-class MulZeroOneClass (M₀ : Type u) extends MulOneClass M₀, MulZeroClass M₀
+class MulZeroOneClass (M₀ : Type u) extends MulOneClass M₀
 
 /-- A type `M₀` is a “monoid with zero” if it is a monoid with zero element, and `0` is left
 and right absorbing. -/

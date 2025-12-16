@@ -104,8 +104,6 @@ instance someStructure (n : ℕ) : Semiring (ZMod n) where
   natCast := sorry
   natCast_zero := sorry
   natCast_succ := sorry
-  zero_mul := sorry
-  mul_zero := sorry
   npow := sorry
   npow_zero := sorry
   npow_succ := sorry
