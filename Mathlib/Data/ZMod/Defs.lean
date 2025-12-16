@@ -13,7 +13,7 @@ variable {α : Type u} {R : Type v}
 
 /-- An `AddMonoidWithOne` is an `AddMonoid` with a `1`.
 It also contains data for the unique homomorphism `ℕ → R`. -/
-class AddMonoidWithOne (R : Type w) extends NatCast R, One R where
+class AddMonoidWithOne R extends NatCast R, One R where
   natCast := sorry
 
 @[expose] public section
