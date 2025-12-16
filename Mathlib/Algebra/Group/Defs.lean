@@ -497,7 +497,6 @@ attribute [instance 150] AddSemigroup.toAdd
 attribute [instance 50] AddZero.toAdd
 
 /-- A `Monoid` is a `Semigroup` with an element `1` such that `1 * a = a * 1 = a`. -/
-@[to_additive]
 class Monoid (M : Type u) extends Semigroup M, MulOneClass M where
   /-- Raising to the power of a natural number. -/
   protected npow : ℕ → M → M := npowRecAuto
@@ -511,5 +510,3 @@ class Monoid (M : Type u) extends Semigroup M, MulOneClass M where
 
 instance AddMonoid.toNatSMul {M : Type*} [AddMonoid M] : SMul ℕ M :=
   ⟨AddMonoid.nsmul⟩
-
-attribute [to_additive existing toNatSMul] Monoid.toNatPow
