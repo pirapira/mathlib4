@@ -218,19 +218,6 @@ lemma CommMagma.IsLeftCancelMul.toIsRightCancelMul (G : Type u) [CommMagma G] [I
 
 end CommMagma
 
-/-- A `LeftCancelSemigroup` is a semigroup such that `a * b = a * c` implies `b = c`. -/
-@[ext]
-class LeftCancelSemigroup (G : Type u) extends Semigroup G, IsLeftCancelMul G
-
-/-- An `AddLeftCancelSemigroup` is an additive semigroup such that
-`a + b = a + c` implies `b = c`. -/
-@[ext]
-class AddLeftCancelSemigroup (G : Type u) extends AddSemigroup G, IsLeftCancelAdd G
-
-attribute [instance 75] AddLeftCancelSemigroup.toAddSemigroup -- See note [lower cancel priority]
-
-attribute [to_additive] LeftCancelSemigroup
-
 /-- A `RightCancelSemigroup` is a semigroup such that `a * b = c * b` implies `a = c`. -/
 @[ext]
 class RightCancelSemigroup (G : Type u) extends Semigroup G, IsRightCancelMul G
