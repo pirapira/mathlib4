@@ -1156,9 +1156,6 @@ instance (priority := 100) CommGroup.toCancelCommMonoid : CancelCommMonoid G :=
 instance (priority := 100) CommGroup.toDivisionCommMonoid : DivisionCommMonoid G :=
   { ‹CommGroup G›, Group.toDivisionMonoid with }
 
-@[to_additive (attr := simp)] lemma inv_mul_cancel_comm (a b : G) : a⁻¹ * b * a = b := by
-  rw [mul_comm, mul_inv_cancel_left]
-
 @[to_additive (attr := simp)]
 lemma mul_inv_cancel_comm (a b : G) : a * b * a⁻¹ = b := by rw [mul_comm, inv_mul_cancel_left]
 
@@ -1212,11 +1209,6 @@ initialize_simps_projections LeftCancelMonoid
 initialize_simps_projections AddLeftCancelMonoid
 initialize_simps_projections RightCancelMonoid
 initialize_simps_projections AddRightCancelMonoid
-initialize_simps_projections CancelMonoid
-initialize_simps_projections AddCancelMonoid
-initialize_simps_projections CancelCommMonoid
-initialize_simps_projections AddCancelCommMonoid
-initialize_simps_projections DivInvMonoid
 initialize_simps_projections SubNegMonoid
 initialize_simps_projections DivInvOneMonoid
 initialize_simps_projections SubNegZeroMonoid
