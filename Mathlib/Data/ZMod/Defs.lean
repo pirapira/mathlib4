@@ -5,8 +5,6 @@ Authors: Eric Rodriguez
 -/
 module
 
-@[expose] public section
-
 universe u v w
 
 variable {α : Type u} {R : Type v}
@@ -126,6 +124,3 @@ theorem dummy (n : Nat) :   @Eq (ZMod n)
   sorry
 
 example (k m : Nat) : (m ^ 2) = m := by grind
-
-
-end ZMod
