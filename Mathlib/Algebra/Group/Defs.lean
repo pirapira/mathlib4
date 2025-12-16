@@ -54,49 +54,23 @@ section Mul
 
 variable [Mul G]
 
-/-- A mixin for left cancellative multiplication. -/
-@[mk_iff] class IsLeftCancelMul (G : Type u) [Mul G] : Prop where
-  /-- Multiplication is left cancellative (i.e. left regular). -/
-  protected mul_left_cancel (a : G) : IsLeftRegular a
-/-- A mixin for right cancellative multiplication. -/
-@[mk_iff] class IsRightCancelMul (G : Type u) [Mul G] : Prop where
-  /-- Multiplication is right cancellative (i.e. right regular). -/
-  protected mul_right_cancel (a : G) : IsRightRegular a
-/-- A mixin for cancellative multiplication. -/
-@[mk_iff]
-class IsCancelMul (G : Type u) [Mul G] : Prop extends IsLeftCancelMul G, IsRightCancelMul G
-
 /-- A mixin for left cancellative addition. -/
 class IsLeftCancelAdd (G : Type u) [Add G] : Prop where
   /-- Addition is left cancellative (i.e. left regular). -/
   protected add_left_cancel (a : G) : IsAddLeftRegular a
-
-attribute [to_additive] IsLeftCancelMul
-attribute [to_additive] isLeftCancelMul_iff
 
 /-- A mixin for right cancellative addition. -/
 class IsRightCancelAdd (G : Type u) [Add G] : Prop where
   /-- Addition is right cancellative (i.e. right regular). -/
   protected add_right_cancel (a : G) : IsAddRightRegular a
 
-attribute [to_additive] IsRightCancelMul
-attribute [to_additive] isRightCancelMul_iff
-
 /-- A mixin for cancellative addition. -/
 @[mk_iff]
 class IsCancelAdd (G : Type u) [Add G] : Prop extends IsLeftCancelAdd G, IsRightCancelAdd G
 
-attribute [to_additive] IsCancelMul
-attribute [to_additive existing] isCancelMul_iff
-
 section Regular
 
 variable {R : Type*}
-
-@[to_additive] theorem isCancelMul_iff_forall_isRegular [Mul R] :
-    IsCancelMul R ↔ ∀ r : R, IsRegular r := by
-  rw [isCancelMul_iff, isLeftCancelMul_iff, isRightCancelMul_iff, ← forall_and]
-  exact forall_congr' fun _ ↦ isRegular_iff.symm
 
 end Regular
 
@@ -105,12 +79,6 @@ end Regular
 class Semigroup (G : Type u) extends Mul G where
   /-- Multiplication is associative -/
   protected mul_assoc : ∀ a b c : G, a * b * c = a * (b * c)
-
-/-- A `RightCancelSemigroup` is a semigroup such that `a * b = c * b` implies `a = c`. -/
-@[ext]
-class RightCancelSemigroup (G : Type u) extends Semigroup G, IsRightCancelMul G
-
-attribute [instance 75] RightCancelSemigroup.toSemigroup -- See note [lower cancel priority]
 
 /-- Bundling an `Add` and `Zero` structure together without any axioms about their
 compatibility. See `AddZeroClass` for the additional assumption that 0 is an identity. -/
