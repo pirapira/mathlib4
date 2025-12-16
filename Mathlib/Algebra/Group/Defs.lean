@@ -138,34 +138,11 @@ class Semigroup (G : Type u) extends Mul G where
   /-- Multiplication is associative -/
   protected mul_assoc : ∀ a b c : G, a * b * c = a * (b * c)
 
-/-- An additive semigroup is a type with an associative `(+)`. -/
-@[ext]
-class AddSemigroup (G : Type u) extends Add G where
-  /-- Addition is associative -/
-  protected add_assoc : ∀ a b c : G, a + b + c = a + (b + c)
-
-attribute [to_additive] Semigroup
-
 /-- A `RightCancelSemigroup` is a semigroup such that `a * b = c * b` implies `a = c`. -/
 @[ext]
 class RightCancelSemigroup (G : Type u) extends Semigroup G, IsRightCancelMul G
 
 attribute [instance 75] RightCancelSemigroup.toSemigroup -- See note [lower cancel priority]
-
-/-- An `AddRightCancelSemigroup` is an additive semigroup such that
-`a + b = c + b` implies `a = c`. -/
-@[ext]
-class AddRightCancelSemigroup (G : Type u) extends AddSemigroup G, IsRightCancelAdd G
-
-attribute [instance 75] AddRightCancelSemigroup.toAddSemigroup -- See note [lower cancel priority]
-
-attribute [to_additive] RightCancelSemigroup
-
-/-- Any `RightCancelSemigroup` satisfies `IsRightCancelMul`. -/
-add_decl_doc RightCancelSemigroup.toIsRightCancelMul
-
-/-- Any `AddRightCancelSemigroup` satisfies `IsRightCancelAdd`. -/
-add_decl_doc AddRightCancelSemigroup.toIsRightCancelAdd
 
 /-- Bundling an `Add` and `Zero` structure together without any axioms about their
 compatibility. See `AddZeroClass` for the additional assumption that 0 is an identity. -/
