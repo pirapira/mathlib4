@@ -373,30 +373,3 @@ macro "initialize_simps_projections?" rest:simpsProj : command =>
 
 end Command
 end Lean.Parser
-
-initialize registerTraceClass `simps.verbose
-initialize registerTraceClass `simps.debug
-
-namespace Simps
-
-/-- Projection data for a single projection of a structure -/
-structure ProjectionData where
-  /-- The name used in the generated `simp` lemmas -/
-  name : Name
-  /-- An Expression used by simps for the projection. It must be definitionally equal to an original
-  projection (or a composition of multiple projections).
-  These Expressions can contain the universe parameters specified in the first argument of
-  `structureExt`. -/
-  expr : Expr
-  /-- A list of natural numbers, which is the projection number(s) that have to be applied to the
-  Expression. For example the list `[0, 1]` corresponds to applying the first projection of the
-  structure, and then the second projection of the resulting structure (this assumes that the
-  target of the first projection is a structure with at least two projections).
-  The composition of these projections is required to be definitionally equal to the provided
-  Expression. -/
-  projNrs : List Nat
-  /-- A Boolean specifying whether `simp` lemmas are generated for this projection by default. -/
-  isDefault : Bool
-  /-- A Boolean specifying whether this projection is written as prefix. -/
-  isPrefix : Bool
-  deriving Inhabited
