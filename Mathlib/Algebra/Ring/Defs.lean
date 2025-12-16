@@ -67,20 +67,6 @@ class Distrib (R : Type*) extends Mul R, Add R where
   /-- Multiplication is right distributive over addition -/
   protected right_distrib : ∀ a b c : R, (a + b) * c = a * c + b * c
 
-/-- A typeclass stating that multiplication is left distributive over addition. -/
-class LeftDistribClass (R : Type*) [Mul R] [Add R] : Prop where
-  /-- Multiplication is left distributive over addition -/
-  protected left_distrib : ∀ a b c : R, a * (b + c) = a * b + a * c
-
-/-- A typeclass stating that multiplication is right distributive over addition. -/
-class RightDistribClass (R : Type*) [Mul R] [Add R] : Prop where
-  /-- Multiplication is right distributive over addition -/
-  protected right_distrib : ∀ a b c : R, (a + b) * c = a * c + b * c
-
--- see Note [lower instance priority]
-instance (priority := 100) Distrib.leftDistribClass (R : Type*) [Distrib R] : LeftDistribClass R :=
-  ⟨Distrib.left_distrib⟩
-
 /-!
 ### Classes of semirings and rings
 
