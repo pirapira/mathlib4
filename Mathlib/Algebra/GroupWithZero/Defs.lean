@@ -280,29 +280,4 @@ lemma noZeroDivisors_iff_eq_zero_of_mul :
 
 variable [NoZeroDivisors M₀] {a b : M₀}
 
-/-- If `α` has no zero divisors, then the product of two elements equals zero iff one of them
-equals zero. -/
-@[simp]
-theorem mul_eq_zero : a * b = 0 ↔ a = 0 ∨ b = 0 :=
-  ⟨eq_zero_or_eq_zero_of_mul_eq_zero,
-    fun o ↦ o.elim (fun h ↦ mul_eq_zero_of_left h b) (mul_eq_zero_of_right a)⟩
-
-/-- If `α` has no zero divisors, then the product of two elements equals zero iff one of them
-equals zero. -/
-@[simp]
-theorem zero_eq_mul : 0 = a * b ↔ a = 0 ∨ b = 0 := by rw [eq_comm, mul_eq_zero]
-
-/-- If `α` has no zero divisors, then the product of two elements is nonzero iff both of them
-are nonzero. -/
-theorem mul_ne_zero_iff : a * b ≠ 0 ↔ a ≠ 0 ∧ b ≠ 0 := mul_eq_zero.not.trans not_or
-
-/-- If `α` has no zero divisors, then for elements `a, b : α`, `a * b` equals zero iff so is
-`b * a`. -/
-theorem mul_eq_zero_comm : a * b = 0 ↔ b * a = 0 :=
-  mul_eq_zero.trans <| or_comm.trans mul_eq_zero.symm
-
-/-- If `α` has no zero divisors, then for elements `a, b : α`, `a * b` is nonzero iff so is
-`b * a`. -/
-theorem mul_ne_zero_comm : a * b ≠ 0 ↔ b * a ≠ 0 := mul_eq_zero_comm.not
-
 end MulZeroClass
