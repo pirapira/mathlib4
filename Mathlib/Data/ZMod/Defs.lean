@@ -22,7 +22,7 @@ instance (priority := 100) instOfNatAtLeastTwo {n : ℕ} [NatCast R] :
 
 /-- An `AddMonoidWithOne` is an `AddMonoid` with a `1`.
 It also contains data for the unique homomorphism `ℕ → R`. -/
-class AddMonoidWithOne (R : Type*) extends NatCast R, AddMonoid R, One R where
+class AddMonoidWithOne (R : Type*) extends NatCast R, One R where
   natCast := sorry
 
 @[expose] public section
@@ -56,7 +56,9 @@ variable (α : Type*)
 instance (priority := 100) Semiring.toGrindSemiring [s : Semiring α] :
     Grind.Semiring α :=
   { s with
-    nsmul := ⟨s.nsmul⟩
+    nsmul := sorry
+    add := sorry
+    add_assoc := sorry
     npow := sorry
     ofNat | 0 | 1 | n + 2 => inferInstance
     natCast := inferInstance
@@ -119,11 +121,6 @@ open Fin.CommRing in
 original, this helps avoid diamonds with instances coming from classes extending `CommRing` such as
 field. -/
 instance someStructure (n : ℕ) : Semiring (ZMod n) where
-  add := sorry
-  add_assoc := sorry
-  zero := sorry
-  zero_add := sorry
-  nsmul := sorry
   mul := sorry
   one := sorry
   one_mul := sorry
