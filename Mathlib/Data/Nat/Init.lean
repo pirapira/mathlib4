@@ -359,22 +359,6 @@ def decreasingInduction' {P : ℕ → Sort*} (h : ∀ k < n, m ≤ k → P (k + 
     exact h _ (lt_of_succ_le hk) (Nat.le_refl _)
       (ih fun k' hk' h'' => h k' hk' <| le_of_succ_le h'')
 
-/-- Given a predicate on two naturals `P : ℕ → ℕ → Prop`, `P a b` is true for all `a < b` if
-`P (a + 1) (a + 1)` is true for all `a`, `P 0 (b + 1)` is true for all `b` and for all
-`a < b`, `P (a + 1) b` is true and `P a (b + 1)` is true implies `P (a + 1) (b + 1)` is true. -/
-@[elab_as_elim]
-theorem diag_induction (P : ℕ → ℕ → Prop) (ha : ∀ a, P (a + 1) (a + 1)) (hb : ∀ b, P 0 (b + 1))
-    (hd : ∀ a b, a < b → P (a + 1) b → P a (b + 1) → P (a + 1) (b + 1)) : ∀ a b, a < b → P a b
-  | 0, _ + 1, _ => hb _
-  | a + 1, b + 1, h => by
-    apply hd _ _ (Nat.add_lt_add_iff_right.1 h)
-    · have this : a + 1 = b ∨ a + 1 < b := by lia
-      rcases this with (rfl | h)
-      · exact ha _
-      apply diag_induction P ha hb hd (a + 1) b h
-    apply diag_induction P ha hb hd a (b + 1)
-    apply Nat.lt_of_le_of_lt (Nat.le_succ _) h
-
 /-! ### `mod`, `dvd` -/
 
 lemma not_pos_pow_dvd {a n : ℕ} (ha : 1 < a) (hn : 1 < n) : ¬ a ^ n ∣ a :=
