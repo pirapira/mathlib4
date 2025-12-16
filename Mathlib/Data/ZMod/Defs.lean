@@ -24,14 +24,14 @@ instance (priority := 100) Semiring.toGrindSemiring [s : Semiring α] :
     Grind.Semiring α :=
   { s with
     nsmul := ⟨s.nsmul⟩
-    npow := ⟨fun a n => a^n⟩
+    npow := sorry
     ofNat | 0 | 1 | n + 2 => inferInstance
     natCast := inferInstance
     add_zero := by simp [add_zero]
     mul_one := by simp [mul_one]
     zero_mul := sorry
     mul_zero := sorry
-    pow_zero a := by simp
+    pow_zero a := by sorry
     pow_succ a n := sorry
     ofNat_eq_natCast := sorry
     ofNat_succ := sorry
@@ -99,9 +99,6 @@ instance someStructure (n : ℕ) : Semiring (ZMod n) where
   one_mul := sorry
   mul_one := sorry
   natCast := sorry
-  npow := sorry
-  npow_zero := sorry
-  npow_succ := sorry
 -- n : ZMod n = 0
 
 -- Nat.casesOn n ((↑) : ℕ → ℤ) fun n => ((↑) : ℕ → Fin n.succ)
