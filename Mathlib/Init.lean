@@ -105,30 +105,3 @@ register_linter_set linter.nightlyRegressionSet :=
   linter.tacticAnalysis.regressions.omegaToLia
   linter.tacticAnalysis.regressions.ringToGrind
   linter.tacticAnalysis.regressions.tautoToGrind
-
-/-- Define a set of linters that run once a week and get posted to Zulip.
--/
-register_linter_set linter.weeklyLintSet :=
-  linter.tacticAnalysis.mergeWithGrind
-
--- Check that all linter options mentioned in the mathlib standard linter set exist.
-open Lean Elab.Command Linter Mathlib.Linter Style UnusedInstancesInType
-
-run_cmd liftTermElabM do
-  let DefinedInScripts : Array Name :=
-    #[`linter.checkInitImports, `linter.allScriptsDocumented]
-  let env ← getEnv
-  let ls := linterSetsExt.getEntries env
-  let some (_, mlLinters) := ls.find? (·.1 == ``linter.mathlibStandardSet) |
-    throwError m!"'linter.mathlibStandardSet' is not defined."
-  let some (_, nrLinters) := ls.find? (·.1 == ``linter.nightlyRegressionSet) |
-    throwError m!"'linter.nightlyRegressionSet is not defined."
-  let some (_, wlLinters) := ls.find? (·.1 == ``linter.weeklyLintSet) |
-    throwError m!"'linter.weeklyLintSet is not defined."
-  for mll in mlLinters ∪ nrLinters ∪ wlLinters do
-    let [(mlRes, _)] ← realizeGlobalName mll |
-      if !DefinedInScripts.contains mll then
-        throwError "Unknown option '{mll}'!"
-    let some cinfo := env.find? mlRes | throwError "{mlRes}: this code should be unreachable."
-    if !cinfo.type.isAppOf ``Lean.Option then
-      throwError "{.ofConstName mlRes} is not an option, it is a{indentD cinfo.type}"
