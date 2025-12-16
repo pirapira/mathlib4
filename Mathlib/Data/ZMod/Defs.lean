@@ -7,10 +7,6 @@ module
 
 public import Mathlib.Algebra.GroupWithZero.Defs
 
--- public import Mathlib.Algebra.Group.Defs
-
-@[expose] public section
-
 variable {R : Type*}
 
 /-- Recognize numeric literals which are at least `2` as terms of `R` via `Nat.cast`. This
