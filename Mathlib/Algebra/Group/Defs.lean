@@ -231,12 +231,6 @@ attribute [instance 75] AddLeftCancelSemigroup.toAddSemigroup -- See note [lower
 
 attribute [to_additive] LeftCancelSemigroup
 
-/-- Any `LeftCancelSemigroup` satisfies `IsLeftCancelMul`. -/
-add_decl_doc LeftCancelSemigroup.toIsLeftCancelMul
-
-/-- Any `AddLeftCancelSemigroup` satisfies `IsLeftCancelAdd`. -/
-add_decl_doc AddLeftCancelSemigroup.toIsLeftCancelAdd
-
 /-- A `RightCancelSemigroup` is a semigroup such that `a * b = c * b` implies `a = c`. -/
 @[ext]
 class RightCancelSemigroup (G : Type u) extends Semigroup G, IsRightCancelMul G
