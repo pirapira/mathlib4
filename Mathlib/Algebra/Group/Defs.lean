@@ -425,33 +425,6 @@ theorem npowRec'_mul_comm {M : Type*} [Semigroup M] [One M] {k : ℕ} (k0 : k �
     | 1 => simp [npowRec']
     | k + 2 => simp [npowRec', ← mul_assoc, ih]
 
-@[to_additive]
-theorem npowRec_eq {M : Type*} [Semigroup M] [One M] (k : ℕ) (m : M) :
-    npowRec (k + 1) m = 1 * npowRec' (k + 1) m := by
-  induction k using Nat.strongRecOn with
-  | ind k' ih =>
-    match k' with
-    | 0 => rfl
-    | k + 1 =>
-      rw [npowRec, npowRec'_succ k.succ_ne_zero, ← mul_assoc]
-      congr
-      simp [ih]
-
-@[to_additive]
-theorem npowBinRec.go_spec {M : Type*} [Semigroup M] [One M] (k : ℕ) (m n : M) :
-    npowBinRec.go (k + 1) m n = m * npowRec' (k + 1) n := by
-  unfold go
-  generalize hk : k + 1 = k'
-  replace hk : k' ≠ 0 := by lia
-  induction k' using Nat.binaryRecFromOne generalizing n m with
-  | zero => simp at hk
-  | one => simp [npowRec']
-  | bit b k' k'0 ih =>
-    rw [Nat.binaryRec_eq _ _ (Or.inl rfl), ih _ _ k'0]
-    cases b <;> simp only [Nat.bit, cond_false, cond_true, npowRec'_two_mul]
-    rw [npowRec'_succ (by lia), npowRec'_two_mul, ← npowRec'_two_mul,
-      ← npowRec'_mul_comm (by lia), mul_assoc]
-
 /--
 An abbreviation for `npowRec` with an additional typeclass assumption on associativity
 so that we can use `@[csimp]` to replace it with an implementation by repeated squaring
@@ -463,25 +436,6 @@ so that we can use `@[csimp]` to replace it with an implementation by repeated d
 code as an automatic parameter. -/]
 abbrev npowRecAuto {M : Type*} [Semigroup M] [One M] (k : ℕ) (m : M) : M :=
   npowRec k m
-
-/--
-An abbreviation for `npowBinRec` with an additional typeclass assumption on associativity
-so that we can use it in `@[csimp]` for more performant code generation.
--/
-@[to_additive
-/-- An abbreviation for `nsmulBinRec` with an additional typeclass assumption on associativity
-so that we can use it in `@[csimp]` for more performant code generation
-as an automatic parameter. -/]
-abbrev npowBinRecAuto {M : Type*} [Semigroup M] [One M] (k : ℕ) (m : M) : M :=
-  npowBinRec k m
-
-@[to_additive (attr := csimp)]
-theorem npowRec_eq_npowBinRec : @npowRecAuto = @npowBinRecAuto := by
-  funext M _ _ k m
-  rw [npowBinRecAuto, npowRecAuto, npowBinRec]
-  match k with
-  | 0 => rw [npowRec, npowBinRec.go, Nat.binaryRec_zero]
-  | k + 1 => rw [npowBinRec.go_spec, npowRec_eq]
 
 /-- An `AddMonoid` is an `AddSemigroup` with an element `0` such that `0 + a = a + 0 = a`. -/
 class AddMonoid (M : Type u) extends AddSemigroup M, AddZeroClass M where
