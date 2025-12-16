@@ -81,16 +81,11 @@ that `Semiring -> NonAssocSemiring` is tried before `NonAssocRing -> NonAssocSem
 TODO: clean this once https://github.com/leanprover/lean4/issues/2115 is fixed
 -/
 
-/-- A not-necessarily-unital, not-necessarily-associative semiring. See `CommutatorRing` and the
-  documentation thereof in case you need a `NonUnitalNonAssocSemiring` instance on a Lie ring
-  or a Lie algebra. -/
-class NonUnitalNonAssocSemiring (α : Type u) extends MulZeroClass α
-
 /-- An associative but not-necessarily unital semiring. -/
-class NonUnitalSemiring (α : Type u) extends NonUnitalNonAssocSemiring α, SemigroupWithZero α
+class NonUnitalSemiring (α : Type u) extends SemigroupWithZero α
 
 /-- A unital but not-necessarily-associative semiring. -/
-class NonAssocSemiring (α : Type u) extends NonUnitalNonAssocSemiring α, MulZeroOneClass α,
+class NonAssocSemiring (α : Type u) extends MulZeroOneClass α,
     AddCommMonoidWithOne α
 
 /-- A `Semiring` is a type with addition, multiplication, a `0` and a `1` where addition is
