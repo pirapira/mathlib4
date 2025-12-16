@@ -261,17 +261,6 @@ compatibility. See `MulOneClass` for the additional assumption that 1 is an iden
 @[to_additive (attr := ext)]
 class MulOne (M : Type*) extends One M, Mul M
 
-/-- An additive monoid is Dedekind-finite if every left inverse is also a right inverse.
-Also called von Neumann-finite or directly finite. -/
-class IsDedekindFiniteAddMonoid (M : Type*) [AddZero M] : Prop where
-  add_eq_zero_symm {a b : M} : a + b = 0 → b + a = 0
-
-/-- A monoid is Dedekind-finite if every left inverse is also a right inverse.
-It is more common to talk about Dedekind-finite rings, but https://arxiv.org/abs/2102.01598
-does define Dedekind-finite monoids in §2.2. -/
-@[to_additive (attr := mk_iff)] class IsDedekindFiniteMonoid (M : Type*) [MulOne M] : Prop where
-  mul_eq_one_symm {a b : M} : a * b = 1 → b * a = 1
-
 /-- Typeclass for expressing that a type `M` with multiplication and a one satisfies
 `1 * a = a` and `a * 1 = a` for all `a : M`. -/
 class MulOneClass (M : Type u) extends MulOne M where
