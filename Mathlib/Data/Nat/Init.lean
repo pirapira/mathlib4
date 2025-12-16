@@ -299,11 +299,6 @@ instance decidableLoHi (lo hi : ℕ) (P : ℕ → Prop) [DecidablePred P] :
     have := al (x - lo) ((Nat.sub_lt_sub_iff_right hl).2 hh)
     rwa [Nat.add_sub_cancel' hl] at this
 
-instance decidableLoHiLe (lo hi : ℕ) (P : ℕ → Prop) [DecidablePred P] :
-    Decidable (∀ x, lo ≤ x → x ≤ hi → P x) :=
-  decidable_of_iff (∀ x, lo ≤ x → x < hi + 1 → P x) <|
-    forall₂_congr fun _ _ ↦ imp_congr Nat.lt_succ_iff Iff.rfl
-
 /-! ### `Nat.AtLeastTwo` -/
 
 /-- A type class for natural numbers which are greater than or equal to `2`.
