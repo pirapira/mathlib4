@@ -22,9 +22,6 @@ open Function
 ### `Distrib` class
 -/
 
-/-- An associative but not-necessarily unital semiring. -/
-class NonUnitalSemiring (α : Type u) extends SemigroupWithZero α
-
 /-- A unital but not-necessarily-associative semiring. -/
 class NonAssocSemiring (α : Type u) extends MulZeroOneClass α,
     AddMonoidWithOne α
@@ -32,4 +29,4 @@ class NonAssocSemiring (α : Type u) extends MulZeroOneClass α,
 /-- A `Semiring` is a type with addition, multiplication, a `0` and a `1` where addition is
 commutative and associative, multiplication is associative and left and right distributive over
 addition, and `0` and `1` are additive and multiplicative identities. -/
-class Semiring (α : Type u) extends NonUnitalSemiring α, NonAssocSemiring α
+class Semiring (α : Type u) extends SemigroupWithZero α, NonAssocSemiring α
