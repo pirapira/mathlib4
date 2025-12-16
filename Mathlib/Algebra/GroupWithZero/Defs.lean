@@ -40,9 +40,6 @@ section IsRightCancelMulZero
 
 variable [Mul M₀] [Zero M₀] [IsRightCancelMulZero M₀] {a b c : M₀}
 
-theorem mul_right_cancel₀ (hb : b ≠ 0) (h : a * b = c * b) : a = c :=
-  IsRightCancelMulZero.mul_right_cancel_of_ne_zero hb h
-
 end IsRightCancelMulZero
 
 /-- Predicate typeclass for expressing that `a * b = 0` implies `a = 0` or `b = 0`
