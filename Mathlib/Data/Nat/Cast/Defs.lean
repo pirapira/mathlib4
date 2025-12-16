@@ -8,22 +8,6 @@ module
 public import Mathlib.Algebra.Group.Defs
 public import Mathlib.Data.Nat.Init
 
-/-!
-# Cast of natural numbers
-
-This file defines the *canonical* homomorphism from the natural numbers into an
-`AddMonoid` with a one.  In additive monoids with one, there exists a unique
-such homomorphism and we store it in the `natCast : ℕ → R` field.
-
-Preferentially, the homomorphism is written as the coercion `Nat.cast`.
-
-## Main declarations
-
-* `NatCast`: Type class for `Nat.cast`.
-* `AddMonoidWithOne`: Type class for which `Nat.cast` is a canonical monoid homomorphism from `ℕ`.
-* `Nat.cast`: Canonical homomorphism `ℕ → R`.
--/
-
 @[expose] public section
 
 variable {R : Type*}
