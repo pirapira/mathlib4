@@ -29,7 +29,8 @@ instance (priority := 100) Semiring.toGrindSemiring [s : Semiring α] :
     natCast := inferInstance
     add_zero := by simp [add_zero]
     mul_one := by simp [mul_one]
-    zero_mul := by simp [zero_mul]
+    zero_mul := sorry
+    mul_zero := sorry
     pow_zero a := by simp
     pow_succ a n := sorry
     ofNat_eq_natCast

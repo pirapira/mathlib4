@@ -36,8 +36,6 @@ variable {G₀ : Type u} {M₀ : Type*}
 class MulZeroClass (M₀ : Type u) extends Mul M₀, Zero M₀ where
   /-- Zero is a left absorbing element for multiplication -/
   zero_mul : ∀ a : M₀, 0 * a = 0
-  /-- Zero is a right absorbing element for multiplication -/
-  mul_zero : ∀ a : M₀, a * 0 = 0
 
 /-- A mixin for left cancellative multiplication by nonzero elements. -/
 @[mk_iff] class IsLeftCancelMulZero (M₀ : Type u) [Mul M₀] [Zero M₀] : Prop where
@@ -76,9 +74,6 @@ end IsRightCancelMulZero
 /-- A mixin for cancellative multiplication by nonzero elements. -/
 @[mk_iff] class IsCancelMulZero (M₀ : Type u) [Mul M₀] [Zero M₀] : Prop
   extends IsLeftCancelMulZero M₀, IsRightCancelMulZero M₀
-
-export MulZeroClass (zero_mul mul_zero)
-attribute [simp] zero_mul mul_zero
 
 theorem isCancelMulZero_iff_forall_isRegular {M₀} [Mul M₀] [Zero M₀] :
     IsCancelMulZero M₀ ↔ ∀ {a : M₀}, a ≠ 0 → IsRegular a := by
