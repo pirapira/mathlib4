@@ -42,9 +42,6 @@ instance (priority := 100) instOfNatAtLeastTwo {n : ℕ} [NatCast R] [Nat.AtLeas
     OfNat R n where
   ofNat := n.cast
 
-@[simp, norm_cast] theorem Nat.cast_ofNat {n : ℕ} [NatCast R] [Nat.AtLeastTwo n] :
-    (Nat.cast ofNat(n) : R) = ofNat(n) := rfl
-
 /-! ### Additive monoids with one -/
 
 /-- An `AddMonoidWithOne` is an `AddMonoid` with a `1`.
