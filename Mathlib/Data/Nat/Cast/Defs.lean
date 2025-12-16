@@ -63,9 +63,6 @@ It also contains data for the unique homomorphism `ℕ → R`. -/
 class AddMonoidWithOne (R : Type*) extends NatCast R, AddMonoid R, One R where
   natCast := Nat.unaryCast
 
-/-- An `AddCommMonoidWithOne` is an `AddMonoidWithOne` satisfying `a + b = b + a`. -/
-class AddCommMonoidWithOne (R : Type*) extends AddMonoidWithOne R
-
 namespace Nat
 
 variable [AddMonoidWithOne R]

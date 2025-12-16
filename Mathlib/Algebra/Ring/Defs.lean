@@ -27,7 +27,7 @@ class NonUnitalSemiring (α : Type u) extends SemigroupWithZero α
 
 /-- A unital but not-necessarily-associative semiring. -/
 class NonAssocSemiring (α : Type u) extends MulZeroOneClass α,
-    AddCommMonoidWithOne α
+    AddMonoidWithOne α
 
 /-- A `Semiring` is a type with addition, multiplication, a `0` and a `1` where addition is
 commutative and associative, multiplication is associative and left and right distributive over
