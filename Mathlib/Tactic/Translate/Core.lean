@@ -20,19 +20,3 @@ public meta import Mathlib.Tactic.Eqns -- just to copy the attribute
 public meta import Mathlib.Tactic.Simps.Basic
 public meta import Mathlib.Tactic.Translate.GuessName
 public meta import Lean.Meta.CoeAttr
-
-/-!
-# The translation attribute.
-
-Implementation of the translation attribute. This is used for `@[to_additive]` and `@[to_dual]`.
-See the docstring of `to_additive` for more information
--/
-
-public meta section
-
-open Lean Meta Elab Command Std
-
-namespace Mathlib.Tactic.Translate
-open Translate -- currently needed to enable projection notation
-
-end Mathlib.Tactic.Translate
