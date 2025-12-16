@@ -161,20 +161,3 @@ The obvious use case is groups with zero, but this condition is also satisfied b
 generally, any Euclidean domain. -/
 class MulDivCancelClass (M₀ : Type*) [MonoidWithZero M₀] [Div M₀] : Prop where
   protected mul_div_cancel (a b : M₀) : b ≠ 0 → a * b / b = a
-
-/-- A type `G₀` is a “group with zero” if it is a monoid with zero element (distinct from `1`)
-such that every nonzero element is invertible.
-The type is required to come with an “inverse” function, and the inverse of `0` must be `0`.
-
-Examples include division rings and the ordered monoids that are the
-target of valuations in general valuation theory. -/
-class GroupWithZero (G₀ : Type u) extends MonoidWithZero G₀, DivInvMonoid G₀, Nontrivial G₀ where
-  /-- The inverse of `0` in a group with zero is `0`. -/
-  protected inv_zero : (0 : G₀)⁻¹ = 0
-  /-- Every nonzero element of a group with zero is invertible. -/
-  protected mul_inv_cancel (a : G₀) : a ≠ 0 → a * a⁻¹ = 1
-
-section GroupWithZero
-variable [GroupWithZero G₀] {a : G₀}
-
-end GroupWithZero
