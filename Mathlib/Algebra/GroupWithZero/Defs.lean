@@ -125,24 +125,3 @@ class CancelMonoidWithZero (M₀ : Type*) extends MonoidWithZero M₀, IsCancelM
 /-- A type `M` is a commutative “monoid with zero” if it is a commutative monoid with zero
 element, and `0` is left and right absorbing. -/
 class CommMonoidWithZero (M₀ : Type*) extends CommMonoid M₀, MonoidWithZero M₀
-
-
-variable [CommSemigroup M₀] [Zero M₀]
-
-lemma IsLeftCancelMulZero.to_isRightCancelMulZero [IsLeftCancelMulZero M₀] :
-    IsRightCancelMulZero M₀ :=
-{ mul_right_cancel_of_ne_zero :=
-    fun hb _ _ h => mul_left_cancel₀ hb <| (mul_comm _ _).trans (h.trans (mul_comm _ _)) }
-
-lemma IsRightCancelMulZero.to_isLeftCancelMulZero [IsRightCancelMulZero M₀] :
-    IsLeftCancelMulZero M₀ :=
-{ mul_left_cancel_of_ne_zero :=
-    fun hb _ _ h => mul_right_cancel₀ hb <| (mul_comm _ _).trans (h.trans (mul_comm _ _)) }
-
-lemma IsLeftCancelMulZero.to_isCancelMulZero [IsLeftCancelMulZero M₀] :
-    IsCancelMulZero M₀ :=
-{ IsLeftCancelMulZero.to_isRightCancelMulZero with }
-
-lemma IsRightCancelMulZero.to_isCancelMulZero [IsRightCancelMulZero M₀] :
-    IsCancelMulZero M₀ :=
-{ IsRightCancelMulZero.to_isLeftCancelMulZero with }
