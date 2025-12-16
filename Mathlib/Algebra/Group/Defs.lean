@@ -272,10 +272,6 @@ does define Dedekind-finite monoids in §2.2. -/
 @[to_additive (attr := mk_iff)] class IsDedekindFiniteMonoid (M : Type*) [MulOne M] : Prop where
   mul_eq_one_symm {a b : M} : a * b = 1 → b * a = 1
 
-export IsDedekindFiniteMonoid (mul_eq_one_symm)
-export IsDedekindFiniteAddMonoid (add_eq_zero_symm)
-attribute [to_additive existing] isDedekindFiniteMonoid_iff
-
 /-- Typeclass for expressing that a type `M` with multiplication and a one satisfies
 `1 * a = a` and `a * 1 = a` for all `a : M`. -/
 class MulOneClass (M : Type u) extends MulOne M where
