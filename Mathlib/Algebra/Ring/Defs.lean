@@ -81,11 +81,6 @@ class RightDistribClass (R : Type*) [Mul R] [Add R] : Prop where
 instance (priority := 100) Distrib.leftDistribClass (R : Type*) [Distrib R] : LeftDistribClass R :=
   ⟨Distrib.left_distrib⟩
 
--- see Note [lower instance priority]
-instance (priority := 100) Distrib.rightDistribClass (R : Type*) [Distrib R] :
-    RightDistribClass R :=
-  ⟨Distrib.right_distrib⟩
-
 /-!
 ### Classes of semirings and rings
 
