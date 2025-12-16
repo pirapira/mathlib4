@@ -8,4 +8,3 @@ module
 public import Mathlib.Tactic.Lemma
 public import Mathlib.Tactic.TypeStar
 public import Mathlib.Tactic.ToAdditive
-public import Mathlib.Util.AssertExists
