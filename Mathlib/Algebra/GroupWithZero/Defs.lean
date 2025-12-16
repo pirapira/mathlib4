@@ -146,18 +146,3 @@ lemma IsLeftCancelMulZero.to_isCancelMulZero [IsLeftCancelMulZero M₀] :
 lemma IsRightCancelMulZero.to_isCancelMulZero [IsRightCancelMulZero M₀] :
     IsCancelMulZero M₀ :=
 { IsRightCancelMulZero.to_isLeftCancelMulZero with }
-
-/-- A type `M` is a `CancelCommMonoidWithZero` if it is a commutative monoid with zero element,
-`0` is left and right absorbing,
-and left/right multiplication by a non-zero element is injective. -/
-class CancelCommMonoidWithZero (M₀ : Type*) extends CommMonoidWithZero M₀, IsLeftCancelMulZero M₀
-
--- See note [lower cancel priority]
-attribute [instance 75] CancelCommMonoidWithZero.toCommMonoidWithZero
-
-/-- Prop-valued mixin for a monoid with zero to be equipped with a cancelling division.
-
-The obvious use case is groups with zero, but this condition is also satisfied by `ℕ`, `ℤ` and, more
-generally, any Euclidean domain. -/
-class MulDivCancelClass (M₀ : Type*) [MonoidWithZero M₀] [Div M₀] : Prop where
-  protected mul_div_cancel (a b : M₀) : b ≠ 0 → a * b / b = a
