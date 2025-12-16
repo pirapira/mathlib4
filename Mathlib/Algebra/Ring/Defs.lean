@@ -223,32 +223,3 @@ instance (priority := 100) CommSemiring.toNonUnitalCommSemiring [CommSemiring α
 instance (priority := 100) CommSemiring.toCommMonoidWithZero [CommSemiring α] :
     CommMonoidWithZero α :=
   { inferInstanceAs (CommMonoid α), inferInstanceAs (CommSemiring α) with }
-
-section CommSemiring
-
-variable [CommSemiring α]
-
-theorem add_mul_self_eq (a b : α) : (a + b) * (a + b) = a * a + 2 * a * b + b * b := by
-  simp only [two_mul, add_mul, mul_add, add_assoc, mul_comm b]
-
-lemma add_sq (a b : α) : (a + b) ^ 2 = a ^ 2 + 2 * a * b + b ^ 2 := by
-  simp only [sq, add_mul_self_eq]
-
-lemma add_sq' (a b : α) : (a + b) ^ 2 = a ^ 2 + b ^ 2 + 2 * a * b := by
-  rw [add_sq, add_assoc, add_comm _ (b ^ 2), add_assoc]
-
-alias add_pow_two := add_sq
-
-end CommSemiring
-
-section HasDistribNeg
-
-/-- Typeclass for a negation operator that distributes across multiplication.
-
-This is useful for dealing with submonoids of a ring that contain `-1` without having to duplicate
-lemmas. -/
-class HasDistribNeg (α : Type*) [Mul α] extends InvolutiveNeg α where
-  /-- Negation is left distributive over multiplication -/
-  neg_mul : ∀ x y : α, -x * y = -(x * y)
-  /-- Negation is right distributive over multiplication -/
-  mul_neg : ∀ x y : α, x * -y = -(x * y)
