@@ -594,39 +594,3 @@ injective. -/
 @[mk_iff]
 class IsAddTorsionFree (M : Type*) [AddMonoid M] where
   protected nsmul_right_injective ⦃n : ℕ⦄ (hn : n ≠ 0) : Injective fun a : M ↦ n • a
-
-/-- A monoid is torsion-free if power by every non-zero element `n : ℕ` is injective. -/
-@[to_additive, mk_iff]
-class IsMulTorsionFree (M : Type*) [Monoid M] where
-  protected pow_left_injective ⦃n : ℕ⦄ (hn : n ≠ 0) : Injective fun a : M ↦ a ^ n
-
-attribute [to_additive existing] isMulTorsionFree_iff
-
-/-- An additive commutative monoid is an additive monoid with commutative `(+)`. -/
-class AddCommMonoid (M : Type u) extends AddMonoid M, AddCommSemigroup M
-
-/-- A commutative monoid is a monoid with commutative `(*)`. -/
-@[to_additive]
-class CommMonoid (M : Type u) extends Monoid M, CommSemigroup M
-
-/- This is assigned default rather than low priority because it gives the most common examples
-of Dedekind-finite monoids and is used the most often. Benchmark results indicate default
-priority performs better than low or high priority. -/
-@[to_additive] instance (M) [CommMonoid M] : IsDedekindFiniteMonoid M := inferInstance
-
-section LeftCancelMonoid
-
-/-- An additive monoid in which addition is left-cancellative.
-Main examples are `ℕ` and groups. This is the right typeclass for many sum lemmas, as having a zero
-is useful to define the sum over the empty set, so `AddLeftCancelSemigroup` is not enough. -/
-class AddLeftCancelMonoid (M : Type u) extends AddMonoid M, AddLeftCancelSemigroup M
-
-attribute [instance 75] AddLeftCancelMonoid.toAddMonoid -- See note [lower cancel priority]
-
-/-- A monoid in which multiplication is left-cancellative. -/
-@[to_additive]
-class LeftCancelMonoid (M : Type u) extends Monoid M, LeftCancelSemigroup M
-
-attribute [instance 75] LeftCancelMonoid.toMonoid -- See note [lower cancel priority]
-
-end LeftCancelMonoid
