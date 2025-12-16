@@ -58,15 +58,6 @@ open Function
 ### `Distrib` class
 -/
 
-
-/-- A typeclass stating that multiplication is left and right distributive
-over addition. -/
-class Distrib (R : Type*) extends Mul R, Add R where
-  /-- Multiplication is left distributive over addition -/
-  protected left_distrib : ∀ a b c : R, a * (b + c) = a * b + a * c
-  /-- Multiplication is right distributive over addition -/
-  protected right_distrib : ∀ a b c : R, (a + b) * c = a * c + b * c
-
 /-!
 ### Classes of semirings and rings
 
