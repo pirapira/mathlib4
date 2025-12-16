@@ -858,19 +858,4 @@ section DivInvMonoid
 
 variable [DivInvMonoid G]
 
-@[to_additive (attr := simp) zsmul_eq_smul] theorem zpow_eq_pow (n : ℤ) (x : G) :
-    DivInvMonoid.zpow n x = x ^ n :=
-  rfl
-
-@[to_additive (attr := simp) zero_zsmul] theorem zpow_zero (a : G) : a ^ (0 : ℤ) = 1 :=
-  DivInvMonoid.zpow_zero' a
-
-@[to_additive (attr := simp, norm_cast) natCast_zsmul]
-theorem zpow_natCast (a : G) : ∀ n : ℕ, a ^ (n : ℤ) = a ^ n
-  | 0 => (zpow_zero _).trans (pow_zero _).symm
-  | n + 1 => calc
-    a ^ (↑(n + 1) : ℤ) = a ^ (n : ℤ) * a := DivInvMonoid.zpow_succ' _ _
-    _ = a ^ n * a := congrArg (· * a) (zpow_natCast a n)
-    _ = a ^ (n + 1) := (pow_succ _ _).symm
-
 end DivInvMonoid
