@@ -7,27 +7,13 @@ module
 
 universe u v
 
-/-! ### Additive monoids with one -/
-
-/-- An `AddMonoidWithOne` is an `AddMonoid` with a `1`.
-It also contains data for the unique homomorphism `ℕ → R`. -/
-class AddMonoidWithOne (R : Type v) extends NatCast R, One R where
+class Semiring (α : Type u) extends One α, NatCast α where
   natCast := sorry
-
-@[expose] public section
-
-class Semiring (α : Type u) extends One α, AddMonoidWithOne α
-
-/-!
-# Instances for `grind`.
--/
-
-open Lean
 
 -- This is a low priority instance so that the built-in `Lean.Grind.Semiring Nat` instance
 -- (which has a non-defeq `ofNat` instance) is used preferentially.
 instance (priority := 100) Semiring.toGrindSemiring {α : Type u} [s : Semiring α] :
-    Grind.Semiring α :=
+    Lean.Grind.Semiring α :=
   { s with
     nsmul := sorry
     add := sorry
