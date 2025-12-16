@@ -35,30 +35,6 @@ See note [foundational algebra order theory].
 
 @[expose] public section
 
-library_note2 «foundational algebra order theory» /--
-Batteries has a home-baked development of the algebraic and order-theoretic theory of `ℕ` and `ℤ`
-which, in particular, is not typeclass-mediated. This is useful to set up the algebra and finiteness
-libraries in mathlib (naturals and integers show up as indices/offsets in lists, cardinality in
-finsets, powers in groups, ...).
-
-Less basic uses of `ℕ` and `ℤ` should however use the typeclass-mediated development.
-
-The relevant files are:
-* `Mathlib/Data/Nat/Basic.lean` for the continuation of the home-baked development on `ℕ`
-* `Mathlib/Data/Int/Init.lean` for the continuation of the home-baked development on `ℤ`
-* `Mathlib/Algebra/Group/Nat.lean` for the monoid instances on `ℕ`
-* `Mathlib/Algebra/Group/Int.lean` for the group instance on `ℤ`
-* `Mathlib/Algebra/Ring/Nat.lean` for the semiring instance on `ℕ`
-* `Mathlib/Algebra/Ring/Int.lean` for the ring instance on `ℤ`
-* `Mathlib/Algebra/Order/Group/Nat.lean` for the ordered monoid instance on `ℕ`
-* `Mathlib/Algebra/Order/Group/Int.lean` for the ordered group instance on `ℤ`
-* `Mathlib/Algebra/Order/Ring/Nat.lean` for the ordered semiring instance on `ℕ`
-* `Mathlib/Algebra/Order/Ring/Int.lean` for the ordered ring instance on `ℤ`
--/
-
-/- We don't want to import the algebraic hierarchy in this file. -/
-assert_not_exists Monoid
-
 open Function
 
 namespace Nat
