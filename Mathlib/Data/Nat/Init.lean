@@ -329,9 +329,6 @@ namespace AtLeastTwo
 
 variable {n : ℕ} [n.AtLeastTwo]
 
-lemma one_lt : 1 < n := prop
-lemma ne_one : n ≠ 1 := Nat.ne_of_gt one_lt
-
 variable (n) in
 lemma neZero_sub_one : NeZero (n - 1) := ⟨by have := prop (n := n); lia⟩
 
