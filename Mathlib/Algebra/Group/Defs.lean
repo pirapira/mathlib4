@@ -122,21 +122,6 @@ variable [IsLeftCancelMul G] {a b c : G}
 theorem mul_left_cancel : a * b = a * c → b = c :=
   (IsLeftCancelMul.mul_left_cancel a ·)
 
-@[to_additive]
-theorem mul_left_cancel_iff : a * b = a * c ↔ b = c :=
-  ⟨mul_left_cancel, congrArg _⟩
-
-@[to_additive]
-theorem mul_right_injective (a : G) : Injective (a * ·) := fun _ _ ↦ mul_left_cancel
-
-@[to_additive (attr := simp)]
-theorem mul_right_inj (a : G) {b c : G} : a * b = a * c ↔ b = c :=
-  (mul_right_injective a).eq_iff
-
-@[to_additive]
-theorem mul_ne_mul_right (a : G) {b c : G} : a * b ≠ a * c ↔ b ≠ c :=
-  (mul_right_injective a).ne_iff
-
 end IsLeftCancelMul
 
 section IsRightCancelMul
