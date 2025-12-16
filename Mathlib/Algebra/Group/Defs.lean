@@ -144,25 +144,6 @@ section IsRightCancelMul
 
 variable [IsRightCancelMul G] {a b c : G}
 
-@[to_additive]
-theorem mul_right_cancel : a * b = c * b → a = c :=
-  (IsRightCancelMul.mul_right_cancel b ·)
-
-@[to_additive]
-theorem mul_right_cancel_iff : b * a = c * a ↔ b = c :=
-  ⟨mul_right_cancel, congrArg (· * a)⟩
-
-@[to_additive]
-theorem mul_left_injective (a : G) : Function.Injective (· * a) := fun _ _ ↦ mul_right_cancel
-
-@[to_additive (attr := simp)]
-theorem mul_left_inj (a : G) {b c : G} : b * a = c * a ↔ b = c :=
-  (mul_left_injective a).eq_iff
-
-@[to_additive]
-theorem mul_ne_mul_left (a : G) {b c : G} : b * a ≠ c * a ↔ b ≠ c :=
-  (mul_left_injective a).ne_iff
-
 end IsRightCancelMul
 
 end Mul
@@ -233,13 +214,6 @@ lemma isLeftRegular_iff_isRegular : IsLeftRegular a ↔ IsRegular a := by
 lemma isRightRegular_iff_isRegular : IsRightRegular a ↔ IsRegular a := by
   simp [isRegular_iff, IsLeftRegular, IsRightRegular, mul_comm]
 
-/-- Any `CommMagma G` that satisfies `IsRightCancelMul G` also satisfies `IsLeftCancelMul G`. -/
-@[to_additive AddCommMagma.IsRightCancelAdd.toIsLeftCancelAdd /-- Any `AddCommMagma G` that
-satisfies `IsRightCancelAdd G` also satisfies `IsLeftCancelAdd G`. -/]
-lemma CommMagma.IsRightCancelMul.toIsLeftCancelMul (G : Type u) [CommMagma G] [IsRightCancelMul G] :
-    IsLeftCancelMul G :=
-  ⟨fun _ _ _ h => mul_right_cancel <| (mul_comm _ _).trans (h.trans (mul_comm _ _))⟩
-
 /-- Any `CommMagma G` that satisfies `IsLeftCancelMul G` also satisfies `IsRightCancelMul G`. -/
 @[to_additive AddCommMagma.IsLeftCancelAdd.toIsRightCancelAdd /-- Any `AddCommMagma G` that
 satisfies `IsLeftCancelAdd G` also satisfies `IsRightCancelAdd G`. -/]
@@ -252,12 +226,6 @@ lemma CommMagma.IsLeftCancelMul.toIsRightCancelMul (G : Type u) [CommMagma G] [I
 `IsLeftCancelAdd G` also satisfies `IsCancelAdd G`. -/]
 lemma CommMagma.IsLeftCancelMul.toIsCancelMul (G : Type u) [CommMagma G] [IsLeftCancelMul G] :
     IsCancelMul G := { CommMagma.IsLeftCancelMul.toIsRightCancelMul G with }
-
-/-- Any `CommMagma G` that satisfies `IsRightCancelMul G` also satisfies `IsCancelMul G`. -/
-@[to_additive AddCommMagma.IsRightCancelAdd.toIsCancelAdd /-- Any `AddCommMagma G` that satisfies
-`IsRightCancelAdd G` also satisfies `IsCancelAdd G`. -/]
-lemma CommMagma.IsRightCancelMul.toIsCancelMul (G : Type u) [CommMagma G] [IsRightCancelMul G] :
-    IsCancelMul G := { CommMagma.IsRightCancelMul.toIsLeftCancelMul G with }
 
 end CommMagma
 
