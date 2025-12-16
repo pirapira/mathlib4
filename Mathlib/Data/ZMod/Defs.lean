@@ -6,7 +6,6 @@ Authors: Eric Rodriguez
 module
 
 public import Mathlib.Init
-public meta import Lean.Parser.Command
 
 public meta import Mathlib.Tactic.Translate.ToAdditive
 
