@@ -892,9 +892,3 @@ theorem mul_div_assoc (a b c : G) : a * b / c = a * (b / c) := by
   rw [div_eq_mul_inv, div_eq_mul_inv, mul_assoc _ _ _]
 
 end DivInvMonoid
-
-section InvOneClass
-
-/-- Typeclass for expressing that `-0 = 0`. -/
-class NegZeroClass (G : Type*) extends Zero G, Neg G where
-  protected neg_zero : -(0 : G) = 0
