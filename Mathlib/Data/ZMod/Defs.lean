@@ -10,8 +10,6 @@ universe u v
 class Semiring (α : Type u) extends One α, NatCast α where
   natCast := sorry
 
--- This is a low priority instance so that the built-in `Lean.Grind.Semiring Nat` instance
--- (which has a non-defeq `ofNat` instance) is used preferentially.
 instance (priority := 100) Semiring.toGrindSemiring {α : Type u} [s : Semiring α] :
     Lean.Grind.Semiring α :=
   { s with
@@ -58,8 +56,6 @@ def ZMod : Nat → Type
 instance ZMod.decidableEq : ∀ n : Nat, DecidableEq (ZMod n)
   | 0 => inferInstanceAs (DecidableEq Int)
   | n + 1 => inferInstanceAs (DecidableEq (Fin (n + 1)))
-
-namespace ZMod
 
 /- We define each field by cases, to ensure that the eta-expanded `ZMod.commRing` is defeq to the
 original, this helps avoid diamonds with instances coming from classes extending `CommRing` such as
