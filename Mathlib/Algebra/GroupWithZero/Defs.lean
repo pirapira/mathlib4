@@ -31,14 +31,9 @@ universe u
 -- `GroupWithZero.div'` cannot contain a universe metavariable.
 variable {G₀ : Type u} {M₀ : Type*}
 
-/-- A mixin for right cancellative multiplication by nonzero elements. -/
-@[mk_iff] class IsRightCancelMulZero (M₀ : Type u) [Mul M₀] [Zero M₀] : Prop where
-  /-- Multiplication by a nonzero element is right cancellative. -/
-  protected mul_right_cancel_of_ne_zero : ∀ {a : M₀}, a ≠ 0 → IsRightRegular a
-
 section IsRightCancelMulZero
 
-variable [Mul M₀] [Zero M₀] [IsRightCancelMulZero M₀] {a b c : M₀}
+variable [Mul M₀] [Zero M₀] {a b c : M₀}
 
 end IsRightCancelMulZero
 /-- A type `S₀` is a "semigroup with zero” if it is a semigroup with zero element, and `0` is left
