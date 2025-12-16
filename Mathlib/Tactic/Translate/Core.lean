@@ -900,49 +900,4 @@ def proceedFieldsAux (t : TranslateData) (src tgt : Name) (argInfo : ArgInfo)
   for srcField in srcFields, tgtField in tgtFields do
     insertTranslation t srcField tgtField argInfo
 
-/-- Add the structure fields of `src` to the translations dictionary
-so that they will be translated correctly. -/
-def proceedFields (t : TranslateData) (src tgt : Name) (argInfo : ArgInfo) : CoreM Unit := do
-  let env ← getEnv
-  let aux := proceedFieldsAux t src tgt argInfo
-  -- add translations for the structure fields
-  aux fun declName ↦
-    if isStructure env declName then
-      let info := getStructureInfo env declName
-      Array.ofFn (n := info.fieldNames.size) (info.getProjFn? · |>.get!)
-    else
-      #[]
-  -- add translations for the automatically generated instances with `extend`.
-  aux fun declName ↦
-    if isStructure env declName then
-      getStructureInfo env declName |>.parentInfo
-        |>.filterMap fun c ↦ if !c.subobject then c.projFn else none
-    else
-      #[]
-  -- add translations for the constructors of an inductive type
-  aux fun declName ↦ match env.find? declName with
-    | some (ConstantInfo.inductInfo { ctors, .. }) => ctors.toArray
-    | _ => #[]
-
-/-- Elaborate syntax that refers to an argument of the declaration.
-This is either a 1-indexed number, or a name from `argNames`.
-`args` is only used to add hover information to `stx`,
-and `declName` is only used for the error message. -/
-def elabArgStx (declName : Name) (argNames : Array Name) (args : Array Expr)
-    (stx : TSyntax [`ident, `num]) : MetaM Nat := do
-  let n ← match stx with
-    | `($name:ident) => match argNames.idxOf? name.getId with
-      | some n => pure n
-      | none => throwErrorAt stx
-        "invalid argument '{stx}', it is not an argument of '{.ofConstName declName}'."
-    | `($n:num) =>
-      if n.getNat = 0 then
-        throwErrorAt stx "invalid index `{stx}`, arguments are counted starting from 1."
-      if n.getNat > args.size then
-        throwErrorAt stx "index `{stx}` is out of bounds, there are only `{args.size}` arguments"
-      pure (n.getNat - 1)
-    | _ => throwUnsupportedSyntax
-  Elab.Term.addTermInfo' stx args[n]! |>.run'
-  return n
-
 end Mathlib.Tactic.Translate
