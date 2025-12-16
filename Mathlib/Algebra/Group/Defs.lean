@@ -884,11 +884,4 @@ theorem div_eq_mul_inv (a b : G) : a / b = a * b⁻¹ :=
 
 alias division_def := div_eq_mul_inv
 
-@[to_additive]
-theorem inv_eq_one_div (x : G) : x⁻¹ = 1 / x := by rw [div_eq_mul_inv, one_mul]
-
-@[to_additive]
-theorem mul_div_assoc (a b c : G) : a * b / c = a * (b / c) := by
-  rw [div_eq_mul_inv, div_eq_mul_inv, mul_assoc _ _ _]
-
 end DivInvMonoid
