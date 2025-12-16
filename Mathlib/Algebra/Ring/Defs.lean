@@ -23,4 +23,4 @@ variable {α : Type u} {R : Type v}
 /-- A `Semiring` is a type with addition, multiplication, a `0` and a `1` where addition is
 commutative and associative, multiplication is associative and left and right distributive over
 addition, and `0` and `1` are additive and multiplicative identities. -/
-class Semiring (α : Type u) extends SemigroupWithZero α,  MulZeroOneClass α, AddMonoidWithOne α
+class Semiring (α : Type u) extends SemigroupWithZero α,  MulOneClass α, AddMonoidWithOne α

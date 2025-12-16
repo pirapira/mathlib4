@@ -39,6 +39,3 @@ end IsRightCancelMulZero
 /-- A type `S₀` is a "semigroup with zero” if it is a semigroup with zero element, and `0` is left
 and right absorbing. -/
 class SemigroupWithZero (S₀ : Type u) extends Semigroup S₀
-
-/-- A typeclass for non-associative monoids with zero elements. -/
-class MulZeroOneClass (M₀ : Type u) extends MulOneClass M₀
