@@ -918,11 +918,3 @@ theorem inv_one : (1 : G)⁻¹ = 1 :=
   InvOneClass.inv_one
 
 end InvOneClass
-
-/-- A `SubtractionMonoid` is a `SubNegMonoid` with involutive negation and such that
-`-(a + b) = -b + -a` and `a + b = 0 → -a = b`. -/
-class SubtractionMonoid (G : Type u) extends SubNegMonoid G, InvolutiveNeg G where
-  protected neg_add_rev (a b : G) : -(a + b) = -b + -a
-  /-- Despite the asymmetry of `neg_eq_of_add`, the symmetric version is true thanks to the
-  involutivity of negation. -/
-  protected neg_eq_of_add (a b : G) : a + b = 0 → -a = b
