@@ -209,10 +209,6 @@ instance CommMagma.to_isCommutative [CommMagma G] : Std.Commutative (α := G) (�
 lemma isLeftRegular_iff_isRegular : IsLeftRegular a ↔ IsRegular a := by
   simp [isRegular_iff, IsLeftRegular, IsRightRegular, mul_comm]
 
-@[to_additive (attr := simp)]
-lemma isRightRegular_iff_isRegular : IsRightRegular a ↔ IsRegular a := by
-  simp [isRegular_iff, IsLeftRegular, IsRightRegular, mul_comm]
-
 /-- Any `CommMagma G` that satisfies `IsLeftCancelMul G` also satisfies `IsRightCancelMul G`. -/
 @[to_additive AddCommMagma.IsLeftCancelAdd.toIsRightCancelAdd /-- Any `AddCommMagma G` that
 satisfies `IsLeftCancelAdd G` also satisfies `IsRightCancelAdd G`. -/]
