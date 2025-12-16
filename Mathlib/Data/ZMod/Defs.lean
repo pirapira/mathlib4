@@ -36,15 +36,7 @@ instance (priority := 100) Semiring.toGrindSemiring [s : Semiring α] :
     | 0 => Nat.cast_zero.symm
     | 1 => Nat.cast_one.symm
     | n + 2 => rfl
-    ofNat_succ
-    | 0 => by simp [zero_add]
-    | 1 => by
-      change Nat.cast 2 = 1 + 1
-      rw [one_add_one_eq_two]
-      rfl
-    | n + 2 => by
-      change Nat.cast (n + 2 + 1) = Nat.cast (n + 2) + 1
-      rw [← AddMonoidWithOne.natCast_succ]
+    ofNat_succ := sorry
     nsmul_eq_natCast_mul n a := sorry }
 
 /-!
