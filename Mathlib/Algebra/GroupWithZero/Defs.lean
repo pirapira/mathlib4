@@ -305,20 +305,4 @@ theorem mul_eq_zero_comm : a * b = 0 ↔ b * a = 0 :=
 `b * a`. -/
 theorem mul_ne_zero_comm : a * b ≠ 0 ↔ b * a ≠ 0 := mul_eq_zero_comm.not
 
-theorem mul_self_eq_zero : a * a = 0 ↔ a = 0 := by simp
-
-theorem zero_eq_mul_self : 0 = a * a ↔ a = 0 := by simp
-
-theorem mul_self_ne_zero : a * a ≠ 0 ↔ a ≠ 0 := mul_self_eq_zero.not
-
-theorem zero_ne_mul_self : 0 ≠ a * a ↔ a ≠ 0 := zero_eq_mul_self.not
-
-theorem mul_eq_zero_iff_left (ha : a ≠ 0) : a * b = 0 ↔ b = 0 := by simp [ha]
-
-theorem mul_eq_zero_iff_right (hb : b ≠ 0) : a * b = 0 ↔ a = 0 := by simp [hb]
-
-theorem mul_ne_zero_iff_left (ha : a ≠ 0) : a * b ≠ 0 ↔ b ≠ 0 := by simp [ha]
-
-theorem mul_ne_zero_iff_right (hb : b ≠ 0) : a * b ≠ 0 ↔ a ≠ 0 := by simp [hb]
-
 end MulZeroClass
