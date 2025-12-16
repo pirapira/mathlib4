@@ -67,28 +67,3 @@ class VSub (G : outParam Type*) (P : Type*) where
 
 attribute [to_additive] SMul
 attribute [ext] SMul VAdd
-
-@[inherit_doc] infixr:65 " +ᵥ " => HVAdd.hVAdd
-@[inherit_doc] infixl:65 " -ᵥ " => VSub.vsub
-
-attribute [to_additive existing] Mul Div HMul instHMul HDiv instHDiv HSMul
-attribute [to_additive (reorder := 1 2) SMul] Pow
-attribute [to_additive (reorder := 1 2)] HPow
-attribute [to_additive existing (reorder := 1 2, 5 6) hSMul] HPow.hPow
-attribute [to_additive existing (reorder := 1 2, 4 5) smul] Pow.pow
-
-attribute [to_additive (attr := default_instance)] instHSMul
-attribute [to_additive existing] instHPow
-
-variable {G : Type*}
-
-attribute [to_additive, notation_class] Inv
-
-variable {α : Type u}
-
-instance (priority := 20) Zero.instNonempty [Zero α] : Nonempty α := ⟨0⟩
-instance (priority := 20) One.instNonempty [One α] : Nonempty α := ⟨1⟩
-
-@[to_additive]
-theorem Subsingleton.eq_one [One α] [Subsingleton α] (a : α) : a = 1 :=
-  Subsingleton.elim _ _
