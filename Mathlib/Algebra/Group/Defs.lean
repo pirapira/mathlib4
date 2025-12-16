@@ -989,23 +989,6 @@ theorem inv_eq_one_div (x : G) : x⁻¹ = 1 / x := by rw [div_eq_mul_inv, one_mu
 theorem mul_div_assoc (a b c : G) : a * b / c = a * (b / c) := by
   rw [div_eq_mul_inv, div_eq_mul_inv, mul_assoc _ _ _]
 
-@[to_additive (attr := simp)]
-theorem one_div (a : G) : 1 / a = a⁻¹ :=
-  (inv_eq_one_div a).symm
-
-@[to_additive (attr := simp) one_zsmul]
-lemma zpow_one (a : G) : a ^ (1 : ℤ) = a := by rw [zpow_ofNat, pow_one]
-
-@[to_additive two_zsmul] lemma zpow_two (a : G) : a ^ (2 : ℤ) = a * a := by rw [zpow_ofNat, pow_two]
-
-@[to_additive neg_one_zsmul]
-lemma zpow_neg_one (x : G) : x ^ (-1 : ℤ) = x⁻¹ :=
-  (zpow_negSucc x 0).trans <| congr_arg Inv.inv (pow_one x)
-
-@[to_additive]
-lemma zpow_neg_coe_of_pos (a : G) : ∀ {n : ℕ}, 0 < n → a ^ (-(n : ℤ)) = (a ^ n)⁻¹
-  | _ + 1, _ => zpow_negSucc _ _
-
 end DivInvMonoid
 
 section InvOneClass
