@@ -118,7 +118,7 @@ TODO: clean this once https://github.com/leanprover/lean4/issues/2115 is fixed
 /-- A not-necessarily-unital, not-necessarily-associative semiring. See `CommutatorRing` and the
   documentation thereof in case you need a `NonUnitalNonAssocSemiring` instance on a Lie ring
   or a Lie algebra. -/
-class NonUnitalNonAssocSemiring (α : Type u) extends AddCommMonoid α, Distrib α, MulZeroClass α
+class NonUnitalNonAssocSemiring (α : Type u) extends Distrib α, MulZeroClass α
 
 /-- An associative but not-necessarily unital semiring. -/
 class NonUnitalSemiring (α : Type u) extends NonUnitalNonAssocSemiring α, SemigroupWithZero α
