@@ -5,8 +5,6 @@ Authors: Eric Rodriguez
 -/
 module
 
-public import Mathlib.Init
-
 public meta import Lean
 
 @[expose] public section
@@ -19,7 +17,6 @@ variable {α : Type u} {R : Type v}
 instance is what makes things like `37 : R` type check.  Note that `0` and `1` are not needed
 because they are recognized as terms of `R` (at least when `R` is an `AddMonoidWithOne`) through
 `Zero` and `One`, respectively. -/
-@[nolint unusedArguments]
 instance (priority := 100) instOfNatAtLeastTwo {n : Nat} [NatCast R] :
     OfNat R n where
   ofNat := sorry
