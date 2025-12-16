@@ -137,10 +137,6 @@ lemma ite_mul_ite (a b c d : α) :
 
 end Mul
 
-section Div
-variable [Div α]
-
-end Div
 end ite
 
 variable {α : Type u}
