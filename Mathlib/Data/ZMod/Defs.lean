@@ -7,7 +7,6 @@ module
 
 public import Mathlib.Init
 
-public meta import Mathlib.Lean.Expr.Basic
 public meta import Mathlib.Tactic.Basic
 
 @[expose] public section
