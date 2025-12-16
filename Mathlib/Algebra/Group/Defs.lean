@@ -276,12 +276,6 @@ export IsDedekindFiniteMonoid (mul_eq_one_symm)
 export IsDedekindFiniteAddMonoid (add_eq_zero_symm)
 attribute [to_additive existing] isDedekindFiniteMonoid_iff
 
-/-- Typeclass for expressing that a type `M` with addition and a zero satisfies
-`0 + a = a` and `a + 0 = a` for all `a : M`. -/
-class AddZeroClass (M : Type u) extends AddZero M where
-  /-- Zero is a left neutral element for addition -/
-  protected zero_add : ∀ a : M, 0 + a = a
-
 /-- Typeclass for expressing that a type `M` with multiplication and a one satisfies
 `1 * a = a` and `a * 1 = a` for all `a : M`. -/
 class MulOneClass (M : Type u) extends MulOne M where
